@@ -30,6 +30,11 @@ namespace Libreria_Clases_TP_SYSACAD
             _listaCursos.Add(nuevoCurso);
         }
 
+        public void RestarCupoDisponible(Curso curso)
+        {
+            curso.CupoDisponible =- 1;
+        }
+
         public List<Curso> Cursos
         {
             get

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libreria_Clases_TP_SYSACAD"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms_TP_SYSACAD", "..\Forms_TP_SYSACAD\Forms_TP_SYSACAD.csproj", "{CF893B61-E678-4950-871A-744032A06E98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab2_Form_Sysacad", "..\Lab2_Form_Sysacad\Lab2_Form_Sysacad.csproj", "{3D181539-830C-41D8-ABEB-172C787CC9FF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{CF893B61-E678-4950-871A-744032A06E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF893B61-E678-4950-871A-744032A06E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF893B61-E678-4950-871A-744032A06E98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D181539-830C-41D8-ABEB-172C787CC9FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D181539-830C-41D8-ABEB-172C787CC9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D181539-830C-41D8-ABEB-172C787CC9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D181539-830C-41D8-ABEB-172C787CC9FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

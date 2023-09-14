@@ -55,6 +55,7 @@
             buttonAccept.TabIndex = 2;
             buttonAccept.Text = "aceptar";
             buttonAccept.UseVisualStyleBackColor = true;
+            buttonAccept.Click += buttonAccept_Click;
             // 
             // Form1
             // 

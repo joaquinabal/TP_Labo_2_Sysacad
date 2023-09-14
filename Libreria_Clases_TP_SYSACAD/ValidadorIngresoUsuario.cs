@@ -39,6 +39,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusqueda;
         }
 
+
         //Utilizo este metodo desde el formulario de registro del estudiante
         public static bool ComprobarSiEstudianteExiste(string correo, string legajo)
         {
