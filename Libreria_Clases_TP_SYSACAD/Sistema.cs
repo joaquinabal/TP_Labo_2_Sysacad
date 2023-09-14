@@ -15,6 +15,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private static BaseDatosAdministradores _baseDatosAdministradores = new BaseDatosAdministradores();
         private static BaseDatosEstudiantes _baseDatosEstudiantes = new BaseDatosEstudiantes();
         private static BaseDatosCursos _baseDatosCursos = new BaseDatosCursos();
+        private static Estudiante _estudianteLogueado;
 
         public static BaseDatosAdministradores BaseDatosAdministradores 
         { 
@@ -39,6 +40,12 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-
-    }
+        public static Estudiante EstudianteLogueado
+        {
+            get
+            {
+                return _estudianteLogueado;
+            }
+        }   
+     }
 }
