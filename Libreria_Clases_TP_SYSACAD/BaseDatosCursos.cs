@@ -42,5 +42,18 @@ namespace Libreria_Clases_TP_SYSACAD
                 return _listaCursos;
             }
         }
+
+        public List<Curso> DevolverCursosDisponibles()
+        {
+            List<Curso> listaCursosDisponibles = new List<Curso>();
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.CupoDisponible > 0)
+                {
+                    listaCursosDisponibles.Add(curso);
+                }
+            }
+            return listaCursosDisponibles;
+        }
     }
 }

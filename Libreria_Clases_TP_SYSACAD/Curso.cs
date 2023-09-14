@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,18 @@ namespace Libreria_Clases_TP_SYSACAD
         public void RegistrarCurso(Curso nuevoCurso)
         {
             Sistema.BaseDatosCursos.IngresarCursoBD(nuevoCurso);
+        }
+
+        public bool ChequearCuposDisponibles(Curso curso)
+        {
+            if (curso.CupoDisponible > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static Curso operator - (Curso curso, int numero)
