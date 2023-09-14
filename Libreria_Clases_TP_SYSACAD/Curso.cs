@@ -15,6 +15,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _descripcion;
         private int _cupoMaximo;
         private int _cupoDisponible;
+        private List<Estudiante> _estudiantesInscriptos;
 
         public Curso(string nombre, string codigo, string descripcion, int cupoMaximo) 
         {
@@ -23,6 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD
             _descripcion = descripcion;
             _cupoMaximo = cupoMaximo;
             _cupoDisponible = cupoMaximo;
+            _estudiantesInscriptos = new List<Estudiante>();    
         }
 
         //Llamo a este metodo desde el Forms, tras validar el curso para ingresarlo a la BD
@@ -41,6 +43,11 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 return false;
             }
+        }
+
+        public void AgregarEstudianteACurso(Estudiante estudiante, Curso curso)
+        {
+            curso.EstudiantesInscriptos.Add(estudiante);
         }
 
         public static Curso operator - (Curso curso, int numero)
@@ -72,6 +79,11 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             get { return _cupoDisponible; }
             set { _cupoDisponible = value; }
+        }
+
+        public List<Estudiante> EstudiantesInscriptos
+        {
+            get { return _estudiantesInscriptos; }
         }
     }
 }
