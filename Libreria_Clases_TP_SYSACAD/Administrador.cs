@@ -14,7 +14,7 @@
 
         public static void RegistrarAdministrador(Administrador nuevoAdministrador)
         {
-            Sistema.baseDatosAdministradores.IngresarUsuarioBD(nuevoAdministrador);
+            Sistema.BaseDatosAdministradores.IngresarUsuarioBD(nuevoAdministrador);
         }
 
         public string Correo 

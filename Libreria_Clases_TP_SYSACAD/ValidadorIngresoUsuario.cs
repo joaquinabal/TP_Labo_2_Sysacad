@@ -24,7 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             bool resultadoBusqueda = false;
 
-            foreach (Administrador administrador in Sistema.baseDatosAdministradores.Administradores)
+            foreach (Administrador administrador in Sistema.BaseDatosAdministradores.Administradores)
             {
                 if (administrador.Correo == correo) 
                 {
@@ -39,9 +39,24 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             bool resultadoBusqueda = false;
 
-            foreach (Estudiante estudiante in Sistema.baseDatosEstudiantes.Estudiantes)
+            foreach (Estudiante estudiante in Sistema.BaseDatosEstudiantes.Estudiantes)
             {
                 if (estudiante.Correo == correo || estudiante.Legajo == legajo)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+
+            return resultadoBusqueda;
+        }
+
+        public static bool ComprobarSiCursoExiste(string codigo)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Curso curso in Sistema.BaseDatosCursos.Cursos)
+            {
+                if (curso.Codigo == codigo)
                 {
                     resultadoBusqueda = true;
                 }
@@ -63,6 +78,20 @@ namespace Libreria_Clases_TP_SYSACAD
                 return true;
             }
         }
+
+        public static bool ValidarIngresoDatosCurso(string nombre, string codigo, string descripcion, int cupo)
+        {
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(codigo)
+                || string.IsNullOrEmpty(descripcion) || cupo == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
     }
 
 }

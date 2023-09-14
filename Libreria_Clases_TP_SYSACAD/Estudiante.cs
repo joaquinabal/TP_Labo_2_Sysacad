@@ -31,7 +31,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public void RegistrarEstudiante(Estudiante nuevoEstudiante)
         {
-            Sistema.baseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
+            Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
         }
 
         public string Legajo 
