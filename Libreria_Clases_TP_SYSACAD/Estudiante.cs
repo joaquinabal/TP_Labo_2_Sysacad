@@ -17,6 +17,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _contraseñaProvisional;
         private Guid _identificadorUnico;
         private bool _debeCambiarContraseña;
+        private List<Curso> _cursosInscriptos;
 
         public Estudiante(string nombre, string legajo, string direccion, string telefono,
             string correo, string contraseñaProv, bool debeCambiarContraseña)
@@ -28,12 +29,18 @@ namespace Libreria_Clases_TP_SYSACAD
             _correo = correo;
             _contraseñaProvisional = contraseñaProv;
             _debeCambiarContraseña = debeCambiarContraseña;
+            _cursosInscriptos = new List<Curso>();
         }
 
         //Este metodo se llama desde el forms, tras validar el estudiante, para ingresarlo a la BD.
         public void RegistrarEstudiante(Estudiante nuevoEstudiante)
         {
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
+        }
+
+        public void InscribirEstudianteACurso(Estudiante estudiante, Curso curso)
+        {
+            estudiante.CursosInscriptos.Add(curso);
         }
 
         public string Legajo 
@@ -78,6 +85,11 @@ namespace Libreria_Clases_TP_SYSACAD
         public string ContraseñaProvisional
         {
             get { return _contraseñaProvisional; }
+        }
+
+        public List<Curso> CursosInscriptos
+        {
+            get { return _cursosInscriptos; }
         }
     }
 }
