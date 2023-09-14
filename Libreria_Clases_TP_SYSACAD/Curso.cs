@@ -8,6 +8,7 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class Curso
     {
+        //Atributos que debe contener todo curso
         private string _nombre;
         private string _codigo;
         private string _descripcion;
@@ -21,9 +22,10 @@ namespace Libreria_Clases_TP_SYSACAD
             _cupoMaximo = cupoMaximo;
         }
 
+        //Llamo a este metodo desde el Forms, tras validar el curso para ingresarlo a la BD
         public void RegistrarCurso(Curso nuevoCurso)
         {
-            Sistema.BaseDatosCursos.IngresarUsuarioBD(nuevoCurso);
+            Sistema.BaseDatosCursos.IngresarCursoBD(nuevoCurso);
         }
 
         public string Nombre
@@ -45,7 +47,6 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             get { return _cupoMaximo; }
         }
-
 
     }
 }

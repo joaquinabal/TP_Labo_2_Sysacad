@@ -9,6 +9,9 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public static class Sistema
     {
+        //Creo esta clase estatica que se inicia sin necesidad de instanciarla, para poder
+        //crear las bases de datos.
+
         private static BaseDatosAdministradores _baseDatosAdministradores = new BaseDatosAdministradores();
         private static BaseDatosEstudiantes _baseDatosEstudiantes = new BaseDatosEstudiantes();
         private static BaseDatosCursos _baseDatosCursos = new BaseDatosCursos();

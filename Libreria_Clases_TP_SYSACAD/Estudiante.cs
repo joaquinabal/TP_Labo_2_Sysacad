@@ -8,6 +8,7 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class Estudiante
     {
+        //Atributos del estudiante
         private string _nombre;
         private string _legajo;
         private string _direccion;
@@ -29,6 +30,7 @@ namespace Libreria_Clases_TP_SYSACAD
             _debeCambiarContraseña = debeCambiarContraseña;
         }
 
+        //Este metodo se llama desde el forms, tras validar el estudiante, para ingresarlo a la BD.
         public void RegistrarEstudiante(Estudiante nuevoEstudiante)
         {
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);

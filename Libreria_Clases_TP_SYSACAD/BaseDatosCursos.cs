@@ -9,27 +9,23 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class BaseDatosCursos
     {
+        //Lista que contiene todos los cursos
         private List<Curso> _listaCursos = new List<Curso>();
 
+        //Cursos por defecto
         private static Curso _cursoPorDefecto1 = new Curso("Programacion I", "Prog1", "1° año programacion", 150);
         private static Curso _cursoPorDefecto2 = new Curso("Ingles I", "Ing1", "1° año ingles", 80);
         private static Curso _cursoPorDefecto3 = new Curso("Matematica", "Mat1", "1° año matematica", 85);
 
         public BaseDatosCursos() 
         {
-            IngresarUsuarioBD(_cursoPorDefecto1);
-            IngresarUsuarioBD(_cursoPorDefecto2);
-            IngresarUsuarioBD(_cursoPorDefecto3);
-
-            Debug.WriteLine("Datos de la base de cursos:");
-            foreach (var curso in _listaCursos)
-            {
-                Debug.WriteLine($"Nombre: {curso.Nombre}, Código: {curso.Codigo}, Descripción: {curso.Descripcion}, Cupo Máximo: {curso.CupoMaximo}");
-            }
-
+            //Ingreso los cursos por defecto a la base de datos
+            IngresarCursoBD(_cursoPorDefecto1);
+            IngresarCursoBD(_cursoPorDefecto2);
+            IngresarCursoBD(_cursoPorDefecto3);
         }
 
-        public void IngresarUsuarioBD(Curso nuevoCurso)
+        public void IngresarCursoBD(Curso nuevoCurso)
         {
             _listaCursos.Add(nuevoCurso);
         }

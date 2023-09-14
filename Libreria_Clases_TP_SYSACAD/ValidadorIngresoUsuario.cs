@@ -8,6 +8,9 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public static class ValidadorIngresoUsuario
     {
+        //Esta clase servirá para validar TEXTBOX EN BLANCO y datos duplicados en la BD. REFORMULAR
+
+        //Utilizo este metodo desde el formulario de logIn del admin y tambien desde registro del admin
         public static bool ValidarCorreoYContraseña(string correo, string contraseña)
         {
             if (string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(contraseña))
@@ -20,6 +23,7 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        //Utilizo este metodo desde el formulario de logIn del admin y tambien desde registro del admin
         public static bool ComprobarSiUsuarioExiste(string correo, string contraseña)
         {
             bool resultadoBusqueda = false;
@@ -35,6 +39,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusqueda;
         }
 
+        //Utilizo este metodo desde el formulario de registro del estudiante
         public static bool ComprobarSiEstudianteExiste(string correo, string legajo)
         {
             bool resultadoBusqueda = false;
@@ -50,6 +55,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusqueda;
         }
 
+        //Utilizo este metodo desde el formulario de agregar el curso
         public static bool ComprobarSiCursoExiste(string codigo)
         {
             bool resultadoBusqueda = false;
@@ -65,6 +71,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusqueda;
         }
 
+        //Utilizo este metodo desde el formulario de registro de estudiantes
         public static bool ValidarIngresoDatosEstudiante(string nombre, string legajo, string direccion, string telefono, string correo, string contraseña)
         {
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(legajo) 
@@ -79,6 +86,7 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        //Utilizo este metodo desde el formulario de agregar curso
         public static bool ValidarIngresoDatosCurso(string nombre, string codigo, string descripcion, int cupo)
         {
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(codigo)
