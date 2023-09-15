@@ -25,9 +25,40 @@ namespace Libreria_Clases_TP_SYSACAD
             IngresarCursoBD(_cursoPorDefecto3);
         }
 
+        //CRUD DEL CURSO:
         public void IngresarCursoBD(Curso nuevoCurso)
         {
             _listaCursos.Add(nuevoCurso);
+        }
+        public void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupo)
+        {
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Codigo == codigoABuscar)
+                {
+                    curso.Nombre = nombre;
+                    curso.Codigo = codigo;
+                    curso.Descripcion = descripcion;
+                    curso.CupoMaximo = cupo;
+                }
+            }
+        }
+        public void EliminarCursoBD(string codigoABuscar)
+        {
+            List<Curso> cursosAEliminar = new List<Curso>();
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Codigo == codigoABuscar)
+                {
+                    cursosAEliminar.Add(curso);
+                }
+            }
+
+            foreach (Curso curso in cursosAEliminar)
+            {
+                _listaCursos.Remove(curso);
+            }
         }
 
         public void RestarCupoDisponible(Curso curso)

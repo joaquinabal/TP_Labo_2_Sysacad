@@ -59,21 +59,25 @@ namespace Libreria_Clases_TP_SYSACAD
         public string Nombre
         {
             get { return _nombre; }
+            set { _nombre = value; }
         }
 
         public string Codigo
         {
             get { return _codigo; }
+            set { _codigo = value; }
         }
 
         public string Descripcion
         {
             get { return _descripcion; }
+            set { _descripcion = value;}
         }
 
         public int CupoMaximo
         {
             get { return _cupoMaximo; }
+            set { _cupoMaximo = value;}
         }
         public int CupoDisponible
         {
