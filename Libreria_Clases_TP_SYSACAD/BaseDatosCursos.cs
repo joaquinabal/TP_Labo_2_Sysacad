@@ -61,9 +61,16 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-        public void RestarCupoDisponible(Curso curso)
+        //Agrego foreach para poder restar el cupo del elemento de la lista
+        public void RestarCupoDisponible(Curso cursoARestarCupo)
         {
-            curso.CupoDisponible =- 1;
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Codigo == cursoARestarCupo.Codigo)
+                {
+                    curso.CupoDisponible -= 1;
+                }
+            }
         }
 
         public List<Curso> Cursos
@@ -74,6 +81,7 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        //Metodo para devolver cursos dependiendo de si tienen cupo disponible o no
         public List<Curso> DevolverCursosDisponibles()
         {
             List<Curso> listaCursosDisponibles = new List<Curso>();

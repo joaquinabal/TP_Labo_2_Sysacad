@@ -30,5 +30,18 @@ namespace Libreria_Clases_TP_SYSACAD
                 return listaEstudiante;
             }
         }
+
+        //Muevo este metodo a la base de datos para que impacte sobre los registros de la lista
+        public void AgregarCursoAEstudiante(Estudiante estudianteQueSeInscribe, Curso curso)
+        {
+            foreach (Estudiante estudiante in listaEstudiante)
+            {
+                if (estudiante.IdentificadorUnico == estudianteQueSeInscribe.IdentificadorUnico)
+                {
+                    estudiante.CursosInscriptos.Add(curso);
+                }
+            }
+        }
+
     }
 }

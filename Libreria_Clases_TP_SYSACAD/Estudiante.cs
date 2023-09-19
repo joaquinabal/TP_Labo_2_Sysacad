@@ -15,6 +15,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _numeroTelefono;
         private string _correo;
         private string _contraseñaProvisional;
+        //Cambiar a identificador estudiante
         private Guid _identificadorUnico;
         private bool _debeCambiarContraseña;
         private List<Curso> _cursosInscriptos;
@@ -38,11 +39,6 @@ namespace Libreria_Clases_TP_SYSACAD
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
         }
 
-        public void InscribirEstudianteACurso(Estudiante estudiante, Curso curso)
-        {
-            estudiante.CursosInscriptos.Add(curso);
-        }
-
         public string Legajo 
         { 
             get 
@@ -59,8 +55,13 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        //Agrego getter
         public Guid IdentificadorUnico
         {
+            get
+            {
+                return _identificadorUnico;
+            }
             set
             {
                 _identificadorUnico = value;

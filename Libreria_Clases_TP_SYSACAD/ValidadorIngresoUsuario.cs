@@ -24,7 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         //Utilizo este metodo desde el formulario de logIn del admin y tambien desde registro del admin
-        public static bool ComprobarSiUsuarioExiste(string correo, string contraseña)
+        public static bool ComprobarSiUsuarioExiste(string correo)
         {
             bool resultadoBusqueda = false;
 
@@ -39,6 +39,35 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusqueda;
         }
 
+        public static bool ValidarLogInAdmin(string correo, string contraseña)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Administrador administrador in Sistema.BaseDatosAdministradores.Administradores)
+            {
+                if (administrador.Correo == correo && administrador.Contraseña == contraseña)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+
+            return resultadoBusqueda;
+        }
+
+        public static bool ComprobarSiEstudianteEstaRegistrado(string correo, string contraseña)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Estudiante estudiante in Sistema.BaseDatosEstudiantes.Estudiantes)
+            {
+                if (estudiante.Correo == correo && estudiante.ContraseñaProvisional == contraseña)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+
+            return resultadoBusqueda;
+        }
 
         //Utilizo este metodo desde el formulario de registro del estudiante
         public static bool ComprobarSiEstudianteExiste(string correo, string legajo)
@@ -101,6 +130,24 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-    }
+        public static bool ComprobarSiHayCuposDisponiblesEnCurso(Curso cursoSeleccionado)
+        {
+            List<Curso> lista_cursos_disponibles = Sistema.BaseDatosCursos.Cursos;
+            bool respuestaCuposDisponibles = false;
 
+            foreach (Curso cursoDisponible in lista_cursos_disponibles)
+            {
+                if (cursoSeleccionado.Codigo == cursoDisponible.Codigo)
+                {
+                    if (cursoDisponible.CupoDisponible > 0)
+                    {
+                        respuestaCuposDisponibles = true;
+                    }
+                }
+            }
+
+            return respuestaCuposDisponibles;
+        }
+
+    }
 }

@@ -10,13 +10,6 @@
         {
             _correo = correo;
             _contraseña = contraseña;
-            RegistrarAdministrador(this);
-        }
-
-        //Al crear el administrador, se registra automaticamente en la base de datos
-        public static void RegistrarAdministrador(Administrador nuevoAdministrador)
-        {
-            Sistema.BaseDatosAdministradores.IngresarUsuarioBD(nuevoAdministrador);
         }
 
         public string Correo 
@@ -26,5 +19,14 @@
                 return _correo;
             }
         }
+
+        public string Contraseña
+        {
+            get
+            {
+                return _contraseña;
+            }
+        }
+
     }
 }
