@@ -27,15 +27,16 @@ namespace Libreria_Clases_TP_SYSACAD
             _estudiantesInscriptos = new List<Estudiante>();    
         }
 
-        //Llamo a este metodo desde el Forms, tras validar el curso para ingresarlo a la BD
+        //En caso que el admin cree un nuevo curso, se lo agrega a la BD
         public void RegistrarCurso(Curso nuevoCurso)
         {
             Sistema.BaseDatosCursos.IngresarCursoBD(nuevoCurso);
         }
 
-        public bool ChequearCuposDisponibles(Curso curso)
+        //Al querer inscribirse el alumno, se chequea si hay cupos disponibles
+        public bool ChequearCuposDisponibles()
         {
-            if (curso.CupoDisponible > 0)
+            if (CupoDisponible > 0)
             {
                 return true;
             }
@@ -50,12 +51,14 @@ namespace Libreria_Clases_TP_SYSACAD
             curso.EstudiantesInscriptos.Add(estudiante);
         }
 
+        //Sobrecarga -
         public static Curso operator - (Curso curso, int numero)
         {
             curso.CupoDisponible -= numero;
             return curso;
         }
 
+        //Setters y getters
         public string Nombre
         {
             get { return _nombre; }

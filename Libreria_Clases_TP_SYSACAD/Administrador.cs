@@ -12,21 +12,8 @@
             _contraseña = contraseña;
         }
 
-        public string Correo 
-        {
-            get
-            {
-                return _correo;
-            }
-        }
-
-        public string Contraseña
-        {
-            get
-            {
-                return _contraseña;
-            }
-        }
-
+        //Getters
+        public string Correo { get { return _correo;} }
+        public string Contraseña { get { return _contraseña;} }
     }
 }

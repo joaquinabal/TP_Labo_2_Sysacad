@@ -17,12 +17,7 @@ namespace Libreria_Clases_TP_SYSACAD
             listaAdministradores.Add(nuevoAdministrador);
         }
 
-        public List<Administrador> Administradores 
-        {
-            get
-            {
-                return listaAdministradores;
-            }
-        }
+        //Getters
+        public List<Administrador> Administradores { get {  return listaAdministradores; } }
     }
 }

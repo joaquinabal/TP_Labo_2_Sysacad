@@ -117,10 +117,10 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         //Utilizo este metodo desde el formulario de agregar curso
-        public static bool ValidarIngresoDatosCurso(string nombre, string codigo, string descripcion, int cupo)
+        public static bool ValidarIngresoDatosCurso(string nombre, string codigo, string descripcion, string cupo)
         {
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(codigo)
-                || string.IsNullOrEmpty(descripcion) || cupo == 0)
+                || string.IsNullOrEmpty(descripcion) || string.IsNullOrWhiteSpace(cupo))
             {
                 return false;
             }
@@ -139,7 +139,7 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 if (cursoSeleccionado.Codigo == cursoDisponible.Codigo)
                 {
-                    if (cursoDisponible.CupoDisponible > 0)
+                    if (cursoDisponible.ChequearCuposDisponibles() == true) 
                     {
                         respuestaCuposDisponibles = true;
                     }

@@ -30,6 +30,7 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             _listaCursos.Add(nuevoCurso);
         }
+
         public void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupo)
         {
             foreach (Curso curso in _listaCursos)
@@ -43,6 +44,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 }
             }
         }
+
         public void EliminarCursoBD(string codigoABuscar)
         {
             List<Curso> cursosAEliminar = new List<Curso>();
@@ -61,7 +63,7 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-        //Agrego foreach para poder restar el cupo del elemento de la lista
+        //Restar 1 al cupo disponible de un determinado curso
         public void RestarCupoDisponible(Curso cursoARestarCupo)
         {
             foreach (Curso curso in _listaCursos)
@@ -70,14 +72,6 @@ namespace Libreria_Clases_TP_SYSACAD
                 {
                     curso.CupoDisponible -= 1;
                 }
-            }
-        }
-
-        public List<Curso> Cursos
-        {
-            get
-            {
-                return _listaCursos;
             }
         }
 
@@ -94,5 +88,8 @@ namespace Libreria_Clases_TP_SYSACAD
             }
             return listaCursosDisponibles;
         }
+
+        //Getters y setters
+        public List<Curso> Cursos { get { return _listaCursos; } }
     }
 }

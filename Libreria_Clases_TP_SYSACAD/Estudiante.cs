@@ -15,7 +15,6 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _numeroTelefono;
         private string _correo;
         private string _contraseñaProvisional;
-        //Cambiar a identificador estudiante
         private Guid _identificadorUnico;
         private bool _debeCambiarContraseña;
         private List<Curso> _cursosInscriptos;
@@ -39,58 +38,21 @@ namespace Libreria_Clases_TP_SYSACAD
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
         }
 
-        public string Legajo 
-        { 
-            get 
-            {
-                return _legajo;
-            } 
-        }
+        //Getters y Setters
+        public string Legajo { get { return _legajo; } }
 
-        public string Correo
-        {
-            get
-            {
-                return _correo;
-            }
-        }
+        public string Correo { get { return _correo; } }
 
-        //Agrego getter
-        public Guid IdentificadorUnico
-        {
-            get
-            {
-                return _identificadorUnico;
-            }
-            set
-            {
-                _identificadorUnico = value;
-            }
-        }
+        public Guid IdentificadorUnico { get{ return _identificadorUnico; } set{ _identificadorUnico = value; } }
 
-        public string Nombre
-        {
-            get { return _nombre; }
-        }
+        public string Nombre { get { return _nombre; } }
 
-        public string Direccion
-        {
-            get { return _direccion; }
-        }
+        public string Direccion { get { return _direccion; } }
 
-        public string NumeroTelefono
-        {
-            get { return _numeroTelefono; }
-        }
+        public string NumeroTelefono { get { return _numeroTelefono; } }
 
-        public string ContraseñaProvisional
-        {
-            get { return _contraseñaProvisional; }
-        }
+        public string ContraseñaProvisional { get { return _contraseñaProvisional; } }
 
-        public List<Curso> CursosInscriptos
-        {
-            get { return _cursosInscriptos; }
-        }
+        public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
     }
 }

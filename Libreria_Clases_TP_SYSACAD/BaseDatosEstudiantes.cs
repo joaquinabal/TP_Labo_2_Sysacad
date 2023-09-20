@@ -23,15 +23,7 @@ namespace Libreria_Clases_TP_SYSACAD
             listaEstudiante.Add(nuevoEstudiante);
         }
 
-        public List<Estudiante> Estudiantes
-        {
-            get
-            {
-                return listaEstudiante;
-            }
-        }
-
-        //Muevo este metodo a la base de datos para que impacte sobre los registros de la lista
+        //Agrego el curso a la lista de cursos en los cuales se encuentra inscripto el estudiante
         public void AgregarCursoAEstudiante(Estudiante estudianteQueSeInscribe, Curso curso)
         {
             foreach (Estudiante estudiante in listaEstudiante)
@@ -43,5 +35,7 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        //Getters y setters
+        public List<Estudiante> Estudiantes { get { return listaEstudiante; } }
     }
 }
