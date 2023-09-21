@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public static class ValidadorIngresoUsuario
+    public static class ValidadorIngresoUsuario //CLASE A BORRAR!
     {
         //Esta clase servirá para validar TEXTBOX EN BLANCO y datos duplicados en la BD. REFORMULAR
 

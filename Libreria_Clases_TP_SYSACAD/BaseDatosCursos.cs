@@ -25,6 +25,21 @@ namespace Libreria_Clases_TP_SYSACAD
             IngresarCursoBD(_cursoPorDefecto3);
         }
 
+        //Busqueda de curso existente en la base de datos
+        public bool BuscarCursoBD(string codigo)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Codigo == codigo)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+            return resultadoBusqueda;
+        }
+
         //CRUD DEL CURSO:
         public void IngresarCursoBD(Curso nuevoCurso)
         {

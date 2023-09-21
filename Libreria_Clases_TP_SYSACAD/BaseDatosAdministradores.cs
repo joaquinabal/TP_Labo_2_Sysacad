@@ -17,6 +17,36 @@ namespace Libreria_Clases_TP_SYSACAD
             listaAdministradores.Add(nuevoAdministrador);
         }
 
+        //Busqueda de usuario existente en la base de datos
+        public bool BuscarUsuarioBD(string correo)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Administrador administrador in listaAdministradores)
+            {
+                if (administrador.Correo == correo)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+            return resultadoBusqueda;
+        }
+
+        //Busqueda de credenciales del usuario en la base de datos (SOBRECARGA)
+        public bool BuscarUsuarioBD(string correo, string contraseña)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Administrador administrador in listaAdministradores)
+            {
+                if (administrador.Correo == correo && administrador.Contraseña == contraseña)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+            return resultadoBusqueda;
+        }
+
         //Getters
         public List<Administrador> Administradores { get {  return listaAdministradores; } }
     }

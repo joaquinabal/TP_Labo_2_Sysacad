@@ -35,6 +35,34 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        public bool BuscarUsuarioCredencialesBD(string correo, string contraseña)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Estudiante estudiante in listaEstudiante)
+            {
+                if (estudiante.Correo == correo && estudiante.ContraseñaProvisional == contraseña)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+            return resultadoBusqueda;
+        }
+
+        public bool BuscarUsuarioExistenteBD(string correo, string legajo)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Estudiante estudiante in listaEstudiante)
+            {
+                if (estudiante.Correo == correo && estudiante.Legajo == legajo)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+            return resultadoBusqueda;
+        }
+
         //Getters y setters
         public List<Estudiante> Estudiantes { get { return listaEstudiante; } }
     }
