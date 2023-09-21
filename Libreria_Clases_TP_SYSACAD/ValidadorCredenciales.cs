@@ -39,13 +39,13 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 mensajeADevolver = "OK";
             }
-            else if (resultadoValidacionCampos && !resultadoBusquedaUsuario)
-            {
-                mensajeADevolver = "DUPLICADO";
-            }
-            else if (!resultadoValidacionCampos && resultadoBusquedaUsuario)
+            else if (!resultadoValidacionCampos)
             {
                 mensajeADevolver = "CAMPOS VACIOS";
+            }
+            else if (resultadoBusquedaUsuario)
+            {
+                mensajeADevolver = "NO ENCONTRADO";
             }
 
             return mensajeADevolver;

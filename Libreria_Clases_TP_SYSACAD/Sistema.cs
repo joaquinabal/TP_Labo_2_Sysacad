@@ -16,6 +16,17 @@ namespace Libreria_Clases_TP_SYSACAD
         private static Estudiante _estudianteLogueado;
         private static Administrador _administradorLogueado;
 
+        public static void IngresarEstudianteComoUsuarioActivo(string correo)
+        {
+            foreach (Estudiante estudiante in _baseDatosEstudiantes.Estudiantes)
+            {
+                if (correo == estudiante.Correo)
+                {
+                    _estudianteLogueado = estudiante;
+                }
+            }
+        }
+
         //Getters y Setters
         public static BaseDatosAdministradores BaseDatosAdministradores { get { return _baseDatosAdministradores; } }
 

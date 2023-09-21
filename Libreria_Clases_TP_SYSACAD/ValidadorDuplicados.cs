@@ -15,8 +15,8 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public static string ValidarDuplicados(string modo, string correo = null, 
             string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
-            string cupo = null, string nombreEstudiante = null, string legajo = null, string direccion = null, 
-            string telefono = null)
+            string cupo = null, string legajo = null, string direccion = null, 
+            string telefono = null, string modoCurso = null)
         {
             string mensajeADevolver = string.Empty;
 
@@ -39,7 +39,10 @@ namespace Libreria_Clases_TP_SYSACAD
                 listaCamposAValidar.Add(descripcion);
                 listaCamposAValidar.Add(cupo);
 
-                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: "CURSO", codigo: codigo);
+                if (modoCurso == "AGREGAR" || modoCurso == "EDITAR DUP")
+                {
+                    resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: "CURSO", codigo: codigo);
+                }
             }
             else if (modo == "ESTUDIANTE")
             {
@@ -51,23 +54,22 @@ namespace Libreria_Clases_TP_SYSACAD
                 listaCamposAValidar.Add(contraseña);
 
                 resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: "ESTUDIANTE", correo: correo, legajo: legajo);
-
             }
 
             bool resultadoValidacionCampos = ValidarCampos(listaCamposAValidar);
 
             //Devolvemos el mensaje de acuerdo a los resultados de las validaciones
-            if (resultadoValidacionCampos && resultadoBusquedaUsuario)
+            if (resultadoValidacionCampos && !resultadoBusquedaUsuario)
             {
                 mensajeADevolver = "OK";
             }
-            else if (resultadoValidacionCampos && !resultadoBusquedaUsuario)
-            {
-                mensajeADevolver = "DUPLICADO";
-            }
-            else if (!resultadoValidacionCampos && resultadoBusquedaUsuario)
+            else if (!resultadoValidacionCampos)
             {
                 mensajeADevolver = "CAMPOS VACIOS";
+            }
+            else if (resultadoBusquedaUsuario)
+            {
+                mensajeADevolver = "DUPLICADO";
             }
 
             return mensajeADevolver;
