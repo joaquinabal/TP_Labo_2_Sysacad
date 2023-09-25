@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ValidadorTarjetas : Validador
+    public class ValidadorMedioDePago : Validador
     {
         public string ValidarTarjetas(List<string> listaDeCamposIngresados)
         {
@@ -50,7 +50,49 @@ namespace Libreria_Clases_TP_SYSACAD
                     {
                         mensajeADevolver += $"{error} \n";
                     }
+                }
+                else
+                {
+                    mensajeADevolver = "OK";
+                }
+            }
+            else
+            {
+                mensajeADevolver = "CAMPOS VACIOS";
+            }
 
+            return mensajeADevolver;
+        }
+
+        public string ValidarTransferencia(List<string> listaDeCamposIngresados)
+        {
+            bool resultadoValidacionCampos = ValidarCampos(listaDeCamposIngresados);
+
+            string mensajeADevolver = string.Empty;
+
+            List<string> listaDeErrores = new List<string>();
+
+            if (resultadoValidacionCampos)
+            {
+                // Validar el nombre 
+                if (!Regex.IsMatch(listaDeCamposIngresados[0], @"^[A-Za-z]+\s[A-Za-z]+$"))
+                {
+                    listaDeErrores.Add("Nombre");
+                }
+
+                // Validar el CBU
+                if (!Regex.IsMatch(listaDeCamposIngresados[1], @"^\d{22}$"))
+                {
+                    listaDeErrores.Add("CBU");
+                }
+
+                if (listaDeErrores.Count > 0)
+                {
+                    mensajeADevolver = "Debe corregir: \n";
+                    foreach (string error in listaDeErrores)
+                    {
+                        mensajeADevolver += $"{error} \n";
+                    }
                 }
                 else
                 {
