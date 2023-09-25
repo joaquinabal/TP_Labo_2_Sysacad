@@ -18,6 +18,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private Guid _identificadorUnico;
         private bool _debeCambiarContraseña;
         private List<Curso> _cursosInscriptos;
+        private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
 
         public Estudiante(string nombre, string legajo, string direccion, string telefono,
             string correo, string contraseñaProv, bool debeCambiarContraseña)
@@ -30,12 +31,40 @@ namespace Libreria_Clases_TP_SYSACAD
             _contraseñaProvisional = contraseñaProv;
             _debeCambiarContraseña = debeCambiarContraseña;
             _cursosInscriptos = new List<Curso>();
+            AñadirConceptosDePagoIniciales();
         }
 
         //Este metodo se llama desde el forms, tras validar el estudiante, para ingresarlo a la BD.
         public void RegistrarEstudiante(Estudiante nuevoEstudiante)
         {
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
+        }
+
+        public void AñadirConceptosDePagoIniciales()
+        {
+            ConceptoDePago matriculaIngreso = new ConceptoDePago("Matricula de Ingreso", 20000, 20000);
+            ConceptoDePago primerCuatrimestre = new ConceptoDePago("Matricula del Primer Cuatrimestre", 15000, 15000);
+            ConceptoDePago cargosAdministrativosPrimerCuatrimestre = new ConceptoDePago("Cargos Administrativos primer cuatrimestre", 5000, 5000);
+            ConceptoDePago BibliografiaPrimerCuatrimestre = new ConceptoDePago("Bibliografia Primer Cuatrimestre", 5000, 5000);
+
+            _conceptosAPagar.Add(matriculaIngreso);
+            _conceptosAPagar.Add(primerCuatrimestre);
+            _conceptosAPagar.Add(cargosAdministrativosPrimerCuatrimestre);
+            _conceptosAPagar.Add(BibliografiaPrimerCuatrimestre);
+        }
+
+        public void ActualizarConceptosDePago(Dictionary<string, double> listaConceptosPagados)
+        {
+            foreach (ConceptoDePago concepto in _conceptosAPagar)
+            {
+                foreach (var conceptoPagado in listaConceptosPagados)
+                {
+                    if (conceptoPagado.Key == concepto.Nombre)
+                    {
+                        concepto.MontoPendiente -= conceptoPagado.Value; 
+                    }
+                }
+            }
         }
 
         //Getters y Setters
@@ -54,5 +83,7 @@ namespace Libreria_Clases_TP_SYSACAD
         public string ContraseñaProvisional { get { return _contraseñaProvisional; } }
 
         public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
+
+        public List<ConceptoDePago> ConceptosDePago { get { return _conceptosAPagar; } }
     }
 }

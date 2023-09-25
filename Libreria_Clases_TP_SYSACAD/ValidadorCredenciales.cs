@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Libreria_Clases_TP_SYSACAD
         //en la base de datos correspondiente.
         //Devuelve el resultado de la validacion en forma de mensaje
 
-        public static string ValidarCredenciales(string correo, string contraseña, string modo)
+        public string ValidarCredenciales(string correo, string contraseña, string modo)
         {
             string mensajeADevolver = string.Empty;
 
@@ -43,7 +44,7 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 mensajeADevolver = "CAMPOS VACIOS";
             }
-            else if (resultadoBusquedaUsuario)
+            else if (!resultadoBusquedaUsuario)
             {
                 mensajeADevolver = "NO ENCONTRADO";
             }

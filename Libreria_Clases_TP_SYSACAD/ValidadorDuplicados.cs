@@ -13,7 +13,7 @@ namespace Libreria_Clases_TP_SYSACAD
         //en la base de datos correspondiente.
         //Devuelve el resultado de la validacion en forma de mensaje
 
-        public static string ValidarDuplicados(string modo, string correo = null, 
+        public string ValidarDuplicados(string modo, string correo = null, 
             string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
             string cupo = null, string legajo = null, string direccion = null, 
             string telefono = null, string modoCurso = null)
