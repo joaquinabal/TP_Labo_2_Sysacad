@@ -7,33 +7,70 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class SerializadorJson
     {
-        public List<Estudiante> CargarAlumnosDesdeArchivoJson(string filePath)
+        public static List<Estudiante> CargarAlumnosDesdeArchivoJson(string filePath)
         {
-            try
-            {
-                string alumnosJson;
+             string alumnosJson;
 
-                List<Estudiante> listaEstudiantes = new List<Estudainte>();
+             List<Estudiante> listaEstudiantes = new List<Estudiante>();
 
                 // Verificar si el archivo existe
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException("El archivo JSON no existe.", filePath);
-                }
+             if (!File.Exists(filePath))
+             {
+                 return null;
+             }
 
                 // Leer el contenido del archivo JSON
-                alumnosJson = File.ReadAllText(filePath);
+             alumnosJson = File.ReadAllText(filePath);
 
                 // Deserializar el JSON en un objeto de tipo T
-                listaEstudiantes = JsonConvert.DeserializeObject<T>(alumnosJson);
+             listaEstudiantes = JsonConvert.DeserializeObject<List<Estudiante>>(alumnosJson);
 
-                return jsonObject;
-            }
-            catch (Exception ex)
+             return listaEstudiantes;
+
+        }
+
+        public List<Curso> CargarCursosDesdeArchivoJson(string filePath)
+        {
+            string cursosJson;
+
+            List<Curso> listaCursos = new List<Curso>();
+
+            // Verificar si el archivo existe
+            if (!File.Exists(filePath))
             {
-                // Manejar cualquier excepción que pueda ocurrir al cargar el archivo JSON
-                throw new Exception(ex);
+                return null;
             }
+
+            // Leer el contenido del archivo JSON
+            cursosJson = File.ReadAllText(filePath);
+
+            // Deserializar el JSON en un objeto de tipo T
+            listaCursos = JsonConvert.DeserializeObject<List<Curso>>(cursosJson);
+
+            return listaCursos;
+
+        }
+
+        public List<Administrador> CargarAdminsDesdeArchivoJson(string filePath)
+        {
+            string adminsJson;
+
+            List<Administrador> listaAdmins = new List<Administrador>();
+
+            // Verificar si el archivo existe
+            if (!File.Exists(filePath))
+            {
+                return null;
+            }
+
+            // Leer el contenido del archivo JSON
+            adminsJson = File.ReadAllText(filePath);
+
+            // Deserializar el JSON en un objeto de tipo T
+            listaAdmins = JsonConvert.DeserializeObject<List<Administrador>>(adminsJson);
+
+            return listaAdmins;
+
         }
     }
 }

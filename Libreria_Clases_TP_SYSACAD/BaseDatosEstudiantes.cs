@@ -12,6 +12,12 @@ namespace Libreria_Clases_TP_SYSACAD
         private List<Estudiante> listaEstudiante = new List<Estudiante>();
 
         //Al instanciarse un estudiante se llama a este metodo para ingresarlo a la BD
+
+        public BaseDatosEstudiantes(string path)
+        {
+            this.listaEstudiante = SerializadorJson.CargarAlumnosDesdeArchivoJson(path);
+        }
+
         public void IngresarUsuarioBD(Estudiante nuevoEstudiante)
         {
             //Se genera un identificador unico para el estudiante

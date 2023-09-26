@@ -23,6 +23,8 @@ namespace Libreria_Clases_TP_SYSACAD
             IngresarCursoBD(_cursoPorDefecto1);
             IngresarCursoBD(_cursoPorDefecto2);
             IngresarCursoBD(_cursoPorDefecto3);
+
+            //this._listaCursos = SerializadorJson.CargarCursosDesdeArchivoJson(url);
         }
 
         //Busqueda de curso existente en la base de datos
