@@ -51,6 +51,59 @@ namespace Libreria_Clases_TP_SYSACAD
             curso.EstudiantesInscriptos.Add(estudiante);
         }
 
+        public string GenerarDiasAleatorios()
+        {
+            string dia = "";
+            Random random = new Random();
+            int numeroRandom = random.Next(0, 4);
+            switch (numeroRandom)
+            {
+                case 0:
+                    dia = "Lunes";
+                    break;
+                case 1:
+                    dia = "Martes";
+                    break;
+                case 2:
+                    dia = "Miercoles";
+                    break;
+                case 3:
+                    dia = "Jueves";
+                    break;
+                case 4:
+                    dia = "Viernes";
+                    break;
+            }
+            return dia;
+        }
+
+        public string GenerarTurnosAleatorios()
+        {
+            string turno = "";
+            Random random = new Random();
+            int numeroRandom = random.Next(0, 2);
+            switch (numeroRandom)
+            {
+                case 0:
+                    turno = "Turno Mañana";
+                    break;
+                case 1:
+                    turno = "Turno Tarde";
+                    break;
+                case 2:
+                    turno = "Turno Noche";
+                    break;
+            }
+            return turno;
+        }
+
+        public int GenerarNumeroAulasAleatorio()
+        {
+            Random random = new Random();
+            int numeroRandom = random.Next(100, 400);
+            return numeroRandom;
+        }
+
         //Sobrecarga -
         public static Curso operator - (Curso curso, int numero)
         {
