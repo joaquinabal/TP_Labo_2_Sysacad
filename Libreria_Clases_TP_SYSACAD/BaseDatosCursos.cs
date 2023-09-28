@@ -17,14 +17,14 @@ namespace Libreria_Clases_TP_SYSACAD
         private static Curso _cursoPorDefecto2 = new Curso("Ingles I", "Ing1", "1° año ingles", 80);
         private static Curso _cursoPorDefecto3 = new Curso("Matematica", "Mat1", "1° año matematica", 85);
 
-        public BaseDatosCursos() 
+        public BaseDatosCursos(string url) 
         {
             //Ingreso los cursos por defecto a la base de datos
-            IngresarCursoBD(_cursoPorDefecto1);
-            IngresarCursoBD(_cursoPorDefecto2);
-            IngresarCursoBD(_cursoPorDefecto3);
+            //IngresarCursoBD(_cursoPorDefecto1);
+            //IngresarCursoBD(_cursoPorDefecto2);
+            //IngresarCursoBD(_cursoPorDefecto3);
 
-            //this._listaCursos = SerializadorJson.CargarCursosDesdeArchivoJson(url);
+            this._listaCursos = SerializadorJson.CargarCursosDesdeArchivoJson(url);
         }
 
         //Busqueda de curso existente en la base de datos

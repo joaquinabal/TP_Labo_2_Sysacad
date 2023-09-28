@@ -13,7 +13,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public BaseDatosAdministradores(string path)
         {
-            this.listaAdministradores = SerializadorJson.CargarAlumnosDesdeArchivoJson(path);
+            this.listaAdministradores = SerializadorJson.CargarAdminsDesdeArchivoJson(path);
         }
 
         //Metodo que utiliza la clase Administrador al crearse una instancia de la misma

@@ -7,11 +7,11 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class SerializadorJson
     {
-        public static List<Estudiante> CargarAlumnosDesdeArchivoJson(string filePath)
+        public static List<Estudiante>? CargarAlumnosDesdeArchivoJson(string filePath)
         {
              string alumnosJson;
 
-             List<Estudiante> listaEstudiantes = new List<Estudiante>();
+            List<Estudiante> listaEstudiantes;
 
                 // Verificar si el archivo existe
              if (!File.Exists(filePath))
@@ -23,17 +23,17 @@ namespace Libreria_Clases_TP_SYSACAD
              alumnosJson = File.ReadAllText(filePath);
 
                 // Deserializar el JSON en un objeto de tipo T
-             listaEstudiantes = JsonConvert.DeserializeObject<List<Estudiante>>(alumnosJson);
+              listaEstudiantes = JsonConvert.DeserializeObject<List<Estudiante>>(alumnosJson);
 
              return listaEstudiantes;
 
         }
 
-        public List<Curso> CargarCursosDesdeArchivoJson(string filePath)
+        public static List<Curso>? CargarCursosDesdeArchivoJson(string filePath)
         {
             string cursosJson;
 
-            List<Curso> listaCursos = new List<Curso>();
+            List<Curso> listaCursos;
 
             // Verificar si el archivo existe
             if (!File.Exists(filePath))
@@ -51,7 +51,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         }
 
-        public List<Administrador> CargarAdminsDesdeArchivoJson(string filePath)
+        public static List<Administrador>? CargarAdminsDesdeArchivoJson(string filePath)
         {
             string adminsJson;
 
@@ -70,6 +70,48 @@ namespace Libreria_Clases_TP_SYSACAD
             listaAdmins = JsonConvert.DeserializeObject<List<Administrador>>(adminsJson);
 
             return listaAdmins;
+
+        }
+
+        public static bool GuardarArchivoJSON(List<Administrador> administradores, string filePath)
+        {
+            string json = JsonConvert.SerializeObject(administradores, Formatting.Indented);
+
+            File.WriteAllText(filePath, json);
+
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+
+            return false;
+        }
+        public static bool GuardarArchivoJSON(List<Estudiante> estudiantes, string filePath)
+        {
+            string json = JsonConvert.SerializeObject(estudiantes, Formatting.Indented);
+
+            File.WriteAllText(filePath, json);
+
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+
+            return false;
+
+        }
+        public static bool GuardarArchivoJSON(List<Curso> cursos, string filePath)
+        {
+            string json = JsonConvert.SerializeObject(cursos, Formatting.Indented);
+
+            File.WriteAllText(filePath, json);
+           
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+           
+            return false; 
 
         }
     }
