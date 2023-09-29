@@ -67,5 +67,18 @@ namespace Libreria_Clases_TP_SYSACAD
 
             return resultadoBusquedaUsuario;
         }
+
+        public bool ValidarCodigoAccesoAdmins(string codigo)
+        {
+            if (codigo == Sistema.CodigoAccesoAdmins)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

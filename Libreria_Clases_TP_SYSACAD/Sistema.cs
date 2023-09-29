@@ -21,6 +21,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private static BaseDatosCursos? _baseDatosCursos;
         private static Estudiante _estudianteLogueado;
         private static Administrador _administradorLogueado;
+        private static string _codigoDeAccesoAdmins = "ts5bf4";
 
         public static string InicializarSistema()
         {
@@ -77,5 +78,7 @@ namespace Libreria_Clases_TP_SYSACAD
         public static Estudiante EstudianteLogueado { get { return _estudianteLogueado; } set { _estudianteLogueado = value; } }
 
         public static Administrador AdministradorLogueado { get { return _administradorLogueado; } set { _administradorLogueado = value; } }
+
+        public static string CodigoAccesoAdmins { get { return _codigoDeAccesoAdmins; } }
     }
 }
