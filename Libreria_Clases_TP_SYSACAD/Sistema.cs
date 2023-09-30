@@ -10,7 +10,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
     public static class Sistema
     {
-        private static readonly string urlFiles = "C:\\Users\\bripo\\source\\repos\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\1erParcialLabo2\\";
+        private static readonly string urlFiles = "C:\\Users\\x\\Documents\\prueba json\\";
         private static readonly string fileAlumno = "Admins.json";
         private static readonly string fileCursos = "Alumnos.json";
         private static readonly string fileAdmins = "Cursos.json";

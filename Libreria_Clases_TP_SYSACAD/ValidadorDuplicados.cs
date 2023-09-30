@@ -16,7 +16,7 @@ namespace Libreria_Clases_TP_SYSACAD
         public string ValidarDuplicados(string modo, string correo = null, 
             string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
             string cupo = null, string legajo = null, string direccion = null, 
-            string telefono = null, string modoCurso = null)
+            string telefono = null, string modoCurso = null, string turno = null, string dia = null, string aula = null)
         {
             string mensajeADevolver = string.Empty;
 
@@ -38,6 +38,9 @@ namespace Libreria_Clases_TP_SYSACAD
                 listaCamposAValidar.Add(codigo);
                 listaCamposAValidar.Add(descripcion);
                 listaCamposAValidar.Add(cupo);
+                listaCamposAValidar.Add(aula);
+                listaCamposAValidar.Add(turno);
+                listaCamposAValidar.Add(dia);
 
                 if (modoCurso == "AGREGAR" || modoCurso == "EDITAR DUP")
                 {
