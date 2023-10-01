@@ -11,15 +11,16 @@ namespace Libreria_Clases_TP_SYSACAD
         //Lista que contiene todos los administradores
         private List<Administrador> listaAdministradores = new List<Administrador>();
 
-        public BaseDatosAdministradores(string path)
+        public BaseDatosAdministradores()
         {
-            this.listaAdministradores = SerializadorJson.CargarAdminsDesdeArchivoJson(path);
+            this.listaAdministradores = ArchivosJson.CargarAdminsDesdeArchivoJson();
         }
 
         //Metodo que utiliza la clase Administrador al crearse una instancia de la misma
         public void IngresarUsuarioBD(Administrador nuevoAdministrador)
         {
             listaAdministradores.Add(nuevoAdministrador);
+            ArchivosJson.GuardarArchivoJSON(listaAdministradores);
         }
 
         //Busqueda de usuario existente en la base de datos

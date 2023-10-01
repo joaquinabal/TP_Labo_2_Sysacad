@@ -12,12 +12,9 @@ namespace Libreria_Clases_TP_SYSACAD
         //Lista que contiene todos los cursos
         private List<Curso> _listaCursos = new List<Curso>();
 
-        public BaseDatosCursos(string url) 
+        public BaseDatosCursos() 
         {
-            //Agrego los cursos por defecto
-            _listaCursos = GenerarCursosPorDefecto();
-
-            this._listaCursos = SerializadorJson.CargarCursosDesdeArchivoJson(url);
+            this._listaCursos = ArchivosJson.CargarCursosDesdeArchivoJson();
         }
 
         //Busqueda de curso existente en la base de datos
@@ -39,6 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD
         public void IngresarCursoBD(Curso nuevoCurso)
         {
             _listaCursos.Add(nuevoCurso);
+            ArchivosJson.GuardarArchivoJSON(_listaCursos);
         }
 
         public void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupo, string turno, string dia, string aula)
@@ -56,6 +54,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     curso.Aula = aula;
                 }
             }
+            ArchivosJson.GuardarArchivoJSON(_listaCursos);
         }
 
         public void EliminarCursoBD(string codigoABuscar)
@@ -74,6 +73,8 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 _listaCursos.Remove(curso);
             }
+
+            ArchivosJson.GuardarArchivoJSON(_listaCursos);
         }
 
         //Restar 1 al cupo disponible de un determinado curso
@@ -86,6 +87,8 @@ namespace Libreria_Clases_TP_SYSACAD
                     curso.CupoDisponible -= 1;
                 }
             }
+
+            ArchivosJson.GuardarArchivoJSON(_listaCursos);
         }
 
         //Metodo para devolver cursos dependiendo de si tienen cupo disponible o no
@@ -101,52 +104,6 @@ namespace Libreria_Clases_TP_SYSACAD
             }
             return listaCursosDisponibles;
         }
-
-        public static List<Curso> GenerarCursosPorDefecto()
-        {
-            string[] nombresCursos =
-            {"Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
-            "Programacion 1", "Laboratorio 1", "Arquitectura y Sistemas Operativos",
-            "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion"};
-
-            string[] turnos = { "Mañana", "Tarde", "Noche" };
-
-            List<Curso> cursos = new List<Curso>();
-
-            Random random = new Random();
-
-            foreach (string nombreCurso in nombresCursos)
-            {
-                foreach (string turno in turnos)
-                {
-                    int cupoMaximo = random.Next(80, 160);
-                    string codigo = GenerarCodigo(nombreCurso, turno);
-                    string descripcion = $"1° año {nombreCurso.ToLower()} {turno.ToLower()}";
-                    int aula = (turno == "Tarde") ? random.Next(100, 199) : (turno == "Mañana") ? random.Next(200, 299) : random.Next(300, 399);
-                    string dia = GenerarDiaAleatorio();
-
-                    Curso curso = new Curso(nombreCurso, codigo, descripcion, cupoMaximo, turno, aula.ToString(), dia);
-                    cursos.Add(curso);
-                }
-            }
-
-            return cursos;
-        }
-
-        public static string GenerarCodigo(string nombreCurso, string turno)
-        {
-            string codigo = $"{nombreCurso.Substring(0, 4)}{turno.Substring(0, 1)}";
-            return codigo;
-        }
-
-        public static string GenerarDiaAleatorio()
-        {
-            string[] dias = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
-            Random random = new Random();
-            int indice = random.Next(0, dias.Length);
-            return dias[indice];
-        }
-
 
         //Getters y setters
         public List<Curso> Cursos { get { return _listaCursos; } }

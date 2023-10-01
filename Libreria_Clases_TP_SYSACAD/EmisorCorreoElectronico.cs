@@ -42,7 +42,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 mensaje.Subject = "SYSACAD - Credenciales de Inicio de Sesion";
                 mensaje.Body = "Hola " + estudianteReceptor.Nombre + ", a continuacion sus credenciales de inicio: \n" +
                     $"Correo: {estudianteReceptor.Correo} \n" +
-                    $"Contraseña: {estudianteReceptor.ContraseñaProvisional}";
+                    $"Contraseña: {estudianteReceptor.Contrasenia}";
 
                 // Envía el correo
                 clienteSmtp.Send(mensaje);

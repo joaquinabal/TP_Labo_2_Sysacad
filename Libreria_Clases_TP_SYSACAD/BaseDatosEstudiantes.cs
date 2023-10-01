@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace Libreria_Clases_TP_SYSACAD
 
         //Al instanciarse un estudiante se llama a este metodo para ingresarlo a la BD
 
-        public BaseDatosEstudiantes(string path)
+        public BaseDatosEstudiantes()
         {
-            this.listaEstudiante = SerializadorJson.CargarAlumnosDesdeArchivoJson(path);
+            this.listaEstudiante = ArchivosJson.CargarAlumnosDesdeArchivoJson();
         }
 
         public void IngresarUsuarioBD(Estudiante nuevoEstudiante)
@@ -27,6 +28,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
             //Agrego el estudiante a la lista
             listaEstudiante.Add(nuevoEstudiante);
+            ArchivosJson.GuardarArchivoJSON(listaEstudiante);
         }
 
         //Agrego el curso a la lista de cursos en los cuales se encuentra inscripto el estudiante
@@ -39,19 +41,22 @@ namespace Libreria_Clases_TP_SYSACAD
                     estudiante.CursosInscriptos.Add(curso);
                 }
             }
+            ArchivosJson.GuardarArchivoJSON(listaEstudiante);
         }
 
         public bool BuscarUsuarioCredencialesBD(string correo, string contraseña)
         {
+
             bool resultadoBusqueda = false;
 
             foreach (Estudiante estudiante in listaEstudiante)
             {
-                if (estudiante.Correo == correo && estudiante.ContraseñaProvisional == contraseña)
+                if (estudiante.Correo == correo && estudiante.Contrasenia == contraseña)
                 {
                     resultadoBusqueda = true;
                 }
             }
+
             return resultadoBusqueda;
         }
 

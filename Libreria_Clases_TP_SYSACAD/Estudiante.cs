@@ -14,21 +14,21 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _direccion;
         private string _numeroTelefono;
         private string _correo;
-        private string _contraseñaProvisional;
+        private string _contrasenia;
         private Guid _identificadorUnico;
         private bool _debeCambiarContraseña;
         private List<Curso> _cursosInscriptos;
         private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
 
         public Estudiante(string nombre, string legajo, string direccion, string telefono,
-            string correo, string contraseñaProv, bool debeCambiarContraseña)
+            string correo, string contrasenia, bool debeCambiarContraseña)
         {
             _nombre = nombre;
             _legajo = legajo;
             _direccion = direccion;
             _numeroTelefono = telefono;
             _correo = correo;
-            _contraseñaProvisional = contraseñaProv;
+            _contrasenia = contrasenia;
             _debeCambiarContraseña = debeCambiarContraseña;
             _cursosInscriptos = new List<Curso>();
             AñadirConceptosDePagoIniciales();
@@ -80,7 +80,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public string NumeroTelefono { get { return _numeroTelefono; } }
 
-        public string ContraseñaProvisional { get { return _contraseñaProvisional; } }
+        public string Contrasenia { get { return _contrasenia; } }
 
         public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
 
