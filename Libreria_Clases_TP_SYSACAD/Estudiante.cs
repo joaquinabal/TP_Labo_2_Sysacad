@@ -31,13 +31,13 @@ namespace Libreria_Clases_TP_SYSACAD
             _contrasenia = contrasenia;
             _debeCambiarContraseña = debeCambiarContraseña;
             _cursosInscriptos = new List<Curso>();
-            AñadirConceptosDePagoIniciales();
         }
 
         //Este metodo se llama desde el forms, tras validar el estudiante, para ingresarlo a la BD.
         public void RegistrarEstudiante(Estudiante nuevoEstudiante)
         {
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
+            AñadirConceptosDePagoIniciales();
         }
 
         public void AñadirConceptosDePagoIniciales()

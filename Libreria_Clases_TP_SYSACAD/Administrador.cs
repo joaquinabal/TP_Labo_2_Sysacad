@@ -3,17 +3,17 @@
     public class Administrador
     {
         private string _correo;
-        private string _contraseña;
+        private string _contrasenia;
 
         //El administrador cuenta con correo y contraseña para Registrarse/Logearse
-        public Administrador(string correo, string contraseña)
+        public Administrador(string correo, string contrasenia)
         {
             _correo = correo;
-            _contraseña = contraseña;
+            _contrasenia = contrasenia;
         }
 
         //Getters
         public string Correo { get { return _correo;} }
-        public string Contraseña { get { return _contraseña;} }
+        public string Contrasenia { get { return _contrasenia;} }
     }
 }

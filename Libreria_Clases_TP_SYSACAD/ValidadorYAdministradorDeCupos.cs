@@ -22,7 +22,7 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             string mensajeADevolver;
 
-            if (cursosSeleccionados != null)
+            if (cursosSeleccionados.Count > 0)
             {
                 //Buscamos si hay cupos disponibles en aquellos cursos seleccionados
                 //En caso de que no tenga cupo, se agrega a la lista de "cursos sin cupo"

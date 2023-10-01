@@ -37,6 +37,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 List<Estudiante> primerEstudiante = new List<Estudiante>();
 
                 Estudiante estudiantePorDefecto = new Estudiante("pepe", "11", "asda", "51984", "aa", "11", false);
+                estudiantePorDefecto.AñadirConceptosDePagoIniciales();
                 primerEstudiante.Add(estudiantePorDefecto);
 
                 GuardarArchivoJSON(primerEstudiante);
@@ -46,22 +47,9 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 stringEstudiantes = LeerArchivoJson(fullPath);
 
-                Debug.WriteLine($"Todo el JSON que lee \n {stringEstudiantes}");
-
                 if (!string.IsNullOrEmpty(stringEstudiantes))
                 {
                     listaEstudiantes = JsonConvert.DeserializeObject<List<Estudiante>>(stringEstudiantes);
-                }
-
-                foreach (Estudiante est in listaEstudiantes)
-                {
-                    if (string.IsNullOrEmpty(est.Contrasenia))
-                    {
-                        Debug.WriteLine("Contraseña esta vacia");
-                    }
-                    Debug.WriteLine($"Correo del primer estudiante: {est.Correo}");
-                    Debug.WriteLine($"Pass del primer estudiante: {est.Contrasenia}");
-                    Debug.WriteLine($"Legajo del primer estudiante: {est.Legajo}");
                 }
             }
 

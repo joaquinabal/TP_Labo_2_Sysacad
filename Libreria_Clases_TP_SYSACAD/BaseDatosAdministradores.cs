@@ -39,13 +39,13 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         //Busqueda de credenciales del usuario en la base de datos (SOBRECARGA)
-        public bool BuscarUsuarioBD(string correo, string contraseña)
+        public bool BuscarUsuarioBD(string correo, string contrasenia)
         {
             bool resultadoBusqueda = false;
 
             foreach (Administrador administrador in listaAdministradores)
             {
-                if (administrador.Correo == correo && administrador.Contraseña == contraseña)
+                if (administrador.Correo == correo && administrador.Contrasenia == contrasenia)
                 {
                     resultadoBusqueda = true;
                 }
