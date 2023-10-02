@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ValidadorIngresoDatos
+    public class ValidadorInputsRegistros
     {
         public static string ValidarDatosEstudiante(List<string> listaDeCamposIngresados)
         {
@@ -24,10 +24,16 @@ namespace Libreria_Clases_TP_SYSACAD
                     listaErrores.AppendLine("Nombre");
                 }
 
-                // Validar el DNI
+                // Validar el Legajo
                 if (!Regex.IsMatch(listaDeCamposIngresados[1], @"^\d{8}$"))
                 {
-                    listaErrores.AppendLine("DNI");
+                    listaErrores.AppendLine("Legajo");
+                }
+
+                //Validar Direccion
+                if (!Regex.IsMatch(listaDeCamposIngresados[2], @"^[a-zA-Z0-9\s]+$"))
+                {
+                    listaErrores.AppendLine("Dirección");
                 }
 
                 // Validar telefono
@@ -41,6 +47,8 @@ namespace Libreria_Clases_TP_SYSACAD
                 {
                     listaErrores.AppendLine("Correo");
                 }
+
+                //Verificar errores y devolverlos como mensajes
                 if (listaErrores.Length > 1)
                 {
                     listaErrores.AppendLine("Revisar!!!");
@@ -61,6 +69,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
 
         }
+
         public static string ValidarDatosCurso(List<string> listaDeCamposIngresados)
         {
             StringBuilder listaErrores = new();
@@ -82,17 +91,25 @@ namespace Libreria_Clases_TP_SYSACAD
                     listaErrores.AppendLine("Codigo");
                 }
 
+                // Validar el numero de aula
+                if (!Regex.IsMatch(listaDeCamposIngresados[2], @"^\d{3}$"))
+                {
+                    listaErrores.AppendLine("Número de Aula");
+                }
+
                 // Validar Descripcion
-                if (!Regex.IsMatch(listaDeCamposIngresados[2], @"^[a-zA-Z0-9ñÑ°\s.,-]+$"))
+                if (!Regex.IsMatch(listaDeCamposIngresados[3], @"^[a-zA-Z0-9ñÑ°\s.,-]+$"))
                 {
                     listaErrores.AppendLine("Descripcion");
                 }
 
                 // Validar Cupo maximo 
-                if (!Regex.IsMatch(listaDeCamposIngresados[3], @"^[0-9]+$"))
+                if (!Regex.IsMatch(listaDeCamposIngresados[4], @"^[0-9]+$"))
                 {
                     listaErrores.AppendLine("Cupo maximo");
                 }
+
+                //Verificar errores y devolverlos como mensajes
                 if (listaErrores.Length > 1)
                 {
                     listaErrores.AppendLine("Revisar!!!");
