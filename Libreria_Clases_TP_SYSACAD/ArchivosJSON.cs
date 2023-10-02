@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
                 List<Estudiante> primerEstudiante = new List<Estudiante>();
 
-                Estudiante estudiantePorDefecto = new Estudiante("pepe", "11", "asda", "51984", "aa", "11", false);
+                Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", false);
                 estudiantePorDefecto.AñadirConceptosDePagoIniciales();
                 primerEstudiante.Add(estudiantePorDefecto);
 
@@ -114,7 +114,13 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 CrearArchivo(fullPath, fileAdmins);
 
-                GuardarArchivoJSON(new List<Administrador>());
+                List<Administrador> primerAdmin = new List<Administrador>();
+
+                Administrador adminPorDefecto = new Administrador("johntravolta@hotmail.com", "666666");
+                primerAdmin.Add(adminPorDefecto);
+
+                GuardarArchivoJSON(primerAdmin);
+                listaAdmins.Add(adminPorDefecto);
             }
             else
             {
