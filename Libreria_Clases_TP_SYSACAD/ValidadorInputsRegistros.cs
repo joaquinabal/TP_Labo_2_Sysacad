@@ -130,5 +130,40 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
 
         }
+
+        public static string ValidarNuevoAdmin(List<string> listaDeCamposIngresados)
+        {
+            StringBuilder listaErrores = new();
+
+            string mensajeADevolver = "";
+
+            if (Validador.ValidarCampos(listaDeCamposIngresados))
+            {
+                // Validar correo 
+                if (!Regex.IsMatch(listaDeCamposIngresados[4], @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                {
+                    listaErrores.AppendLine("Correo");
+                }
+
+                //Verificar errores y devolverlos como mensajes
+                if (listaErrores.Length > 1)
+                {
+                    listaErrores.AppendLine("Revisar!!!");
+                    mensajeADevolver = listaErrores.ToString();
+                }
+                else
+                {
+                    listaErrores.Clear();
+                    mensajeADevolver = listaErrores.Append("ALTA EXITOSA").ToString();
+                }
+            }
+            else
+            {
+                listaErrores.Clear();
+                mensajeADevolver = listaErrores.Append("CAMPOS VACIOS").ToString(); ;
+            }
+
+            return mensajeADevolver;
+        }
     }
 }
