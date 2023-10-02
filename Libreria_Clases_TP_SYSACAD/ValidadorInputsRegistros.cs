@@ -9,7 +9,7 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class ValidadorInputsRegistros
     {
-        public static string ValidarDatosEstudiante(List<string> listaDeCamposIngresados)
+        public string ValidarDatosEstudiante(List<string> listaDeCamposIngresados)
         {
             StringBuilder listaErrores = new();
 
@@ -60,7 +60,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
-        public static string ValidarDatosCurso(List<string> listaDeCamposIngresados)
+        public string ValidarDatosCurso(List<string> listaDeCamposIngresados)
         {
             StringBuilder listaErrores = new();
 
@@ -111,7 +111,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
-        public static string ValidarNuevoAdmin(List<string> listaDeCamposIngresados)
+        public string ValidarNuevoAdmin(List<string> listaDeCamposIngresados)
         {
             StringBuilder listaErrores = new();
 
