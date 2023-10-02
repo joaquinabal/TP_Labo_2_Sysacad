@@ -47,6 +47,12 @@ namespace Libreria_Clases_TP_SYSACAD
                     listaErrores.AppendLine("Correo");
                 }
 
+                // Validar contrasenia
+                if (!Regex.IsMatch(listaDeCamposIngresados[5], @"^[a-zA-Z0-9]{6,}$"))
+                {
+                    listaErrores.AppendLine("Contrasenia");
+                }
+
                 //Verificar errores y devolverlos como mensajes
                 if (listaErrores.Length > 1)
                 {
@@ -137,9 +143,15 @@ namespace Libreria_Clases_TP_SYSACAD
             if (ValidarCampos(listaDeCamposIngresados))
             {
                 // Validar correo 
-                if (!Regex.IsMatch(listaDeCamposIngresados[4], @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                if (!Regex.IsMatch(listaDeCamposIngresados[0], @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
                 {
                     listaErrores.AppendLine("Correo");
+                }
+
+                // Validar contrasenia
+                if (!Regex.IsMatch(listaDeCamposIngresados[1], @"^[a-zA-Z0-9]{6,}$"))
+                {
+                    listaErrores.AppendLine("Contrasenia");
                 }
 
                 //Verificar errores y devolverlos como mensajes
