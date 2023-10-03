@@ -43,7 +43,21 @@ namespace Libreria_Clases_TP_SYSACAD
             // Verifica si algún valor en la columna de índice 2 es mayor que el valor en la columna de índice 1
             bool hayValorExcesivo = false;
 
-            foreach (double montoAbonar in _listaMontos)
+            for (int i = 0; i < _listaMontos.Count; i++)
+            {
+                for (int j = 0; j < _listaMontosOriginales.Count; j++)
+                {
+                    if( i == j && _listaMontos[i] > _listaMontosOriginales[j])
+                    {
+                        hayValorExcesivo = true;
+                        break;
+                    }
+                }
+            }
+
+
+
+            /*foreach (double montoAbonar in _listaMontos)
             {
                 foreach (double montoOriginal in _listaMontosOriginales)
                 {
@@ -53,7 +67,7 @@ namespace Libreria_Clases_TP_SYSACAD
                         break;
                     }
                 }
-            }
+            }*/
 
             return hayValorExcesivo;
         }
