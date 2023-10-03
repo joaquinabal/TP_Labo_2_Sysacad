@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
+    enum ModoCurso { Agregar, EditarDup}
+
     public class Curso
     {
         //Atributos que debe contener todo curso

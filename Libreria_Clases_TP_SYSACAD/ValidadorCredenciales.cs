@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
+    public enum Log { Admin, Estudiante, Curso} 
+
     public class ValidadorCredenciales : Validador
     {
+        
         //Esta clase valida si las credenciales de inicio de sesion son correctas y si los campos se llenaron.
         //Presenta dos modos "ADMIN" y "ESTUDIANTE", ya que dependiendo del modo deberá hacer la busqueda
         //en la base de datos correspondiente.
         //Devuelve el resultado de la validacion en forma de mensaje
 
-        public string ValidarCredenciales(string correo, string contraseña, string modo)
+        public string ValidarCredenciales(string correo, string contraseña, Log modo)
         {
             string mensajeADevolver = string.Empty;
 
@@ -26,13 +29,13 @@ namespace Libreria_Clases_TP_SYSACAD
 
             //Validamos en base al modo
             bool resultadoBusquedaUsuario = false;
-            if (modo == "ADMIN")
+            if (modo == Log.Admin)
             {
-                resultadoBusquedaUsuario = ValidarUsuarioEnBD(correo, contraseña, "ADMIN");
+                resultadoBusquedaUsuario = ValidarUsuarioEnBD(correo, contraseña, Log.Admin);
             }
             else
             {
-                resultadoBusquedaUsuario = ValidarUsuarioEnBD(correo, contraseña, "ESTUDIANTE");
+                resultadoBusquedaUsuario = ValidarUsuarioEnBD(correo, contraseña, Log.Estudiante);
             }
 
             //Devolvemos el mensaje de acuerdo a los resultados de las validaciones
@@ -52,15 +55,15 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
-        public static bool ValidarUsuarioEnBD(string correo, string contraseña, string modo)
+        public static bool ValidarUsuarioEnBD(string correo, string contraseña, Log modo)
         {
             bool resultadoBusquedaUsuario = false;
             
-            if (modo == "ADMIN")
+            if (modo == Log.Admin)
             {
                 resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo, contraseña);
             }
-            else if (modo == "ESTUDIANTE")
+            else if (modo == Log.Estudiante)
             {
                 resultadoBusquedaUsuario = Sistema.BaseDatosEstudiantes.BuscarUsuarioCredencialesBD(correo, contraseña);
             }

@@ -13,10 +13,10 @@ namespace Libreria_Clases_TP_SYSACAD
         //en la base de datos correspondiente.
         //Devuelve el resultado de la validacion en forma de mensaje
 
-        public string ValidarDuplicados(string modo, string correo = null, 
+        public string ValidarDuplicados(Log modo, string correo = null, 
             string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
             string cupo = null, string legajo = null, string direccion = null, 
-            string telefono = null, string modoCurso = null, string turno = null, string dia = null, string aula = null)
+            string telefono = null, ModoCurso modoCurso = null, string turno = null, string dia = null, string aula = null)
         {
             string mensajeADevolver = string.Empty;
 
@@ -25,14 +25,14 @@ namespace Libreria_Clases_TP_SYSACAD
             bool resultadoBusquedaUsuario = false;
 
             //Valido campos y duplicidad segun modo
-            if (modo == "ADMIN")
+            if (modo == Log.Admin)
             {
                 listaCamposAValidar.Add(correo);
                 listaCamposAValidar.Add(contraseña);
 
-                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: "ADMIN", correo: correo);
+                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Admin, correo: correo);
             }
-            else if (modo == "CURSO")
+            else if (modo == Log.Curso)
             {
                 listaCamposAValidar.Add(nombre);
                 listaCamposAValidar.Add(codigo);
@@ -42,12 +42,12 @@ namespace Libreria_Clases_TP_SYSACAD
                 listaCamposAValidar.Add(turno);
                 listaCamposAValidar.Add(dia);
 
-                if (modoCurso == "AGREGAR" || modoCurso == "EDITAR DUP")
+                if (modoCurso == ModoCurso.Agregar || modoCurso == ModoCurso.EditarDup)
                 {
-                    resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: "CURSO", codigo: codigo);
+                    resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo: codigo);
                 }
             }
-            else if (modo == "ESTUDIANTE")
+            else if (modo == Log.Estudiante)
             {
                 listaCamposAValidar.Add(nombre);
                 listaCamposAValidar.Add(legajo);
@@ -56,7 +56,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 listaCamposAValidar.Add(correo);
                 listaCamposAValidar.Add(contraseña);
 
-                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: "ESTUDIANTE", correo: correo, legajo: legajo);
+                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo: correo, legajo: legajo);
             }
 
             bool resultadoValidacionCampos = ValidarCampos(listaCamposAValidar);
@@ -78,19 +78,19 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
-        public static bool ComprobarExistenciaPrevia(string modo, string correo = null, string codigo = null, string legajo = null)
+        public static bool ComprobarExistenciaPrevia(Log modo, string correo = null, string codigo = null, string legajo = null)
         {
             bool resultadoBusquedaUsuario = false;
 
-            if (modo == "ADMIN")
+            if (modo == Log.Admin)
             {
                 resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo);
             }
-            else if (modo == "CURSO")
+            else if (modo == Log.Curso)
             {
                 resultadoBusquedaUsuario = Sistema.BaseDatosCursos.BuscarCursoBD(codigo);
             }
-            else if (modo == "ESTUDIANTE")
+            else if (modo == Log.Estudiante)
             {
                 resultadoBusquedaUsuario = Sistema.BaseDatosEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
             }
