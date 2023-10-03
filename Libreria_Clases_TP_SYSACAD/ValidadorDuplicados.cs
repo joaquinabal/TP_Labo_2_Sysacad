@@ -16,7 +16,7 @@ namespace Libreria_Clases_TP_SYSACAD
         public string ValidarDuplicados(Log modo, string correo = null, 
             string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
             string cupo = null, string legajo = null, string direccion = null, 
-            string telefono = null, ModoCurso modoCurso = null, string turno = null, string dia = null, string aula = null)
+            string telefono = null, ModoCurso modoCurso = ModoCurso.Agregar, string turno = null, string dia = null, string aula = null)
         {
             string mensajeADevolver = string.Empty;
 
