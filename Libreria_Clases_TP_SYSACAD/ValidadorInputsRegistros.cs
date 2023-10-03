@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ValidadorInputsRegistros
+    public class ValidadorInputsRegistros : Validador
     {
-        public static string ValidarDatosEstudiante(List<string> listaDeCamposIngresados)
+        public string ValidarDatosEstudiante(List<string> listaDeCamposIngresados)
         {
             StringBuilder listaErrores = new();
 
             string mensajeADevolver = "";
 
-            if (Validador.ValidarCampos(listaDeCamposIngresados))
+            if (ValidarCampos(listaDeCamposIngresados))
             {
-
                 // Validar el nombre 
                 if (!Regex.IsMatch(listaDeCamposIngresados[0], @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
                 {
@@ -48,6 +47,12 @@ namespace Libreria_Clases_TP_SYSACAD
                     listaErrores.AppendLine("Correo");
                 }
 
+                // Validar contrasenia
+                if (!Regex.IsMatch(listaDeCamposIngresados[5], @"^[a-zA-Z0-9]{6,}$"))
+                {
+                    listaErrores.AppendLine("Contrasenia");
+                }
+
                 //Verificar errores y devolverlos como mensajes
                 if (listaErrores.Length > 1)
                 {
@@ -57,28 +62,27 @@ namespace Libreria_Clases_TP_SYSACAD
                 else
                 {
                     listaErrores.Clear();
-                    mensajeADevolver = listaErrores.Append("ALTA EXITOSA").ToString();
+                    mensajeADevolver = listaErrores.Append("OK").ToString();
                 }
             }
             else
             {
                 listaErrores.Clear();
-                mensajeADevolver = listaErrores.Append("CAMPOS VACIOS").ToString(); ;
+                mensajeADevolver = listaErrores.Append("CAMPOS VACIOS").ToString();
             }
 
             return mensajeADevolver;
 
         }
 
-        public static string ValidarDatosCurso(List<string> listaDeCamposIngresados)
+        public string ValidarDatosCurso(List<string> listaDeCamposIngresados)
         {
             StringBuilder listaErrores = new();
 
             string mensajeADevolver = "";
 
-            if (Validador.ValidarCampos(listaDeCamposIngresados))
+            if (ValidarCampos(listaDeCamposIngresados))
             {
-
                 // Validar el nombre de la MATERIA 
                 if (!Regex.IsMatch(listaDeCamposIngresados[0], @"^[a-zA-Z0-9\s]+$"))
                 {
@@ -118,17 +122,84 @@ namespace Libreria_Clases_TP_SYSACAD
                 else
                 {
                     listaErrores.Clear();
-                    mensajeADevolver = listaErrores.Append("ALTA EXITOSA").ToString();
+                    mensajeADevolver = listaErrores.Append("OK").ToString();
                 }
             }
             else
             {
                 listaErrores.Clear();
-                mensajeADevolver = listaErrores.Append("CAMPOS VACIOS").ToString(); ;
+                mensajeADevolver = listaErrores.Append("CAMPOS VACIOS").ToString();
             }
 
             return mensajeADevolver;
+        }
 
+        public string ValidarNuevoAdmin(List<string> listaDeCamposIngresados)
+        {
+            StringBuilder listaErrores = new();
+
+            string mensajeADevolver = "";
+
+            if (ValidarCampos(listaDeCamposIngresados))
+            {
+                // Validar correo 
+                if (!Regex.IsMatch(listaDeCamposIngresados[0], @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                {
+                    listaErrores.AppendLine("Correo");
+                }
+
+                // Validar contrasenia
+                if (!Regex.IsMatch(listaDeCamposIngresados[1], @"^[a-zA-Z0-9]{6,}$"))
+                {
+                    listaErrores.AppendLine("Contrasenia");
+                }
+
+                //Verificar errores y devolverlos como mensajes
+                if (listaErrores.Length > 1)
+                {
+                    listaErrores.AppendLine("Revisar!!!");
+                    mensajeADevolver = listaErrores.ToString();
+                }
+                else
+                {
+                    listaErrores.Clear();
+                    mensajeADevolver = listaErrores.Append("OK").ToString();
+                }
+            }
+            else
+            {
+                listaErrores.Clear();
+                mensajeADevolver = listaErrores.Append("CAMPOS VACIOS").ToString();
+            }
+
+            return mensajeADevolver;
+        }
+
+        public string ValidarNuevaContrasenia(string nuevaContrasenia)
+        {
+            List<string> camposAValidar = new List<string>();
+            camposAValidar.Add(nuevaContrasenia);
+
+            string mensajeADevolver = "";
+            
+            if (ValidarCampos(camposAValidar))
+            {
+                // Validar contrasenia
+                if (!Regex.IsMatch(camposAValidar[0], @"^[a-zA-Z0-9]{6,}$"))
+                {
+                    mensajeADevolver = "ERROR INPUT";
+                }
+                else
+                {
+                    mensajeADevolver = "OK";
+                }
+            }
+            else
+            {
+                mensajeADevolver = "CAMPO VACIO";
+            }
+
+            return mensajeADevolver;
         }
     }
 }

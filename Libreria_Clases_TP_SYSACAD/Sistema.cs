@@ -15,42 +15,14 @@ namespace Libreria_Clases_TP_SYSACAD
         private static BaseDatosEstudiantes _baseDatosEstudiantes;
         private static BaseDatosCursos _baseDatosCursos;
         private static Estudiante _estudianteLogueado;
-        private static Administrador _administradorLogueado;
 
         private static string _codigoDeAccesoAdmins = "ts5bf4";
 
         public static void InicializarSistema()
         {
-            //string response = "Se cargaron todos los archivos con éxito";
-
             _baseDatosAdministradores = new BaseDatosAdministradores();
             _baseDatosEstudiantes = new BaseDatosEstudiantes();
             _baseDatosCursos = new BaseDatosCursos();
-
-            //List<string> mensajesError = new List<string>();
-
-            //if (_baseDatosAdministradores.Administradores.Count <= 0)
-            //{
-            //    mensajesError.Add("La base de datos de administradores se encuentra vacía.");
-            //}
-
-            //if (_baseDatosEstudiantes.Estudiantes.Count <= 0)
-            //{
-            //    mensajesError.Add("La base de datos de estudiantes se encuentra vacía.");
-            //}
-
-            //if (_baseDatosCursos.Cursos.Count <= 0)
-            //{
-            //    mensajesError.Add("La base de datos de cursos se encuentra vacía.");
-            //}
-
-            //if (mensajesError.Count > 0)
-            //{
-            //    // Concatenar los mensajes de error
-            //    response = string.Join(Environment.NewLine, mensajesError);
-            //}
-
-            //return response;
         }
 
         public static void IngresarEstudianteComoUsuarioActivo(string correo)
@@ -72,8 +44,6 @@ namespace Libreria_Clases_TP_SYSACAD
         public static BaseDatosCursos BaseDatosCursos { get {  return _baseDatosCursos; } }
 
         public static Estudiante EstudianteLogueado { get { return _estudianteLogueado; } set { _estudianteLogueado = value; } }
-
-        public static Administrador AdministradorLogueado { get { return _administradorLogueado; } set { _administradorLogueado = value; } }
 
         public static string CodigoAccesoAdmins { get { return _codigoDeAccesoAdmins; } }
     }

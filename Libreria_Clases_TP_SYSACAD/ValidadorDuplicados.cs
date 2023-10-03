@@ -59,16 +59,10 @@ namespace Libreria_Clases_TP_SYSACAD
                 resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo: correo, legajo: legajo);
             }
 
-            bool resultadoValidacionCampos = ValidarCampos(listaCamposAValidar);
-
             //Devolvemos el mensaje de acuerdo a los resultados de las validaciones
-            if (resultadoValidacionCampos && !resultadoBusquedaUsuario)
+            if (!resultadoBusquedaUsuario)
             {
                 mensajeADevolver = "OK";
-            }
-            else if (!resultadoValidacionCampos)
-            {
-                mensajeADevolver = "CAMPOS VACIOS";
             }
             else if (resultadoBusquedaUsuario)
             {

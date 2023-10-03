@@ -16,12 +16,12 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _correo;
         private string _contrasenia;
         private Guid _identificadorUnico;
-        private bool _debeCambiarContraseña;
+        private bool _debeCambiarContrasenia;
         private List<Curso> _cursosInscriptos;
         private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
 
         public Estudiante(string nombre, string legajo, string direccion, string telefono,
-            string correo, string contrasenia, bool debeCambiarContraseña)
+            string correo, string contrasenia, bool debeCambiarContrasenia)
         {
             _nombre = nombre;
             _legajo = legajo;
@@ -29,7 +29,7 @@ namespace Libreria_Clases_TP_SYSACAD
             _numeroTelefono = telefono;
             _correo = correo;
             _contrasenia = contrasenia;
-            _debeCambiarContraseña = debeCambiarContraseña;
+            _debeCambiarContrasenia = debeCambiarContrasenia;
             _cursosInscriptos = new List<Curso>();
         }
 
@@ -80,9 +80,11 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public string NumeroTelefono { get { return _numeroTelefono; } }
 
-        public string Contrasenia { get { return _contrasenia; } }
+        public string Contrasenia { get { return _contrasenia; } set { _contrasenia = value; } }
 
         public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
+
+        public bool DebeCambiarContrasenia { get { return _debeCambiarContrasenia; } set { _debeCambiarContrasenia = value; } }
 
         public List<ConceptoDePago> ConceptosDePago { get { return _conceptosAPagar; } }
     }
