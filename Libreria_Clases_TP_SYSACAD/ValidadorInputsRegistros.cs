@@ -174,5 +174,32 @@ namespace Libreria_Clases_TP_SYSACAD
 
             return mensajeADevolver;
         }
+
+        public string ValidarNuevaContrasenia(string nuevaContrasenia)
+        {
+            List<string> camposAValidar = new List<string>();
+            camposAValidar.Add(nuevaContrasenia);
+
+            string mensajeADevolver = "";
+            
+            if (ValidarCampos(camposAValidar))
+            {
+                // Validar contrasenia
+                if (!Regex.IsMatch(camposAValidar[0], @"^[a-zA-Z0-9]{6,}$"))
+                {
+                    mensajeADevolver = "ERROR INPUT";
+                }
+                else
+                {
+                    mensajeADevolver = "OK";
+                }
+            }
+            else
+            {
+                mensajeADevolver = "CAMPO VACIO";
+            }
+
+            return mensajeADevolver;
+        }
     }
 }

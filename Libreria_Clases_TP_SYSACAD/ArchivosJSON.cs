@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
                 List<Estudiante> primerEstudiante = new List<Estudiante>();
 
-                Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", false);
+                Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", true);
                 estudiantePorDefecto.AñadirConceptosDePagoIniciales();
                 primerEstudiante.Add(estudiantePorDefecto);
 

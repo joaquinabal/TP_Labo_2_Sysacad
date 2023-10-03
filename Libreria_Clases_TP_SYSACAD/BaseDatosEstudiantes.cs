@@ -74,6 +74,34 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusqueda;
         }
 
+        public bool BuscarSiUsuarioDebeCambiarContrasenia (string correo)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Estudiante estudiante in listaEstudiante)
+            {
+                if (estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+            return resultadoBusqueda;
+        }
+
+        public void CambiarContraseñaAEstudiante (string correo, string nuevaContrasenia)
+        {
+            foreach (Estudiante estudiante in listaEstudiante)
+            {
+                if (estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true)
+                {
+                    estudiante.Contrasenia = nuevaContrasenia;
+                    estudiante.DebeCambiarContrasenia = false;
+                }
+            }
+
+            ArchivosJson.GuardarArchivoJSON(listaEstudiante);
+        }
+
         //Getters y setters
         public List<Estudiante> Estudiantes { get { return listaEstudiante; } }
     }
