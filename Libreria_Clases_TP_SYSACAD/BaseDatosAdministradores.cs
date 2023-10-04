@@ -36,5 +36,19 @@ namespace Libreria_Clases_TP_SYSACAD
             }
             return resultadoBusqueda;
         }
+
+        public bool BuscarUsuarioBD(string correo)
+        {
+            bool resultadoBusqueda = false;
+
+            foreach (Administrador administrador in listaAdministradores)
+            {
+                if (administrador.Correo == correo)
+                {
+                    resultadoBusqueda = true;
+                }
+            }
+            return resultadoBusqueda;
+        }
     }
 }

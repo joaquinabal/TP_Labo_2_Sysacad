@@ -13,36 +13,85 @@ namespace Libreria_Clases_TP_SYSACAD
         //en la base de datos correspondiente.
         //Devuelve el resultado de la validacion en forma de mensaje
 
-        public string ValidarDuplicados(Log modo, string correo = null, 
-            string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
-            string cupo = null, string legajo = null, string direccion = null, 
-            string telefono = null, ModoCurso modoCurso = ModoCurso.Agregar, string turno = null, string dia = null, string aula = null)
-        {
-            string mensajeADevolver = string.Empty;
+        /* public string ValidarDuplicados(Log modo, string correo = null, 
+             string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
+             string cupo = null, string legajo = null, string direccion = null, 
+             string telefono = null, ModoCurso modoCurso = ModoCurso.Agregar, string turno = null, string dia = null, string aula = null)
+         {
+             string mensajeADevolver = string.Empty;
 
-            List<string> listaCamposAValidar = new List<string>();
+             List<string> listaCamposAValidar = new List<string>();
+
+             bool resultadoBusquedaUsuario = false;
+
+             //Valido campos y duplicidad segun modo
+             if (modo == Log.Curso)
+             {
+                 if (modoCurso == ModoCurso.Agregar || modoCurso == ModoCurso.EditarDup)
+                 {
+                     resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo: codigo);
+                 }
+             }
+             else if (modo == Log.Estudiante)
+             {
+                 resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo: correo, legajo: legajo);
+             }
+
+             //Devolvemos el mensaje de acuerdo a los resultados de las validaciones
+             if (!resultadoBusquedaUsuario)
+             {
+                 mensajeADevolver = "OK";
+             }
+             else if (resultadoBusquedaUsuario)
+             {
+                 mensajeADevolver = "DUPLICADO";
+             }
+
+             return mensajeADevolver;
+         }*/
+
+        // Para validar duplicados en modo Admin
+        public bool ValidarDuplicados(Log modo, string correo)
+        {
+            bool resultadoBusquedaUsuario = false;
+            if (modo == Log.Admin)
+            {
+                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Admin, correo);
+            }
+            return resultadoBusquedaUsuario;
+        }
+        //Valida duplicados en modo curso tanto para editar como para agregar
+        public bool ValidarDuplicados(Log modo, ModoCurso modoCurso, string codigo)
+        {
 
             bool resultadoBusquedaUsuario = false;
-
-            //Valido campos y duplicidad segun modo
             if (modo == Log.Curso)
             {
                 if (modoCurso == ModoCurso.Agregar || modoCurso == ModoCurso.EditarDup)
                 {
-                    resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo: codigo);
+                    resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo);
                 }
             }
-            else if (modo == Log.Estudiante)
-            {
-                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo: correo, legajo: legajo);
-            }
+            return resultadoBusquedaUsuario;
+        }
+        // Valida duplicados en modo estudiante
+        public bool ValidarDuplicados(Log modo, string legajo, string correo)
+        {
+            bool resultadoBusquedaUsuario = false;
 
-            //Devolvemos el mensaje de acuerdo a los resultados de las validaciones
-            if (!resultadoBusquedaUsuario)
+            if (modo == Log.Estudiante)
             {
-                mensajeADevolver = "OK";
+                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo, legajo);
             }
-            else if (resultadoBusquedaUsuario)
+            return resultadoBusquedaUsuario;
+        }
+
+        // Muestra un mensaje segun el resultado
+        public string MostrarMensajeSegunResultado(bool resultado)
+        {
+            string mensajeADevolver = "OK";
+
+            if (resultado)
             {
                 mensajeADevolver = "DUPLICADO";
             }
@@ -50,11 +99,14 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
-        public static bool ComprobarExistenciaPrevia(Log modo, string correo = null, string codigo = null, string legajo = null)
+        public static bool ComprobarExistenciaPrevia(Log modo, string correo = null,string codigo = null, string legajo = null)
         {
             bool resultadoBusquedaUsuario = false;
-
-            if (modo == Log.Curso)
+            if (modo == Log.Admin)
+            {
+                resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo);
+            }
+            else if (modo == Log.Curso)
             {
                 resultadoBusquedaUsuario = Sistema.BaseDatosCursos.BuscarCursoBD(codigo);
             }
