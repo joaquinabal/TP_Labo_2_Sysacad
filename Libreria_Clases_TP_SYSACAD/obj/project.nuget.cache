@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "wVSuOHyDutXJlo2FSeLEi7ZcLT4udDwl1nZ7g9oo7MkjOwPnR+c6NmM5QKwzwHsWZr9wQ6dVqHQdCL7yIxne2g==",
+  "dgSpecHash": "ZTqJyTM88EAmG4SH/S+KBK97bqswaitM4MJqSwcUhtsnNYVoMD/Q0G3c6SX6mip9KRHyZ2iiwF9Q7BeAgE0vkw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\54113\\Desktop\\TP_Labo_2_Sysacad_backup\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
+  "projectFilePath": "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\54113\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512"
+    "C:\\Users\\x\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\x\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512"
   ],
   "logs": []
 }

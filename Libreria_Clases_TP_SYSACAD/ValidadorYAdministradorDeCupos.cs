@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ValidadorYAdministradorDeCupos : Validador
+    public class ValidadorYAdministradorDeCupos
     {
         private List<string> _cursosSinCupo = new List<string>();
 

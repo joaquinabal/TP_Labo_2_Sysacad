@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public enum Log { Admin, Estudiante, Curso} 
-
-    public class ValidadorCredenciales : Validador
+    public class ValidadorCredenciales
     {
         
         //Esta clase valida si las credenciales de inicio de sesion son correctas y si los campos se llenaron.
@@ -20,12 +18,6 @@ namespace Libreria_Clases_TP_SYSACAD
         public string ValidarCredenciales(string correo, string contraseña, Log modo)
         {
             string mensajeADevolver = string.Empty;
-
-            List<string> listaCamposAValidar = new List<string>();
-            listaCamposAValidar.Add(correo);
-            listaCamposAValidar.Add(contraseña);
-
-            bool resultadoValidacionCampos = ValidarCampos(listaCamposAValidar);
 
             //Validamos en base al modo
             bool resultadoBusquedaUsuario = false;
@@ -39,17 +31,20 @@ namespace Libreria_Clases_TP_SYSACAD
             }
 
             //Devolvemos el mensaje de acuerdo a los resultados de las validaciones
-            if (resultadoValidacionCampos && resultadoBusquedaUsuario)
-            {
-                mensajeADevolver = "OK";
-            }
-            else if (!resultadoValidacionCampos)
+            if(string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(contraseña))
             {
                 mensajeADevolver = "CAMPOS VACIOS";
             }
-            else if (!resultadoBusquedaUsuario)
+            else
             {
-                mensajeADevolver = "NO ENCONTRADO";
+                if (resultadoBusquedaUsuario)
+                {
+                    mensajeADevolver = "OK";
+                }
+                else
+                {
+                    mensajeADevolver = "NO ENCONTRADO";
+                }
             }
 
             return mensajeADevolver;

@@ -26,6 +26,9 @@ namespace Libreria_Clases_TP_SYSACAD
             //Se le asigna el resultado en su atributo "identificador unico"
             nuevoEstudiante.IdentificadorUnico = nuevoGuid;
 
+            //Se hashea su contraseña
+            nuevoEstudiante.Contrasenia = Hash.GetHash(nuevoEstudiante.Contrasenia);
+
             //Agrego el estudiante a la lista
             listaEstudiante.Add(nuevoEstudiante);
             ArchivosJson.GuardarArchivoJSON(listaEstudiante);
@@ -46,12 +49,17 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public bool BuscarUsuarioCredencialesBD(string correo, string contraseña)
         {
-
             bool resultadoBusqueda = false;
+
+            //Hasheo la contrasenia que ingresa en el LogIn
+            string contraseniaHasheada = Hash.GetHash(contraseña);
 
             foreach (Estudiante estudiante in listaEstudiante)
             {
-                if (estudiante.Correo == correo && estudiante.Contrasenia == contraseña)
+                //Comparo la contrasenia ingresada en el LogIn con la existente en la BD
+                bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, estudiante.Contrasenia);
+                
+                if (estudiante.Correo == correo && comparacionContrasenias)
                 {
                     resultadoBusqueda = true;
                 }
@@ -90,11 +98,14 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public void CambiarContraseñaAEstudiante (string correo, string nuevaContrasenia)
         {
+            //Hasheo la contrasenia que ingresa en el LogIn
+            string nuevaContraseniaHasheada = Hash.GetHash(nuevaContrasenia);
+
             foreach (Estudiante estudiante in listaEstudiante)
             {
                 if (estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true)
                 {
-                    estudiante.Contrasenia = nuevaContrasenia;
+                    estudiante.Contrasenia = nuevaContraseniaHasheada;
                     estudiante.DebeCambiarContrasenia = false;
                 }
             }

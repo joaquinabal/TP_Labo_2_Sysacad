@@ -14,6 +14,6 @@
 
         //Getters
         public string Correo { get { return _correo;} }
-        public string Contrasenia { get { return _contrasenia;} }
+        public string Contrasenia { get { return _contrasenia;} set { _contrasenia = value; } }
     }
 }
