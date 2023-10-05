@@ -14,7 +14,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public BaseDatosCursos() 
         {
-            this._listaCursos = ArchivosJson.CargarCursosDesdeArchivoJson();
+            this._listaCursos = ArchivosJsonCursos.CargarCursosDesdeArchivoJson();
         }
 
         //Busqueda de curso existente en la base de datos
@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD
         public void IngresarCursoBD(Curso nuevoCurso)
         {
             _listaCursos.Add(nuevoCurso);
-            ArchivosJson.GuardarArchivoJSON(_listaCursos);
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
         public void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupo, string turno, string dia, string aula)
@@ -54,7 +54,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     curso.Aula = aula;
                 }
             }
-            ArchivosJson.GuardarArchivoJSON(_listaCursos);
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
         public void EliminarCursoBD(string codigoABuscar)
@@ -74,7 +74,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 _listaCursos.Remove(curso);
             }
 
-            ArchivosJson.GuardarArchivoJSON(_listaCursos);
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
         //Restar 1 al cupo disponible de un determinado curso
@@ -88,7 +88,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 }
             }
 
-            ArchivosJson.GuardarArchivoJSON(_listaCursos);
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
         //Metodo para devolver cursos dependiendo de si tienen cupo disponible o no

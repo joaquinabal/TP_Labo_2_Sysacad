@@ -14,7 +14,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public BaseDatosAdministradores()
         {
-            listaAdministradores = ArchivosJson.CargarAdminsDesdeArchivoJson();
+            listaAdministradores = ArchivosJsonAdmins.CargarAdminsDesdeArchivoJson();
         }
 
         //Busqueda de credenciales del usuario en la base de datos (SOBRECARGA)

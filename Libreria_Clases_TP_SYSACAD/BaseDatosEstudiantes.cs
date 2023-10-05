@@ -16,7 +16,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public BaseDatosEstudiantes()
         {
-            this.listaEstudiante = ArchivosJson.CargarAlumnosDesdeArchivoJson();
+            this.listaEstudiante = ArchivosJsonEstudiantes.CargarAlumnosDesdeArchivoJson();
         }
 
         public void IngresarUsuarioBD(Estudiante nuevoEstudiante)
@@ -31,7 +31,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
             //Agrego el estudiante a la lista
             listaEstudiante.Add(nuevoEstudiante);
-            ArchivosJson.GuardarArchivoJSON(listaEstudiante);
+            ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         }
 
         //Agrego el curso a la lista de cursos en los cuales se encuentra inscripto el estudiante
@@ -44,7 +44,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     estudiante.CursosInscriptos.Add(curso);
                 }
             }
-            ArchivosJson.GuardarArchivoJSON(listaEstudiante);
+            ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         }
 
         public bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
@@ -105,7 +105,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 }
             }
 
-            ArchivosJson.GuardarArchivoJSON(listaEstudiante);
+            ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         }
 
         //Getters y setters
