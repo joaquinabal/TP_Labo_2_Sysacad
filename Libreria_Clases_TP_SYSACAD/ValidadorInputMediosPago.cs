@@ -11,7 +11,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
     public class ValidadorInputMediosPago : ValidadorInputs
     {
-        public RespuestaValidacionInput ValidarDatosMedioDePago(Dictionary<string, string> diccionarioConCampos, ModoPago modo)
+        public RespuestaValidacionInput ValidarDatosMedioDePago (Dictionary<string, string> diccionarioConCampos, ModoPago modo)
         {
             //Recibo el diccionario y meto sus valores a una lista
             List<string> listaCamposIngresados = ObtenerListaDeCamposDesdeDiccionario(diccionarioConCampos);

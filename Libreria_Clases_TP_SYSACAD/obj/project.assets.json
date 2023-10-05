@@ -100,19 +100,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Emy\\.nuget\\packages\\": {}
+    "C:\\Users\\54113\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Emy\\Downloads\\Nueva carpeta\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
+      "projectUniqueName": "C:\\Users\\54113\\Desktop\\TP_Labo_2_Sysacad_backup\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
       "projectName": "Libreria_Clases_TP_SYSACAD",
-      "projectPath": "C:\\Users\\Emy\\Downloads\\Nueva carpeta\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
-      "packagesPath": "C:\\Users\\Emy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Emy\\Downloads\\Nueva carpeta\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\obj\\",
+      "projectPath": "C:\\Users\\54113\\Desktop\\TP_Labo_2_Sysacad_backup\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
+      "packagesPath": "C:\\Users\\54113\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\54113\\Desktop\\TP_Labo_2_Sysacad_backup\\Libreria_Clases_TP_SYSACAD\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Emy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\54113\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -163,7 +163,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

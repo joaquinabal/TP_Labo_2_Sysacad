@@ -38,7 +38,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 List<Estudiante> primerEstudiante = new List<Estudiante>();
                 Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", true);
                 estudiantePorDefecto.AñadirConceptosDePagoIniciales();
-                estudiantePorDefecto.Contrasenia = Hash.GetHash(estudiantePorDefecto.Contrasenia);
+                //estudiantePorDefecto.Contrasenia = Hash.GetHash(estudiantePorDefecto.Contrasenia);
                 primerEstudiante.Add(estudiantePorDefecto);
                 GuardarArchivoJSON(primerEstudiante);
                 listaEstudiantes.Add(estudiantePorDefecto);
@@ -99,7 +99,8 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             List<Administrador> listaAdmins = new List<Administrador>();
 
-            string stringAdmins, fullPath;
+            string stringAdmins = "";
+            string fullPath = "";
 
             string pathName = CombinePath(GetPath(), directoryName);
 
@@ -108,19 +109,25 @@ namespace Libreria_Clases_TP_SYSACAD
                 CrearDirectorio(pathName);
             }
 
-            fullPath = CombinePath(pathName, fileAdmins);
+           //fullPath = pathName + "\\" + fileAdmins;
+                fullPath = CombinePath(pathName, fileAdmins);
 
-            if (!ValidarSiExisteArchivo(fullPath))
+            bool validacionExisteArchivo = false;
+            validacionExisteArchivo = ValidarSiExisteArchivo(fullPath);
+            
+           
+            if (!validacionExisteArchivo)
             {
                 CrearArchivo(fullPath, fileAdmins);
 
                 //Creo estudiante por defecto para agilizar debug y testing
                 List<Administrador> primerAdmin = new List<Administrador>();
                 Administrador adminPorDefecto = new Administrador("johntravolta@hotmail.com", "666666");
-                adminPorDefecto.Contrasenia = Hash.GetHash(adminPorDefecto.Contrasenia);
+                //adminPorDefecto.Contrasenia = Hash.GetHash(adminPorDefecto.Contrasenia);
                 primerAdmin.Add(adminPorDefecto);
-                GuardarArchivoJSON(primerAdmin);
                 listaAdmins.Add(adminPorDefecto);
+                GuardarArchivoJSON(primerAdmin);
+                
             }
             else
             {
@@ -206,7 +213,7 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 stringCursos = reader.ReadToEnd();
             }
-
+            Debug.WriteLine(stringCursos);  
             return stringCursos;
         }
 
@@ -222,12 +229,14 @@ namespace Libreria_Clases_TP_SYSACAD
 
         private static bool ValidarSiExisteArchivo(string pathFile)
         {
-            if (!File.Exists(pathFile))
+            bool respuestaValidacion = false;
+            bool valPathFile = File.Exists(pathFile); //ACA ESTA EL ERROR LPM
+            if (valPathFile)
             {
-                return false;
+                return respuestaValidacion = true;
             }
-
-            return true;
+            
+            return respuestaValidacion;
         }
 
         private static void CrearArchivo(string pathArchivo, string fileName)

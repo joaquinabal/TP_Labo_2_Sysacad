@@ -22,14 +22,14 @@ namespace Libreria_Clases_TP_SYSACAD
             bool resultadoBusqueda = false;
 
             //Hasheo la contrasenia que ingresa en el LogIn
-            string contraseniaHasheada = Hash.GetHash(contrasenia);
+            //string contraseniaHasheada = Hash.GetHash(contrasenia);
 
             foreach (Administrador administrador in listaAdministradores)
             {
                 //Comparo la contrasenia ingresada en el LogIn con la existente en la BD
-                bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, administrador.Contrasenia);
+                //bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, administrador.Contrasenia);
 
-                if (administrador.Correo == correo && comparacionContrasenias)
+                if (administrador.Correo == correo && administrador.Contrasenia == contrasenia /*comparacionContrasenias*/)
                 {
                     resultadoBusqueda = true;
                 }

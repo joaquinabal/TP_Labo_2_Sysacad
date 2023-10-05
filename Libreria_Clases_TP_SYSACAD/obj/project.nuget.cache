@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "KhF3hs1qCUxwZalvhENmVKGR/UUTOgwHzRJwHFD9ihVinmVOEeKbFkCycgsmvYq1pU67wEAYb4pgNeYWP+LA7g==",
+  "dgSpecHash": "84Gj5MAfKSpAQfIn4e1z3AjoHMVtpZtUh6c40Yup79/lfTGzM7Qyg9cZvYBpZfMqiBMd1mRS1u0RCLDB6PLbjQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Emy\\Downloads\\Nueva carpeta\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
+  "projectFilePath": "C:\\Users\\54113\\Desktop\\TP_Labo_2_Sysacad_backup\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Emy\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
-    "C:\\Users\\Emy\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512"
+    "C:\\Users\\54113\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\54113\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512"
   ],
   "logs": []
 }

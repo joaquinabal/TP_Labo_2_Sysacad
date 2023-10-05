@@ -27,7 +27,7 @@ namespace Libreria_Clases_TP_SYSACAD
             nuevoEstudiante.IdentificadorUnico = nuevoGuid;
 
             //Se hashea su contraseña
-            nuevoEstudiante.Contrasenia = Hash.GetHash(nuevoEstudiante.Contrasenia);
+            //nuevoEstudiante.Contrasenia = Hash.GetHash(nuevoEstudiante.Contrasenia);
 
             //Agrego el estudiante a la lista
             listaEstudiante.Add(nuevoEstudiante);
@@ -47,19 +47,19 @@ namespace Libreria_Clases_TP_SYSACAD
             ArchivosJson.GuardarArchivoJSON(listaEstudiante);
         }
 
-        public bool BuscarUsuarioCredencialesBD(string correo, string contraseña)
+        public bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
         {
             bool resultadoBusqueda = false;
 
             //Hasheo la contrasenia que ingresa en el LogIn
-            string contraseniaHasheada = Hash.GetHash(contraseña);
+            //string contraseniaHasheada = Hash.GetHash(contraseña);
 
             foreach (Estudiante estudiante in listaEstudiante)
             {
                 //Comparo la contrasenia ingresada en el LogIn con la existente en la BD
-                bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, estudiante.Contrasenia);
+               // bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, estudiante.Contrasenia);
                 
-                if (estudiante.Correo == correo && comparacionContrasenias)
+                if (estudiante.Correo == correo && estudiante.Contrasenia == contrasenia /*comparacionContrasenias*/)
                 {
                     resultadoBusqueda = true;
                 }
