@@ -19,7 +19,7 @@ namespace Libreria_Clases_TP_SYSACAD
             _existenciaErrores = existenciaErrores;
             _listaErrores = listaErrores;
 
-            if (_existenciaErrores = true)
+            if (_existenciaErrores == true)
             {
                 GenerarMensajeDeErrores();
             }

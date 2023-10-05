@@ -27,10 +27,7 @@ namespace Libreria_Clases_TP_SYSACAD
             nuevoEstudiante.IdentificadorUnico = nuevoGuid;
 
             //Se hashea su contraseña
-            //nuevoEstudiante.Contrasenia = Hash.GetHash(nuevoEstudiante.Contrasenia);
-            //nuevoEstudiante.Contrasenia = Hash.HashearPassword(nuevoEstudiante.Contrasenia);
-
-
+            nuevoEstudiante.Contrasenia = Hash.HashPassword(nuevoEstudiante.Contrasenia);
 
             //Agrego el estudiante a la lista
             listaEstudiante.Add(nuevoEstudiante);
@@ -54,21 +51,14 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             bool resultadoBusqueda = false;
 
-            //Hasheo la contrasenia que ingresa en el LogIn
-            //string contraseniaHasheada = Hash.GetHash(contraseña);
-            //string contraseniaHasheada = Hash.HashearPassword(contrasenia);
-
             foreach (Estudiante estudiante in listaEstudiante)
             {
-                //Comparo la contrasenia ingresada en el LogIn con la existente en la BD
-                // bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, estudiante.Contrasenia);
-                //bool comparacionContrasenias = Hash.VerificarHasheo(contraseniaHasheada, estudiante.Contrasenia);
+                bool comparacionContrasenias = Hash.VerifyPassword(contrasenia, estudiante.Contrasenia);
 
-                if (estudiante.Correo == correo && estudiante.Contrasenia == contrasenia /*comparacionContrasenias*/)
+                if (estudiante.Correo == correo && comparacionContrasenias)
                 {
                     resultadoBusqueda = true;
                 }
-
             }
 
             return resultadoBusqueda;
@@ -104,15 +94,13 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public void CambiarContraseñaAEstudiante (string correo, string nuevaContrasenia)
         {
-            //Hasheo la contrasenia que ingresa en el LogIn
-            //string nuevaContraseniaHasheada = Hash.HashearPassword(nuevaContrasenia);
+            string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);
 
             foreach (Estudiante estudiante in listaEstudiante)
             {
                 if (estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true)
                 {
-                    //estudiante.Contrasenia = nuevaContraseniaHasheada;
-                    estudiante.Contrasenia = nuevaContrasenia;
+                    estudiante.Contrasenia = nuevaContraseniaHasheada;
                     estudiante.DebeCambiarContrasenia = false;
                 }
             }

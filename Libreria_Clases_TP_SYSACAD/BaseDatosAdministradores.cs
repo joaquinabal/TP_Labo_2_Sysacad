@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,28 +20,18 @@ namespace Libreria_Clases_TP_SYSACAD
         //Busqueda de credenciales del usuario en la base de datos (SOBRECARGA)
         public bool BuscarUsuarioBD(string correo, string contrasenia)
         {
-            bool resultadoBusqueda = false;
+            Debug.WriteLine($"Contrasenia recibida: {contrasenia}");
 
-            //Hasheo la contrasenia que ingresa en el LogIn
-            //string contraseniaHasheada = Hash.GetHash(contrasenia);
-            //string contraseniaHasheada = Hash.HashearPassword(correo);
+            bool resultadoBusqueda = false;
 
             foreach (Administrador administrador in listaAdministradores)
             {
-                //Comparo la contrasenia ingresada en el LogIn con la existente en la BD
-                //bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, administrador.Contrasenia);
+                bool comparacionContrasenias = Hash.VerifyPassword(contrasenia ,administrador.Contrasenia);
 
-                //bool comparacionContrasenias = Hash.VerificarHasheo(contraseniaHasheada, administrador.Contrasenia);
-
-                if (administrador.Correo == correo && administrador.Contrasenia == contrasenia /*comparacionContrasenias*/)
+                if (administrador.Correo == correo && comparacionContrasenias)
                 {
                     resultadoBusqueda = true;
                 }
-
-                //if (administrador.Correo == correo && comparacionContrasenias)
-                //{
-                //    resultadoBusqueda = true;
-                //}
 
             }
             return resultadoBusqueda;

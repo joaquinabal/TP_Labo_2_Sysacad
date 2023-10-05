@@ -40,6 +40,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 estudiantePorDefecto.AñadirConceptosDePagoIniciales();
                 //estudiantePorDefecto.Contrasenia = Hash.GetHash(estudiantePorDefecto.Contrasenia);
                 //estudiantePorDefecto.Contrasenia = Hash.HashearPassword(estudiantePorDefecto.Contrasenia);
+                estudiantePorDefecto.Contrasenia = Hash.HashPassword(estudiantePorDefecto.Contrasenia);
 
                 primerEstudiante.Add(estudiantePorDefecto);
                 GuardarArchivoJSON(primerEstudiante);
@@ -127,6 +128,9 @@ namespace Libreria_Clases_TP_SYSACAD
                 Administrador adminPorDefecto = new Administrador("johntravolta@hotmail.com", "666666");
                 //adminPorDefecto.Contrasenia = Hash.GetHash(adminPorDefecto.Contrasenia);
                 //adminPorDefecto.Contrasenia = Hash.HashearPassword(adminPorDefecto.Contrasenia);
+                adminPorDefecto.Contrasenia = Hash.HashPassword(adminPorDefecto.Contrasenia);
+
+                Debug.WriteLine($"Contrasenia Hasheada por defecto: {adminPorDefecto.Contrasenia}");
 
                 primerAdmin.Add(adminPorDefecto);
                 listaAdmins.Add(adminPorDefecto);
