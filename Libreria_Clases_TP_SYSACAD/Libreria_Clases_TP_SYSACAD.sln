@@ -5,9 +5,7 @@ VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libreria_Clases_TP_SYSACAD", "Libreria_Clases_TP_SYSACAD.csproj", "{5CF10777-D5D0-4442-9D59-8C951BC97F90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms_TP_SYSACAD", "..\Forms_TP_SYSACAD\Forms_TP_SYSACAD.csproj", "{CF893B61-E678-4950-871A-744032A06E98}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms_TP_Labo_2_Sysacad", "..\Forms_TP_Labo_2_Sysacad\Forms_TP_Labo_2_Sysacad.csproj", "{B20F261B-6B22-43F2-A0C0-78AFBFEF45D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms_TP_SYSACAD", "..\Forms_TP_SYSACAD\Forms_TP_SYSACAD.csproj", "{CF893B61-E678-4950-871A-744032A06E98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{CF893B61-E678-4950-871A-744032A06E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF893B61-E678-4950-871A-744032A06E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF893B61-E678-4950-871A-744032A06E98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B20F261B-6B22-43F2-A0C0-78AFBFEF45D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B20F261B-6B22-43F2-A0C0-78AFBFEF45D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B20F261B-6B22-43F2-A0C0-78AFBFEF45D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B20F261B-6B22-43F2-A0C0-78AFBFEF45D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

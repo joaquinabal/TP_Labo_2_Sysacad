@@ -13,7 +13,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public BaseDatosAdministradores()
         {
-            this.listaAdministradores = ArchivosJson.CargarAdminsDesdeArchivoJson();
+            listaAdministradores = ArchivosJson.CargarAdminsDesdeArchivoJson();
         }
 
         //Busqueda de credenciales del usuario en la base de datos (SOBRECARGA)
@@ -23,16 +23,25 @@ namespace Libreria_Clases_TP_SYSACAD
 
             //Hasheo la contrasenia que ingresa en el LogIn
             //string contraseniaHasheada = Hash.GetHash(contrasenia);
+            //string contraseniaHasheada = Hash.HashearPassword(correo);
 
             foreach (Administrador administrador in listaAdministradores)
             {
                 //Comparo la contrasenia ingresada en el LogIn con la existente en la BD
                 //bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, administrador.Contrasenia);
 
+                //bool comparacionContrasenias = Hash.VerificarHasheo(contraseniaHasheada, administrador.Contrasenia);
+
                 if (administrador.Correo == correo && administrador.Contrasenia == contrasenia /*comparacionContrasenias*/)
                 {
                     resultadoBusqueda = true;
                 }
+
+                //if (administrador.Correo == correo && comparacionContrasenias)
+                //{
+                //    resultadoBusqueda = true;
+                //}
+
             }
             return resultadoBusqueda;
         }

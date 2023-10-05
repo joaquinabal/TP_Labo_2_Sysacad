@@ -39,6 +39,8 @@ namespace Libreria_Clases_TP_SYSACAD
                 Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", true);
                 estudiantePorDefecto.AñadirConceptosDePagoIniciales();
                 //estudiantePorDefecto.Contrasenia = Hash.GetHash(estudiantePorDefecto.Contrasenia);
+                //estudiantePorDefecto.Contrasenia = Hash.HashearPassword(estudiantePorDefecto.Contrasenia);
+
                 primerEstudiante.Add(estudiantePorDefecto);
                 GuardarArchivoJSON(primerEstudiante);
                 listaEstudiantes.Add(estudiantePorDefecto);
@@ -124,6 +126,8 @@ namespace Libreria_Clases_TP_SYSACAD
                 List<Administrador> primerAdmin = new List<Administrador>();
                 Administrador adminPorDefecto = new Administrador("johntravolta@hotmail.com", "666666");
                 //adminPorDefecto.Contrasenia = Hash.GetHash(adminPorDefecto.Contrasenia);
+                //adminPorDefecto.Contrasenia = Hash.HashearPassword(adminPorDefecto.Contrasenia);
+
                 primerAdmin.Add(adminPorDefecto);
                 listaAdmins.Add(adminPorDefecto);
                 GuardarArchivoJSON(primerAdmin);

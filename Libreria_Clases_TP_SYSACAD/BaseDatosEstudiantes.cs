@@ -28,6 +28,9 @@ namespace Libreria_Clases_TP_SYSACAD
 
             //Se hashea su contraseña
             //nuevoEstudiante.Contrasenia = Hash.GetHash(nuevoEstudiante.Contrasenia);
+            //nuevoEstudiante.Contrasenia = Hash.HashearPassword(nuevoEstudiante.Contrasenia);
+
+
 
             //Agrego el estudiante a la lista
             listaEstudiante.Add(nuevoEstudiante);
@@ -53,16 +56,19 @@ namespace Libreria_Clases_TP_SYSACAD
 
             //Hasheo la contrasenia que ingresa en el LogIn
             //string contraseniaHasheada = Hash.GetHash(contraseña);
+            //string contraseniaHasheada = Hash.HashearPassword(contrasenia);
 
             foreach (Estudiante estudiante in listaEstudiante)
             {
                 //Comparo la contrasenia ingresada en el LogIn con la existente en la BD
-               // bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, estudiante.Contrasenia);
-                
+                // bool comparacionContrasenias = Hash.CompararHash(contraseniaHasheada, estudiante.Contrasenia);
+                //bool comparacionContrasenias = Hash.VerificarHasheo(contraseniaHasheada, estudiante.Contrasenia);
+
                 if (estudiante.Correo == correo && estudiante.Contrasenia == contrasenia /*comparacionContrasenias*/)
                 {
                     resultadoBusqueda = true;
                 }
+
             }
 
             return resultadoBusqueda;
@@ -99,13 +105,14 @@ namespace Libreria_Clases_TP_SYSACAD
         public void CambiarContraseñaAEstudiante (string correo, string nuevaContrasenia)
         {
             //Hasheo la contrasenia que ingresa en el LogIn
-            string nuevaContraseniaHasheada = Hash.GetHash(nuevaContrasenia);
+            //string nuevaContraseniaHasheada = Hash.HashearPassword(nuevaContrasenia);
 
             foreach (Estudiante estudiante in listaEstudiante)
             {
                 if (estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true)
                 {
-                    estudiante.Contrasenia = nuevaContraseniaHasheada;
+                    //estudiante.Contrasenia = nuevaContraseniaHasheada;
+                    estudiante.Contrasenia = nuevaContrasenia;
                     estudiante.DebeCambiarContrasenia = false;
                 }
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ValidadorDuplicados
+    public static class ValidadorDuplicados
     {
         //Esta clase valida si habrian registros duplicados al agregar algo nuevo en la BD y si los campos se llenaron.
         //Presenta tres modos "ADMIN", "CURSO" y "ESTUDIANTE", ya que dependiendo del modo deberá hacer la busqueda
@@ -51,62 +51,73 @@ namespace Libreria_Clases_TP_SYSACAD
          }*/
 
         // Para validar duplicados en modo Admin
-        public bool ValidarDuplicados(Log modo, string correo)
+        //public static bool ValidarDuplicadosA(Log modo, string correo)
+        //{
+        //    bool resultadoBusquedaUsuario = false;
+        //    if (modo == Log.Admin)
+        //    {
+        //        resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Admin, correo);
+        //    }
+        //    return resultadoBusquedaUsuario;
+        //}
+        ////Valida duplicados en modo curso tanto para editar como para agregar
+        //public static bool ValidarDuplicados(Log modo, ModoCurso modoCurso, string codigo)
+        //{
+
+        //    bool resultadoBusquedaUsuario = false;
+        //    if (modo == Log.Curso)
+        //    {
+        //        if (modoCurso == ModoCurso.Agregar || modoCurso == ModoCurso.EditarDup)
+        //        {
+        //            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo);
+        //        }
+        //    }
+        //    return resultadoBusquedaUsuario;
+        //}
+
+        //Validar duplicados de curso
+        public static bool ValidarDuplicados(string codigo)
         {
             bool resultadoBusquedaUsuario = false;
-            if (modo == Log.Admin)
-            {
-                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Admin, correo);
-            }
+
+            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo);
+
             return resultadoBusquedaUsuario;
         }
-        //Valida duplicados en modo curso tanto para editar como para agregar
-        public bool ValidarDuplicados(Log modo, ModoCurso modoCurso, string codigo)
-        {
 
-            bool resultadoBusquedaUsuario = false;
-            if (modo == Log.Curso)
-            {
-                if (modoCurso == ModoCurso.Agregar || modoCurso == ModoCurso.EditarDup)
-                {
-                    resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo);
-                }
-            }
-            return resultadoBusquedaUsuario;
-        }
-        // Valida duplicados en modo estudiante
-        public bool ValidarDuplicados(Log modo, string legajo, string correo)
+
+        // Valida duplicados de estudiante
+        public static bool ValidarDuplicados(string legajo, string correo)
         {
             bool resultadoBusquedaUsuario = false;
 
-            if (modo == Log.Estudiante)
-            {
-                resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo, legajo);
-            }
+            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo, legajo);
+
             return resultadoBusquedaUsuario;
         }
 
         // Muestra un mensaje segun el resultado
-        public string MostrarMensajeSegunResultado(bool resultado)
-        {
-            string mensajeADevolver = "OK";
+        //public static string MostrarMensajeSegunResultado(bool resultado)
+        //{
+        //    string mensajeADevolver = "OK";
 
-            if (resultado)
-            {
-                mensajeADevolver = "DUPLICADO";
-            }
+        //    if (resultado)
+        //    {
+        //        mensajeADevolver = "DUPLICADO";
+        //    }
 
-            return mensajeADevolver;
-        }
+        //    return mensajeADevolver;
+        //}
 
         public static bool ComprobarExistenciaPrevia(Log modo, string correo = null,string codigo = null, string legajo = null)
         {
             bool resultadoBusquedaUsuario = false;
-            if (modo == Log.Admin)
-            {
-                resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo);
-            }
-            else if (modo == Log.Curso)
+            //if (modo == Log.Admin)
+            //{
+            //    resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo);
+            //}
+
+            if (modo == Log.Curso)
             {
                 resultadoBusquedaUsuario = Sistema.BaseDatosCursos.BuscarCursoBD(codigo);
             }
