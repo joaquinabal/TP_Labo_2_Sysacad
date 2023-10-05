@@ -40,8 +40,9 @@ namespace Libreria_Clases_TP_SYSACAD
                 estudiantePorDefecto.Contrasenia = Hash.HashPassword(estudiantePorDefecto.Contrasenia);
 
                 primerEstudiante.Add(estudiantePorDefecto);
-                GuardarArchivoJSON(primerEstudiante);
                 listaEstudiantes.Add(estudiantePorDefecto);
+                GuardarArchivoJSON(primerEstudiante);
+                
             }
             else
             {

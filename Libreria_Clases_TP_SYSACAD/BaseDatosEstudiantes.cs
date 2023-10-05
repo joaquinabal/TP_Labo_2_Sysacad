@@ -29,6 +29,9 @@ namespace Libreria_Clases_TP_SYSACAD
             //Se hashea su contraseña
             nuevoEstudiante.Contrasenia = Hash.HashPassword(nuevoEstudiante.Contrasenia);
 
+            //Se agrega los conceptos de pago.
+            nuevoEstudiante.AñadirConceptosDePagoIniciales();
+
             //Agrego el estudiante a la lista
             listaEstudiante.Add(nuevoEstudiante);
             ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
