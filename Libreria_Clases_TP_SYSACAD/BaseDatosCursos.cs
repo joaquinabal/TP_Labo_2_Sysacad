@@ -35,8 +35,16 @@ namespace Libreria_Clases_TP_SYSACAD
         //CRUD DEL CURSO:
         public void IngresarCursoBD(Curso nuevoCurso)
         {
-            _listaCursos.Add(nuevoCurso);
-            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
+            try
+            {
+                _listaCursos.Add(nuevoCurso);
+                ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message, e.InnerException);
+            }
         }
 
         public void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupo, string turno, string dia, string aula)

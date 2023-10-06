@@ -20,34 +20,42 @@ namespace Libreria_Clases_TP_SYSACAD
 
             string pathName = CombinePath(GetPath(), directoryName);
 
-            if (!ValidarSiExisteDirectorio(pathName))
+            try
             {
-                CrearDirectorio(pathName);
-            }
-
-            fullPath = CombinePath(pathName, fileCursos);
-
-            if (!ValidarSiExisteArchivo(fullPath))
-            {
-                CrearArchivo(fullPath, fileCursos);
-
-                List<Curso> listaCursosDefecto = GenerarCursosPorDefecto();
-                GuardarArchivoJSON(listaCursosDefecto);
-
-                foreach (Curso curso in listaCursosDefecto)
+                if (!ValidarSiExisteDirectorio(pathName))
                 {
-                    listaCursos.Add(curso);
+                    CrearDirectorio(pathName);
+                }
+
+                fullPath = CombinePath(pathName, fileCursos);
+
+                if (!ValidarSiExisteArchivo(fullPath))
+                {
+                    CrearArchivo(fullPath, fileCursos);
+
+                    List<Curso> listaCursosDefecto = GenerarCursosPorDefecto();
+                    GuardarArchivoJSON(listaCursosDefecto);
+
+                    foreach (Curso curso in listaCursosDefecto)
+                    {
+                        listaCursos.Add(curso);
+                    }
+                }
+                else
+                {
+                    stringCursos = LeerArchivoJson(fullPath);
+                    if (!string.IsNullOrEmpty(stringCursos))
+                    {
+                        listaCursos = JsonConvert.DeserializeObject<List<Curso>>(stringCursos);
+                    }
                 }
             }
-            else
+            catch (Exception e)
             {
-                stringCursos = LeerArchivoJson(fullPath);
-                if (!string.IsNullOrEmpty(stringCursos))
-                {
-                    listaCursos = JsonConvert.DeserializeObject<List<Curso>>(stringCursos);
-                }
-            }
 
+                throw new Exception(e.Message, e.InnerException);
+            }
+           
             return listaCursos;
 
         }
@@ -55,12 +63,19 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public static void GuardarArchivoJSON(List<Curso> cursos)
         {
-            string pathName = CombinePath(GetPath(), directoryName);
+            try
+            {
+                string pathName = CombinePath(GetPath(), directoryName);
 
-            string fullPath = CombinePath(pathName, fileCursos);
+                string fullPath = CombinePath(pathName, fileCursos);
 
-            EscribirArchivoJSON(cursos, fullPath);
+                EscribirArchivoJSON(cursos, fullPath);
+            }
+            catch (Exception e)
+            {
 
+                throw new Exception(e.Message, e.InnerException);
+            }
         }
 
 
@@ -72,7 +87,6 @@ namespace Libreria_Clases_TP_SYSACAD
             {
                 writer.Write(jsonString);
             }
-
         }
 
         public static List<Curso> GenerarCursosPorDefecto()
@@ -124,9 +138,5 @@ namespace Libreria_Clases_TP_SYSACAD
             int indice = random.Next(0, dias.Length);
             return dias[indice];
         }
-
-
-
     }
-
 }

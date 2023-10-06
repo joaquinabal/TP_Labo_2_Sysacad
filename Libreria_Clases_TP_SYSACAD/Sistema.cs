@@ -20,9 +20,17 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public static void InicializarSistema()
         {
-            _baseDatosAdministradores = new BaseDatosAdministradores();
-            _baseDatosEstudiantes = new BaseDatosEstudiantes();
-            _baseDatosCursos = new BaseDatosCursos();
+            try
+            {
+                _baseDatosAdministradores = new BaseDatosAdministradores();
+                _baseDatosEstudiantes = new BaseDatosEstudiantes();
+                _baseDatosCursos = new BaseDatosCursos();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message, e.InnerException);
+            }
         }
 
         public static void IngresarEstudianteComoUsuarioActivo(string correo)
