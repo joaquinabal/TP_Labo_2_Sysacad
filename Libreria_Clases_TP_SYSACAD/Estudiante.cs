@@ -95,7 +95,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public string NumeroTelefono { get { return _numeroTelefono; } }
 
-        internal string Contrasenia { get { return _contrasenia; } set { _contrasenia = value; } }
+        public string Contrasenia { get { return _contrasenia; } set { _contrasenia = value; } }
 
         public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
 
