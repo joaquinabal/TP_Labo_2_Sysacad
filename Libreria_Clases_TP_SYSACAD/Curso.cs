@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public enum ModoCurso { Agregar, EditarDup}
-
     public class Curso
     {
         //Atributos que debe contener todo curso
@@ -20,7 +18,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _turno;
         private string _aula;
         private string _dia;
-        private List<Estudiante> _estudiantesInscriptos;
+        //private List<Estudiante> _estudiantesInscriptos;
 
         public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula, string dia)
         {
@@ -33,16 +31,22 @@ namespace Libreria_Clases_TP_SYSACAD
             _aula = aula;
             _dia = dia;
 
-            _estudiantesInscriptos = new List<Estudiante>();
+            //_estudiantesInscriptos = new List<Estudiante>();
         }
 
-        //En caso que el admin cree un nuevo curso, se lo agrega a la BD
+        /// <summary>
+        /// Registra un nuevo curso en la base de datos.
+        /// </summary>
+        /// <param name="nuevoCurso">El curso a ser registrado.</param>
         public void RegistrarCurso(Curso nuevoCurso)
         {
             Sistema.BaseDatosCursos.IngresarCursoBD(nuevoCurso);
         }
 
-        //Al querer inscribirse el alumno, se chequea si hay cupos disponibles
+        /// <summary>
+        /// Verifica si hay cupos disponibles en el curso.
+        /// </summary>
+        /// <returns>True si hay cupos disponibles, False si no.</returns>
         public bool ChequearCuposDisponibles()
         {
             if (CupoDisponible > 0)
@@ -55,64 +59,15 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-        public void AgregarEstudianteACurso(Estudiante estudiante, Curso curso)
-        {
-            curso.EstudiantesInscriptos.Add(estudiante);
-        }
-
-        //public string GenerarDiasAleatorios()
+        //public void AgregarEstudianteACurso(Estudiante estudiante, Curso curso)
         //{
-        //    string dia = "";
-        //    Random random = new Random();
-        //    int numeroRandom = random.Next(0, 4);
-        //    switch (numeroRandom)
-        //    {
-        //        case 0:
-        //            dia = "Lunes";
-        //            break;
-        //        case 1:
-        //            dia = "Martes";
-        //            break;
-        //        case 2:
-        //            dia = "Miercoles";
-        //            break;
-        //        case 3:
-        //            dia = "Jueves";
-        //            break;
-        //        case 4:
-        //            dia = "Viernes";
-        //            break;
-        //    }
-        //    return dia;
+        //    curso.EstudiantesInscriptos.Add(estudiante);
         //}
 
-        //public string GenerarTurnosAleatorios()
-        //{
-        //    string turno = "";
-        //    Random random = new Random();
-        //    int numeroRandom = random.Next(0, 2);
-        //    switch (numeroRandom)
-        //    {
-        //        case 0:
-        //            turno = "Turno Mañana";
-        //            break;
-        //        case 1:
-        //            turno = "Turno Tarde";
-        //            break;
-        //        case 2:
-        //            turno = "Turno Noche";
-        //            break;
-        //    }
-        //    return turno;
-        //}
-
-        //public int GenerarNumeroAulasAleatorio()
-        //{
-        //    Random random = new Random();
-        //    int numeroRandom = random.Next(100, 400);
-        //    return numeroRandom;
-        //}
-
+        /// <summary>
+        /// Devuelve el horario del curso en formato de texto.
+        /// </summary>
+        /// <returns>El horario del curso.</returns>
         public string DevolverHorario()
         {
             string horarioADevolver = "";
@@ -133,7 +88,12 @@ namespace Libreria_Clases_TP_SYSACAD
             return horarioADevolver;
         }
 
-        //Sobrecarga -
+        /// <summary>
+        /// Sobrecarga del operador '-' para reducir el cupo disponible del curso.
+        /// </summary>
+        /// <param name="curso">El curso al que se reduce el cupo.</param>
+        /// <param name="numero">La cantidad a restar al cupo disponible.</param>
+        /// <returns>El curso con el cupo actualizado.</returns>
         public static Curso operator - (Curso curso, int numero)
         {
             curso.CupoDisponible -= numero;
@@ -141,56 +101,22 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         //Setters y getters
-        public string Nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
+        public string Nombre { get { return _nombre; } set { _nombre = value; } }
 
-        public string Codigo
-        {
-            get { return _codigo; }
-            set { _codigo = value; }
-        }
+        public string Codigo { get { return _codigo; } set { _codigo = value; } }
 
-        public string Descripcion
-        {
-            get { return _descripcion; }
-            set { _descripcion = value;}
-        }
+        public string Descripcion { get { return _descripcion; } set { _descripcion = value;} }
 
-        public int CupoMaximo
-        {
-            get { return _cupoMaximo; }
-            set { _cupoMaximo = value;}
-        }
-        public int CupoDisponible
-        {
-            get { return _cupoDisponible; }
-            set { _cupoDisponible = value; }
-        }
+        public int CupoMaximo { get { return _cupoMaximo; } set { _cupoMaximo = value;} }
 
-        public string Turno
-        {
-            get { return _turno;  }
-            set { _turno = value; }
-        }
+        public int CupoDisponible { get { return _cupoDisponible; } set { _cupoDisponible = value; } }
 
-        public string Aula
-        {
-            get { return _aula; }
-            set { _aula = value; }
-        }
+        public string Turno { get { return _turno;  } set { _turno = value; } }
 
-        public string Dia
-        {
-            get { return _dia; }
-            set { _dia = value; }
-        }
+        public string Aula { get { return _aula; } set { _aula = value; } }
 
-        public List<Estudiante> EstudiantesInscriptos
-        {
-            get { return _estudiantesInscriptos; }
-        }
+        public string Dia { get { return _dia; } set { _dia = value; } }
+
+        //public List<Estudiante> EstudiantesInscriptos { get { return _estudiantesInscriptos; } }
     }
 }

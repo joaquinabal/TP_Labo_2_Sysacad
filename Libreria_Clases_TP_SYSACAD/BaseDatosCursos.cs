@@ -117,21 +117,36 @@ namespace Libreria_Clases_TP_SYSACAD
             ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
-        //Restar 1 al cupo disponible de un determinado curso
+        /// <summary>
+        /// Resta 1 al cupo disponible de un determinado curso.
+        /// </summary>
+        /// <param name="cursoARestarCupo">El curso al que se le restará un cupo.</param>
         public void RestarCupoDisponible(Curso cursoARestarCupo)
         {
-            foreach (Curso curso in _listaCursos)
+            //foreach (Curso curso in _listaCursos)
+            //{
+            //    if (curso.Codigo == cursoARestarCupo.Codigo)
+            //    {
+            //        curso -= 1;
+            //    }
+            //}
+
+            for (int i = 0; i < _listaCursos.Count; i++)
             {
-                if (curso.Codigo == cursoARestarCupo.Codigo)
+                if (_listaCursos[i].Codigo == cursoARestarCupo.Codigo)
                 {
-                    curso.CupoDisponible -= 1;
+                    // Restar 1 al CupoDisponible del objeto Curso
+                    _listaCursos[i] -= 1;
                 }
             }
 
             ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
-        //Metodo para devolver cursos dependiendo de si tienen cupo disponible o no
+        /// <summary>
+        /// Devuelve una lista de cursos disponibles (con cupo disponible).
+        /// </summary>
+        /// <returns>Una lista de cursos disponibles.</returns>
         public List<Curso> DevolverCursosDisponibles()
         {
             List<Curso> listaCursosDisponibles = new List<Curso>();

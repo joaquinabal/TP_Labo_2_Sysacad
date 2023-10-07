@@ -12,6 +12,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private double _montoInicial;
         private double _montoPendiente;
 
+        // Concepto de pago que el estudiante deberá abonar
         public ConceptoDePago(string nombre, double montoInicial, double montoPendiente)
         {
             _nombre = nombre;

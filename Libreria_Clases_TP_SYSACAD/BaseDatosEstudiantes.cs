@@ -12,13 +12,19 @@ namespace Libreria_Clases_TP_SYSACAD
         //Lista que contiene todos los estudiantes
         private List<Estudiante> listaEstudiante = new List<Estudiante>();
 
-        //Al instanciarse un estudiante se llama a este metodo para ingresarlo a la BD
-
+        /// <summary>
+        /// Constructor de la clase BaseDatosEstudiantes.
+        /// Inicializa la lista de estudiantes cargándola desde un archivo JSON.
+        /// </summary>
         public BaseDatosEstudiantes()
         {
             this.listaEstudiante = ArchivosJsonEstudiantes.CargarAlumnosDesdeArchivoJson();
         }
 
+        /// <summary>
+        /// Agrega un nuevo estudiante a la base de datos.
+        /// </summary>
+        /// <param name="nuevoEstudiante">El estudiante a ser agregado.</param>
         public void IngresarUsuarioBD(Estudiante nuevoEstudiante)
         {
             //Se genera un identificador unico para el estudiante
@@ -28,7 +34,6 @@ namespace Libreria_Clases_TP_SYSACAD
 
             //Se hashea su contraseña
             nuevoEstudiante.Contrasenia = Hash.HashPassword(nuevoEstudiante.Contrasenia);
-
             //Se agrega los conceptos de pago.
             nuevoEstudiante.AñadirConceptosDePagoIniciales();
 
@@ -37,7 +42,11 @@ namespace Libreria_Clases_TP_SYSACAD
             ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         }
 
-        //Agrego el curso a la lista de cursos en los cuales se encuentra inscripto el estudiante
+        /// <summary>
+        /// Agrega un curso a la lista de cursos en los cuales se encuentra inscrito un estudiante.
+        /// </summary>
+        /// <param name="estudianteQueSeInscribe">El estudiante al que se le agrega el curso.</param>
+        /// <param name="curso">El curso a ser agregado al estudiante.</param>
         public void AgregarCursoAEstudiante(Estudiante estudianteQueSeInscribe, Curso curso)
         {
             foreach (Estudiante estudiante in listaEstudiante)
@@ -50,6 +59,12 @@ namespace Libreria_Clases_TP_SYSACAD
             ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         }
 
+        /// <summary>
+        /// Busca un usuario en la base de datos por correo y contraseña.
+        /// </summary>
+        /// <param name="correo">El correo del usuario.</param>
+        /// <param name="contrasenia">La contraseña del usuario.</param>
+        /// <returns>True si se encuentra un usuario con las credenciales proporcionadas, False si no.</returns>
         public bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
         {
             bool resultadoBusqueda = false;
@@ -67,6 +82,12 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusqueda;
         }
 
+        /// <summary>
+        /// Busca un usuario en la base de datos por correo y legajo.
+        /// </summary>
+        /// <param name="correo">El correo del usuario.</param>
+        /// <param name="legajo">El legajo del usuario.</param>
+        /// <returns>True si se encuentra un usuario con las credenciales proporcionadas, False si no.</returns>
         public bool BuscarUsuarioExistenteBD(string correo, string legajo)
         {
             bool resultadoBusqueda = false;
@@ -78,9 +99,15 @@ namespace Libreria_Clases_TP_SYSACAD
                     resultadoBusqueda = true;
                 }
             }
+
             return resultadoBusqueda;
         }
 
+        /// <summary>
+        /// Busca si un usuario debe cambiar su contraseña.
+        /// </summary>
+        /// <param name="correo">El correo del usuario.</param>
+        /// <returns>True si el usuario debe cambiar su contraseña, False si no.</returns>
         public bool BuscarSiUsuarioDebeCambiarContrasenia (string correo)
         {
             bool resultadoBusqueda = false;
@@ -92,9 +119,15 @@ namespace Libreria_Clases_TP_SYSACAD
                     resultadoBusqueda = true;
                 }
             }
+
             return resultadoBusqueda;
         }
 
+        /// <summary>
+        /// Cambia la contraseña de un estudiante y marca que no debe cambiarla nuevamente.
+        /// </summary>
+        /// <param name="correo">El correo del estudiante.</param>
+        /// <param name="nuevaContrasenia">La nueva contraseña del estudiante.</param>
         public void CambiarContraseñaAEstudiante (string correo, string nuevaContrasenia)
         {
             string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);
