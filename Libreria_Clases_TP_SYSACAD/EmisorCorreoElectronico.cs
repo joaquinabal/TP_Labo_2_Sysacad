@@ -24,7 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 string servidorSmtp = "smtp-mail.outlook.com"; // Reemplaza con tu servidor SMTP
                 int puertoSmtp = 587; // Reemplaza con el puerto correcto de tu servidor SMTP
                 string usuarioSmtp = "tp_sysacad_661@outlook.com"; // Reemplaza con tu dirección de correo
-                string contraseñaSmtp = "asd58AA4"; // Reemplaza con tu contraseña de correo
+                string contraseñaSmtp = "tpsysacad123"; // Reemplaza con tu contraseña de correo
 
                 // Crea una instancia de la clase SmtpClient
                 SmtpClient clienteSmtp = new SmtpClient(servidorSmtp, puertoSmtp);
