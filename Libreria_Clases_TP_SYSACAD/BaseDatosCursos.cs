@@ -76,12 +76,15 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             foreach (Curso curso in _listaCursos)
             {
+                int cuposOcupados = curso.CupoMaximo - curso.CupoDisponible;
+
                 if (curso.Codigo == codigoABuscar)
                 {
                     curso.Nombre = nombre;
                     curso.Codigo = codigo;
                     curso.Descripcion = descripcion;
                     curso.CupoMaximo = cupo;
+                    curso.CupoDisponible = cupo - cuposOcupados;
                     curso.Turno = turno;
                     curso.Dia = dia;
                     curso.Aula = aula;
