@@ -10,10 +10,11 @@ namespace Libreria_Clases_TP_SYSACAD
 
     public abstract class ValidadorInputs
     {
-        //Esta clase unicamente valida una lista de campos (Campos que el usuario llena en los Forms)
-        //Devuelve true si estan todos llenos, y false si alguno lo está.
-        //Todos los otros validadores heredan de esta clase, ya que validarán campos.
-
+        /// <summary>
+        /// Valida si una lista de cadenas de texto contiene campos vacíos o nulos.
+        /// </summary>
+        /// <param name="campos">La lista de cadenas de texto a validar.</param>
+        /// <returns>True si no hay campos vacíos o nulos; de lo contrario, false.</returns>
         public static bool ValidarCampos(List<string> campos)
         {
             bool resultado = true;
@@ -29,6 +30,11 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultado;
         }
 
+        /// <summary>
+        /// Valida si una cadena de texto de contraseña está vacía o nula.
+        /// </summary>
+        /// <param name="contrasenia">La cadena de texto que representa la contraseña.</param>
+        /// <returns>True si la contraseña no está vacía ni nula; de lo contrario, false.</returns>
         public static bool ValidarCampos(string contrasenia)
         {
             bool resultado = true;
@@ -41,18 +47,25 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultado;
         }
 
+        //Metodo para aplicar polimorfismo 
         public virtual List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados)
         {
             List<string> errores = new List<string>();
             return errores;
         }
 
+        //Sobrecarga del metodo para aplicar polimorfismo 
         public virtual List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados, ModoPago modo)
         {
             List<string> errores = new List<string>();
             return errores;
         }
 
+        /// <summary>
+        /// Comprueba si una lista de errores contiene algún error.
+        /// </summary>
+        /// <param name="listaDeErrores">La lista de errores a comprobar.</param>
+        /// <returns>True si la lista contiene errores; de lo contrario, false.</returns>
         public static bool ComprobarExistenciaErrores(List<string> listaDeErrores)
         {
             bool resultadoErrores = false;
@@ -69,6 +82,11 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoErrores;
         }
 
+        /// <summary>
+        /// Obtiene una lista de campos a partir de un diccionario que contiene campos y valores.
+        /// </summary>
+        /// <param name="diccionarioConCampos">El diccionario que contiene campos y valores.</param>
+        /// <returns>Una lista de cadenas de texto que representan los campos.</returns>
         public static List<string> ObtenerListaDeCamposDesdeDiccionario(Dictionary<string, string> diccionarioConCampos)
         {
             List<string> listaCamposIngresados = new List<string>();

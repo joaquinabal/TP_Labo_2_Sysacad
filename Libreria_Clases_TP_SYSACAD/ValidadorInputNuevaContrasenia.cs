@@ -9,6 +9,17 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class ValidadorInputNuevaContrasenia : ValidadorInputs
     {
+
+        /// <summary>
+        /// Valida una nueva contraseña de acuerdo a ciertos criterios.
+        /// </summary>
+        /// <param name="contrasenia">La contraseña que se desea validar.</param>
+        /// <returns>
+        /// Un mensaje que indica el resultado de la validación:
+        /// - "CAMPOS VACIOS" si la contraseña está vacía o nula.
+        /// - "ERROR" si la contraseña no cumple con el formato requerido.
+        /// - "OK" si la contraseña cumple con el formato requerido.
+        /// </returns>
         public string ValidarNuevaContrasenia(string contrasenia)
         {
             string mensajeADevolver = string.Empty;
@@ -33,7 +44,6 @@ namespace Libreria_Clases_TP_SYSACAD
                 }
             }
 
-            //Devuelvo la respuesta
             return mensajeADevolver;
         }
 

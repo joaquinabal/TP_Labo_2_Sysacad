@@ -17,7 +17,6 @@ namespace Libreria_Clases_TP_SYSACAD
         //Si alguno no tiene cupo: 
         //-Si hay uno seleccionado devuelve "SIN CUPO: ABSOLUTO"
         //-Si hay varios seleccionados devuelve "SIN CUPO: PARCIAL"
-
         public string ValidarCursosSegunCupo(List<Curso> cursosSeleccionados)
         {
             string mensajeADevolver;
@@ -68,12 +67,21 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
+        /// <summary>
+        /// Resta un cupo disponible al curso y agrega el curso al estudiante.
+        /// </summary>
+        /// <param name="curso">El curso a agregar al estudiante.</param>
         public static void RestarCupoYAgregarCursoAEstudiante(Curso curso)
         {
             Sistema.BaseDatosCursos.RestarCupoDisponible(curso);
             Sistema.BaseDatosEstudiantes.AgregarCursoAEstudiante(Sistema.EstudianteLogueado, curso);
         }
 
+        /// <summary>
+        /// Comprueba si hay cupos disponibles en un curso seleccionado.
+        /// </summary>
+        /// <param name="cursoSeleccionado">El curso seleccionado.</param>
+        /// <returns>True si hay cupos disponibles; de lo contrario, false.</returns>
         public static bool ComprobarSiHayCuposDisponiblesEnCurso(Curso cursoSeleccionado)
         {
             List<Curso> lista_cursos_disponibles = Sistema.BaseDatosCursos.Cursos;
@@ -93,6 +101,7 @@ namespace Libreria_Clases_TP_SYSACAD
             return respuestaCuposDisponibles;
         }
 
+        //Getters y Setters
         public List<string> CursosSinCupo { get { return _cursosSinCupo; } }
     }
 }

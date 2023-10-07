@@ -16,14 +16,18 @@ namespace Libreria_Clases_TP_SYSACAD
             _listaMontos = listaMontos;
         }
 
+        //Sobrecarga
         public ValidadorMontoAAbonar(List<double> listaMontos, List<double> listaMontosOriginales) :this(listaMontos)
         {
             _listaMontosOriginales = listaMontosOriginales;
         }
 
+        /// <summary>
+        /// Verifica si hay algún número negativo en la lista de montos.
+        /// </summary>
+        /// <returns>True si hay al menos un número negativo; de lo contrario, false.</returns>
         public bool VerificarSiHayNumeroNegativo()
         {
-            // Verifica si algún valor en la columna de índice 2 es negativo
             bool hayNumeroNegativo = false;
             
             foreach (double monto in _listaMontos)
@@ -38,6 +42,10 @@ namespace Libreria_Clases_TP_SYSACAD
             return hayNumeroNegativo;
         }
 
+        /// <summary>
+        /// Verifica si algún monto en la lista de montos es mayor que su correspondiente en la lista de montos originales.
+        /// </summary>
+        /// <returns>True si hay algún valor excesivo; de lo contrario, false.</returns>
         public bool VerificarSiHayValorExcesivo()
         {
             // Verifica si algún valor en la columna de índice 2 es mayor que el valor en la columna de índice 1

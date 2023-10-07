@@ -20,6 +20,10 @@ namespace Libreria_Clases_TP_SYSACAD
         private List<Curso> _cursosInscriptos;
         private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
 
+        /// <summary>
+        /// Constructor de la clase Estudiante.
+        /// Inicializa los atributos del estudiante.
+        /// </summary>
         public Estudiante(string nombre, string legajo, string direccion, string telefono,
             string correo, string contrasenia, bool debeCambiarContrasenia)
         {
@@ -33,13 +37,19 @@ namespace Libreria_Clases_TP_SYSACAD
             _cursosInscriptos = new List<Curso>();
         }
 
-        //Este metodo se llama desde el forms, tras validar el estudiante, para ingresarlo a la BD.
+        /// <summary>
+        /// Registra un nuevo estudiante en la base de datos.
+        /// </summary>
+        /// <param name="nuevoEstudiante">El estudiante a ser registrado.</param>
         public void RegistrarEstudiante(Estudiante nuevoEstudiante)
         {
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
             AñadirConceptosDePagoIniciales();
         }
 
+        /// <summary>
+        /// Añade conceptos de pago iniciales al estudiante.
+        /// </summary>
         public void AñadirConceptosDePagoIniciales()
         {
             ConceptoDePago matriculaIngreso = new ConceptoDePago("Matricula de Ingreso", 20000, 20000);
@@ -53,6 +63,10 @@ namespace Libreria_Clases_TP_SYSACAD
             _conceptosAPagar.Add(BibliografiaPrimerCuatrimestre);
         }
 
+        /// <summary>
+        /// Actualiza los conceptos de pago del estudiante en base a los pagos realizados.
+        /// </summary>
+        /// <param name="listaConceptosPagados">La lista de conceptos pagados con sus montos.</param>
         public void ActualizarConceptosDePago(Dictionary<string, double> listaConceptosPagados)
         {
             foreach (ConceptoDePago concepto in _conceptosAPagar)

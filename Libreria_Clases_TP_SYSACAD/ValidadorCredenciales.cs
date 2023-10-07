@@ -9,12 +9,13 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class ValidadorCredenciales
     {
-        
-        //Esta clase valida si las credenciales de inicio de sesion son correctas y si los campos se llenaron.
-        //Presenta dos modos "ADMIN" y "ESTUDIANTE", ya que dependiendo del modo deberá hacer la busqueda
-        //en la base de datos correspondiente.
-        //Devuelve el resultado de la validacion en forma de mensaje
-
+        /// <summary>
+        /// Valida las credenciales de inicio de sesión y la existencia de campos vacíos.
+        /// </summary>
+        /// <param name="correo">El correo proporcionado.</param>
+        /// <param name="contraseña">La contraseña proporcionada.</param>
+        /// <param name="modo">El modo de inicio de sesión (Admin o Estudiante).</param>
+        /// <returns>Un mensaje que indica el resultado de la validación.</returns>
         public string ValidarCredenciales(string correo, string contraseña, Log modo)
         {
             string mensajeADevolver = string.Empty;
@@ -50,6 +51,13 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
+        /// <summary>
+        /// Valida un usuario en la base de datos según el modo especificado.
+        /// </summary>
+        /// <param name="correo">El correo proporcionado.</param>
+        /// <param name="contraseña">La contraseña proporcionada.</param>
+        /// <param name="modo">El modo de inicio de sesión (Admin o Estudiante).</param>
+        /// <returns>true si se encuentra el usuario en la base de datos, de lo contrario, false.</returns>
         public static bool ValidarUsuarioEnBD(string correo, string contraseña, Log modo)
         {
             bool resultadoBusquedaUsuario = false;
@@ -66,6 +74,11 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusquedaUsuario;
         }
 
+        /// <summary>
+        /// Valida un código de acceso de administrador.
+        /// </summary>
+        /// <param name="codigo">El código de acceso proporcionado.</param>
+        /// <returns>true si el código coincide con el código de acceso de administradores, de lo contrario, false.</returns>
         public bool ValidarCodigoAccesoAdmins(string codigo)
         {
             if (codigo == Sistema.CodigoAccesoAdmins)

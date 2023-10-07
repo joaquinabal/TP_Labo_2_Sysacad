@@ -9,7 +9,11 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public static class Hash
     {
-        // Función para generar un hash SHA-256 a partir de una contraseña
+        /// <summary>
+        /// Genera un hash SHA-256 a partir de una contraseña.
+        /// </summary>
+        /// <param name="password">La contraseña a ser hasheada.</param>
+        /// <returns>El hash de la contraseña como una cadena hexadecimal.</returns>
         public static string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -31,7 +35,13 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-        // Función para verificar si una contraseña coincide con su hash
+
+        /// <summary>
+        /// Verifica si una contraseña coincide con su hash previamente calculado.
+        /// </summary>
+        /// <param name="password">La contraseña a ser verificada.</param>
+        /// <param name="hashedPassword">El hash de la contraseña a ser comparado.</param>
+        /// <returns>True si la contraseña coincide con el hash, False si no coincide.</returns>
         public static bool VerifyPassword(string password, string hashedPassword)
         {
             // Calcular el hash de la contraseña proporcionada
@@ -40,34 +50,5 @@ namespace Libreria_Clases_TP_SYSACAD
             // Comparar los hashes para verificar si coinciden
             return string.Equals(hashedInput, hashedPassword, StringComparison.OrdinalIgnoreCase);
         }
-
-        //public static string HashearPassword(string password)
-        //{
-        //    // Generar un hash Bcrypt a partir de la contraseña
-        //    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-
-        //    return hashedPassword;
-        //}
-
-        //public static bool VerificarHasheo(string password, string passwordHasheada)
-        //{
-        //    // Verificar si la contraseña coincide con el hash almacenado
-        //    bool passwordMatches = BCrypt.Net.BCrypt.Verify(password, passwordHasheada);
-
-        //    return passwordMatches;
-        //}
-
-
-
-        //public static string GetHash(string contrasenia)
-        //{
-        //    var contraseniaHasheada = BCrypt.Net.BCrypt.EnhancedHashPassword(contrasenia, 8);
-        //    return contraseniaHasheada;
-        //}
-
-        //public static bool CompararHash(string contraseniaIngresada, string hash)
-        //{
-        //    return BCrypt.Net.BCrypt.EnhancedVerify(contraseniaIngresada, hash);
-        //}
     }
 }

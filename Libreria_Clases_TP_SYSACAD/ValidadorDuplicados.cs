@@ -9,74 +9,11 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public static class ValidadorDuplicados
     {
-        //Esta clase valida si habrian registros duplicados al agregar algo nuevo en la BD y si los campos se llenaron.
-        //Presenta tres modos "ADMIN", "CURSO" y "ESTUDIANTE", ya que dependiendo del modo deberá hacer la busqueda
-        //en la base de datos correspondiente.
-        //Devuelve el resultado de la validacion en forma de mensaje
-
-        /* public string ValidarDuplicados(Log modo, string correo = null, 
-             string contraseña = null, string nombre = null, string codigo = null, string descripcion = null, 
-             string cupo = null, string legajo = null, string direccion = null, 
-             string telefono = null, ModoCurso modoCurso = ModoCurso.Agregar, string turno = null, string dia = null, string aula = null)
-         {
-             string mensajeADevolver = string.Empty;
-
-             List<string> listaCamposAValidar = new List<string>();
-
-             bool resultadoBusquedaUsuario = false;
-
-             //Valido campos y duplicidad segun modo
-             if (modo == Log.Curso)
-             {
-                 if (modoCurso == ModoCurso.Agregar || modoCurso == ModoCurso.EditarDup)
-                 {
-                     resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo: codigo);
-                 }
-             }
-             else if (modo == Log.Estudiante)
-             {
-                 resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo: correo, legajo: legajo);
-             }
-
-             //Devolvemos el mensaje de acuerdo a los resultados de las validaciones
-             if (!resultadoBusquedaUsuario)
-             {
-                 mensajeADevolver = "OK";
-             }
-             else if (resultadoBusquedaUsuario)
-             {
-                 mensajeADevolver = "DUPLICADO";
-             }
-
-             return mensajeADevolver;
-         }*/
-
-        // Para validar duplicados en modo Admin
-        //public static bool ValidarDuplicadosA(Log modo, string correo)
-        //{
-        //    bool resultadoBusquedaUsuario = false;
-        //    if (modo == Log.Admin)
-        //    {
-        //        resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Admin, correo);
-        //    }
-        //    return resultadoBusquedaUsuario;
-        //}
-        ////Valida duplicados en modo curso tanto para editar como para agregar
-        //public static bool ValidarDuplicados(Log modo, ModoCurso modoCurso, string codigo)
-        //{
-
-        //    bool resultadoBusquedaUsuario = false;
-        //    if (modo == Log.Curso)
-        //    {
-        //        if (modoCurso == ModoCurso.Agregar || modoCurso == ModoCurso.EditarDup)
-        //        {
-        //            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo);
-        //        }
-        //    }
-        //    return resultadoBusquedaUsuario;
-        //}
-
-        //Validar duplicados de curso
+        /// <summary>
+        /// Valida duplicados de cursos en la base de datos.
+        /// </summary>
+        /// <param name="codigo">El código del curso a validar.</param>
+        /// <returns>true si se encuentra un curso con el mismo código en la base de datos, de lo contrario, false.</returns>
         public static bool ValidarDuplicados(string codigo)
         {
             bool resultadoBusquedaUsuario = false;
@@ -86,8 +23,12 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusquedaUsuario;
         }
 
-
-        // Valida duplicados de estudiante
+        /// <summary>
+        /// Valida duplicados de estudiantes en la base de datos.
+        /// </summary>
+        /// <param name="legajo">El legajo del estudiante a validar.</param>
+        /// <param name="correo">El correo del estudiante a validar.</param>
+        /// <returns>true si se encuentra un estudiante con el mismo legajo o correo en la base de datos, de lo contrario, false.</returns>
         public static bool ValidarDuplicados(string legajo, string correo)
         {
             bool resultadoBusquedaUsuario = false;
@@ -97,26 +38,17 @@ namespace Libreria_Clases_TP_SYSACAD
             return resultadoBusquedaUsuario;
         }
 
-        // Muestra un mensaje segun el resultado
-        //public static string MostrarMensajeSegunResultado(bool resultado)
-        //{
-        //    string mensajeADevolver = "OK";
-
-        //    if (resultado)
-        //    {
-        //        mensajeADevolver = "DUPLICADO";
-        //    }
-
-        //    return mensajeADevolver;
-        //}
-
+        /// <summary>
+        /// Comprueba la existencia previa de un curso o estudiante en la base de datos.
+        /// </summary>
+        /// <param name="modo">El modo de validación (Curso o Estudiante).</param>
+        /// <param name="correo">El correo del estudiante a validar (solo en modo Estudiante).</param>
+        /// <param name="codigo">El código del curso a validar (solo en modo Curso).</param>
+        /// <param name="legajo">El legajo del estudiante a validar (solo en modo Estudiante).</param>
+        /// <returns>true si se encuentra un registro duplicado en la base de datos, de lo contrario, false.</returns>
         public static bool ComprobarExistenciaPrevia(Log modo, string correo = null, string codigo = null, string legajo = null)
         {
             bool resultadoBusquedaUsuario = false;
-            //if (modo == Log.Admin)
-            //{
-            //    resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo);
-            //}
 
             if (modo == Log.Curso)
             {

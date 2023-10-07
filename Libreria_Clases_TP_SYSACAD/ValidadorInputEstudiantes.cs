@@ -9,6 +9,11 @@ namespace Libreria_Clases_TP_SYSACAD
 {
     public class ValidadorInputEstudiantes : ValidadorInputs
     {
+        /// <summary>
+        /// Valida los datos de un estudiante a partir de un diccionario de campos ingresados.
+        /// </summary>
+        /// <param name="diccionarioConCampos">Diccionario que contiene los campos ingresados.</param>
+        /// <returns>Respuesta de validación que indica si los campos son válidos.</returns>
         public RespuestaValidacionInput ValidarDatosEstudiantes(Dictionary<string, string> diccionarioConCampos)
         {
             //Recibo el diccionario y meto sus valores a una lista
@@ -30,41 +35,46 @@ namespace Libreria_Clases_TP_SYSACAD
             return respuestaValidacion;
         }
 
+        /// <summary>
+        /// Valida los campos de entrada en función de expresiones regulares (regex).
+        /// </summary>
+        /// <param name="diccionarioConCamposIngresados">Diccionario que contiene los campos ingresados.</param>
+        /// <returns>Lista de errores encontrados en los campos.</returns>
         public override List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados)
         {
             List<string> listaErrores = new List<string>();
 
-            // Validar el nombre 
+            // Valida el nombre (Alfanumerico)
             if (!Regex.IsMatch(diccionarioConCamposIngresados["nombre"], @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
             {
                 listaErrores.Add("Nombre");
             }
 
-            // Validar el Legajo
+            // Valida el legajo (8 digitos)
             if (!Regex.IsMatch(diccionarioConCamposIngresados["legajo"], @"^\d{8}$"))
             {
                 listaErrores.Add("Legajo");
             }
 
-            //Validar Direccion
+            //Valida direccion (Alfanumerico)
             if (!Regex.IsMatch(diccionarioConCamposIngresados["direccion"], @"^[a-zA-Z0-9\s]+$"))
             {
                 listaErrores.Add("Dirección");
             }
 
-            // Validar telefono
+            // Valida telefono (8 a 10 digitos)
             if (!Regex.IsMatch(diccionarioConCamposIngresados["telefono"], @"^\d{8}(\d{2})?$"))
             {
                 listaErrores.Add("Telefono");
             }
 
-            // Validar correo 
+            // Valida correo (Formato correo)
             if (!Regex.IsMatch(diccionarioConCamposIngresados["correo"], @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
             {
                 listaErrores.Add("Correo");
             }
 
-            // Validar contrasenia
+            // Valida contrasenia (6 digitos minimo)
             if (!Regex.IsMatch(diccionarioConCamposIngresados["contrasenia"], @"^[a-zA-Z0-9]{6,}$"))
             {
                 listaErrores.Add("Contrasenia");

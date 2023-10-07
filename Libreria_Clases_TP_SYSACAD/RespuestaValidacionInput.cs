@@ -12,7 +12,13 @@ namespace Libreria_Clases_TP_SYSACAD
         private bool _existenciaErrores;
         private List<string> _listaErrores = new List<string>();
         private string _mensajeErrores = string.Empty;
-        
+
+        /// <summary>
+        /// Constructor de la clase RespuestaValidacionInput.
+        /// </summary>
+        /// <param name="camposVacios">Indica si los campos están vacíos.</param>
+        /// <param name="existenciaErrores">Indica si existen errores.</param>
+        /// <param name="listaErrores">Lista de errores.</param>
         public RespuestaValidacionInput(bool camposVacios, bool existenciaErrores ,List<string> listaErrores)
         {
             _camposVacios = camposVacios;
@@ -25,6 +31,9 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        /// <summary>
+        /// Genera un mensaje de errores a partir de la lista de errores.
+        /// </summary>
         private void GenerarMensajeDeErrores()
         {
             _mensajeErrores = "Debe corregir: \n";
@@ -35,6 +44,7 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        //Getters y Setters
         public bool AusenciaCamposVacios{ get { return _camposVacios; } }
 
         public bool ExistenciaErrores { get { return _existenciaErrores; } }
