@@ -5,14 +5,14 @@
         private string _correo;
         private string _contrasenia;
 
-        //El administrador cuenta con correo y contraseña para Registrarse/Logearse
+        //El administrador cuenta con correo y contraseña para Logearse
         public Administrador(string correo, string contrasenia)
         {
             _correo = correo;
             _contrasenia = contrasenia;
         }
 
-        //Getters
+        //Getters y Setters
         public string Correo { get { return _correo;} }
         public string Contrasenia { get { return _contrasenia;} set { _contrasenia = value; } }
     }

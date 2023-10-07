@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-
     public class ArchivosJsonEstudiantes : ArchivosJson
     {
-
+        /// <summary>
+        /// Carga la lista de estudiantes desde un archivo JSON, o crea uno nuevo si no existe.
+        /// </summary>
+        /// <returns>Una lista de objetos Estudiante.</returns>
         public static List<Estudiante>? CargarAlumnosDesdeArchivoJson()
         {
             List<Estudiante> listaEstudiantes = new List<Estudiante>();
@@ -33,12 +35,9 @@ namespace Libreria_Clases_TP_SYSACAD
                 {
                     CrearArchivo(fullPath, fileEstudiantes);
 
-                    //Creo estudiante por defecto para agilizar debug y testing
                     List<Estudiante> primerEstudiante = new List<Estudiante>();
                     Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", true);
                     estudiantePorDefecto.AñadirConceptosDePagoIniciales();
-                    //estudiantePorDefecto.Contrasenia = Hash.GetHash(estudiantePorDefecto.Contrasenia);
-                    //estudiantePorDefecto.Contrasenia = Hash.HashearPassword(estudiantePorDefecto.Contrasenia);
                     estudiantePorDefecto.Contrasenia = Hash.HashPassword(estudiantePorDefecto.Contrasenia);
 
                     primerEstudiante.Add(estudiantePorDefecto);
@@ -65,8 +64,10 @@ namespace Libreria_Clases_TP_SYSACAD
             return listaEstudiantes;
         }
 
-
-
+        /// <summary>
+        /// Guarda una lista de estudiantes en un archivo JSON.
+        /// </summary>
+        /// <param name="estudiantes">La lista de estudiantes a guardar.</param>
         public static void GuardarArchivoJSON(List<Estudiante> estudiantes)
         {
             try
@@ -83,8 +84,11 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-
-
+        /// <summary>
+        /// Escribe una lista de estudiantes en un archivo JSON en la ubicación especificada.
+        /// </summary>
+        /// <param name="estudiantes">La lista de estudiantes a escribir.</param>
+        /// <param name="fullPath">La ruta completa del archivo JSON.</param>
         private static void EscribirArchivoJSON(List<Estudiante> estudiantes, string fullPath)
         {
             string jsonString = JsonConvert.SerializeObject(estudiantes, Formatting.Indented);
@@ -95,7 +99,6 @@ namespace Libreria_Clases_TP_SYSACAD
             }
 
         }
-
     }
 }
     

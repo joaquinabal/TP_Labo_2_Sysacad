@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-
     public class ArchivosJsonAdmins : ArchivosJson
     {
-
+        /// <summary>
+        /// Carga la lista de administradores desde un archivo JSON, o crea uno nuevo si no existe.
+        /// </summary>
+        /// <returns>Una lista de objetos Administrador.</returns>
         public static List<Administrador>? CargarAdminsDesdeArchivoJson()
         {
 
@@ -29,7 +31,6 @@ namespace Libreria_Clases_TP_SYSACAD
                     CrearDirectorio(pathName);
                 }
 
-                //fullPath = pathName + "\\" + fileAdmins;
                 fullPath = CombinePath(pathName, fileAdmins);
 
                 bool validacionExisteArchivo = false;
@@ -40,11 +41,8 @@ namespace Libreria_Clases_TP_SYSACAD
                 {
                     CrearArchivo(fullPath, fileAdmins);
 
-                    //Creo estudiante por defecto para agilizar debug y testing
                     List<Administrador> primerAdmin = new List<Administrador>();
                     Administrador adminPorDefecto = new Administrador("johntravolta@hotmail.com", "666666");
-                    //adminPorDefecto.Contrasenia = Hash.GetHash(adminPorDefecto.Contrasenia);
-                    //adminPorDefecto.Contrasenia = Hash.HashearPassword(adminPorDefecto.Contrasenia);
                     adminPorDefecto.Contrasenia = Hash.HashPassword(adminPorDefecto.Contrasenia);
 
                     Debug.WriteLine($"Contrasenia Hasheada por defecto: {adminPorDefecto.Contrasenia}");
@@ -71,6 +69,10 @@ namespace Libreria_Clases_TP_SYSACAD
             return listaAdmins;
         }
 
+        /// <summary>
+        /// Guarda una lista de administradores en un archivo JSON.
+        /// </summary>
+        /// <param name="admins">La lista de administradores a guardar.</param>
         public static void GuardarArchivoJSON(List<Administrador> admins)
         {
             try
@@ -88,6 +90,11 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        /// <summary>
+        /// Escribe una lista de administradores en un archivo JSON en la ubicación especificada.
+        /// </summary>
+        /// <param name="admins">La lista de administradores a escribir.</param>
+        /// <param name="fullPath">La ruta completa del archivo JSON.</param>
         private static void EscribirArchivoJSON(List<Administrador> admins, string fullPath)
         {
             using (var writer = new StreamWriter(fullPath))

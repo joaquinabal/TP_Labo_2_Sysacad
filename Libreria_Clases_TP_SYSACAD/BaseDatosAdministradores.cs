@@ -12,12 +12,21 @@ namespace Libreria_Clases_TP_SYSACAD
         //Lista que contiene todos los administradores
         private List<Administrador> listaAdministradores = new List<Administrador>();
 
+        /// <summary>
+        /// Constructor de la clase BaseDatosAdministradores.
+        /// Inicializa la lista de administradores cargándola desde un archivo JSON.
+        /// </summary>
         public BaseDatosAdministradores()
         {
             listaAdministradores = ArchivosJsonAdmins.CargarAdminsDesdeArchivoJson();
         }
 
-        //Busqueda de credenciales del usuario en la base de datos (SOBRECARGA)
+        /// <summary>
+        /// Busca un usuario en la base de datos por correo y contraseña.
+        /// </summary>
+        /// <param name="correo">El correo del usuario.</param>
+        /// <param name="contrasenia">La contraseña del usuario.</param>
+        /// <returns>True si se encuentra un usuario con las credenciales proporcionadas, False si no.</returns>
         public bool BuscarUsuarioBD(string correo, string contrasenia)
         {
             Debug.WriteLine($"Contrasenia recibida: {contrasenia}");
@@ -33,20 +42,6 @@ namespace Libreria_Clases_TP_SYSACAD
                     resultadoBusqueda = true;
                 }
 
-            }
-            return resultadoBusqueda;
-        }
-
-        public bool BuscarUsuarioBD(string correo)
-        {
-            bool resultadoBusqueda = false;
-
-            foreach (Administrador administrador in listaAdministradores)
-            {
-                if (administrador.Correo == correo)
-                {
-                    resultadoBusqueda = true;
-                }
             }
             return resultadoBusqueda;
         }
