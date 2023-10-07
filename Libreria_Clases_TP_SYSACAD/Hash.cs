@@ -16,25 +16,39 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <returns>El hash de la contraseña como una cadena hexadecimal.</returns>
         internal static string HashPassword(string password)
         {
-            using (SHA256 sha256 = SHA256.Create())
+            try
             {
-                // Convertir la contraseña en bytes
-                byte[] bytes = Encoding.UTF8.GetBytes(password);
-
-                // Calcular el hash
-                byte[] hash = sha256.ComputeHash(bytes);
-
-                // Convertir el hash en una cadena hexadecimal
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int i = 0; i < hash.Length; i++)
+                using (SHA256 sha256 = SHA256.Create())
                 {
-                    stringBuilder.Append(hash[i].ToString("x2"));
-                }
+                    // Convertir la contraseña en bytes
+                    byte[] bytes = Encoding.UTF8.GetBytes(password);
 
-                return stringBuilder.ToString();
+                    // Calcular el hash
+                    byte[] hash = sha256.ComputeHash(bytes);
+
+                    // Convertir el hash en una cadena hexadecimal
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int i = 0; i < hash.Length; i++)
+                    {
+                        stringBuilder.Append(hash[i].ToString("x2"));
+                    }
+
+                    return stringBuilder.ToString();
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                // Manejo de la excepción ArgumentNullException
+                Console.WriteLine("Se produjo una ArgumentNullException: " + ex.Message);
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones genéricas
+                Console.WriteLine("Se produjo una excepción: " + ex.Message);
+                return string.Empty;
             }
         }
-
 
         /// <summary>
         /// Verifica si una contraseña coincide con su hash previamente calculado.

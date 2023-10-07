@@ -61,10 +61,21 @@ namespace Libreria_Clases_TP_SYSACAD
                     }
                 }
             }
-            catch (Exception e)
+            catch (FileNotFoundException ex)
             {
-                throw new Exception(e.Message, e.InnerException);
-            }        
+                // Manejo específico de excepciones para archivo no encontrado.
+                Console.WriteLine("Archivo no encontrado: " + ex.Message);
+            }
+            catch (JsonSerializationException ex)
+            {
+                // Manejo específico de excepciones para problemas de deserialización JSON.
+                Console.WriteLine("Error de deserialización JSON: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones genéricas.
+                Console.WriteLine("Error general: " + ex.Message);
+            }  
 
             return listaAdmins;
         }
@@ -85,7 +96,6 @@ namespace Libreria_Clases_TP_SYSACAD
             }
             catch (Exception e)
             {
-
                 throw new Exception(e.Message, e.InnerException);
             }
         }

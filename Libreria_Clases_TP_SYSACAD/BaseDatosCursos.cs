@@ -53,10 +53,10 @@ namespace Libreria_Clases_TP_SYSACAD
                 _listaCursos.Add(nuevoCurso);
                 ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
             }
-            catch (Exception e)
+            catch (IOException ex)
             {
-
-                throw new Exception(e.Message, e.InnerException);
+                // Manejo específico de excepciones de entrada/salida al guardar el archivo JSON.
+                Console.WriteLine("Error al guardar el archivo JSON: " + ex.Message);
             }
         }
 
