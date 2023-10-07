@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     CrearArchivo(fullPath, fileEstudiantes);
 
                     List<Estudiante> primerEstudiante = new List<Estudiante>();
-                    Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", true);
+                    Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", false);
                     estudiantePorDefecto.AñadirConceptosDePagoIniciales();
                     estudiantePorDefecto.Contrasenia = Hash.HashPassword(estudiantePorDefecto.Contrasenia);
 
