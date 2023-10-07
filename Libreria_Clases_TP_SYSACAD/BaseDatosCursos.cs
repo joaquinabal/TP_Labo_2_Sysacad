@@ -123,14 +123,6 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="cursoARestarCupo">El curso al que se le restará un cupo.</param>
         public void RestarCupoDisponible(Curso cursoARestarCupo)
         {
-            //foreach (Curso curso in _listaCursos)
-            //{
-            //    if (curso.Codigo == cursoARestarCupo.Codigo)
-            //    {
-            //        curso -= 1;
-            //    }
-            //}
-
             for (int i = 0; i < _listaCursos.Count; i++)
             {
                 if (_listaCursos[i].Codigo == cursoARestarCupo.Codigo)
