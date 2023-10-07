@@ -16,7 +16,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Constructor de la clase BaseDatosEstudiantes.
         /// Inicializa la lista de estudiantes cargándola desde un archivo JSON.
         /// </summary>
-        public BaseDatosEstudiantes()
+        internal BaseDatosEstudiantes()
         {
             this.listaEstudiante = ArchivosJsonEstudiantes.CargarAlumnosDesdeArchivoJson();
         }
@@ -25,7 +25,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Agrega un nuevo estudiante a la base de datos.
         /// </summary>
         /// <param name="nuevoEstudiante">El estudiante a ser agregado.</param>
-        public void IngresarUsuarioBD(Estudiante nuevoEstudiante)
+        internal void IngresarUsuarioBD(Estudiante nuevoEstudiante)
         {
             //Se genera un identificador unico para el estudiante
             Guid nuevoGuid = Guid.NewGuid();
@@ -47,7 +47,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// </summary>
         /// <param name="estudianteQueSeInscribe">El estudiante al que se le agrega el curso.</param>
         /// <param name="curso">El curso a ser agregado al estudiante.</param>
-        public void AgregarCursoAEstudiante(Estudiante estudianteQueSeInscribe, Curso curso)
+        internal void AgregarCursoAEstudiante(Estudiante estudianteQueSeInscribe, Curso curso)
         {
             foreach (Estudiante estudiante in listaEstudiante)
             {
@@ -65,7 +65,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="correo">El correo del usuario.</param>
         /// <param name="contrasenia">La contraseña del usuario.</param>
         /// <returns>True si se encuentra un usuario con las credenciales proporcionadas, False si no.</returns>
-        public bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
+        internal bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
         {
             bool resultadoBusqueda = false;
 
@@ -88,7 +88,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="correo">El correo del usuario.</param>
         /// <param name="legajo">El legajo del usuario.</param>
         /// <returns>True si se encuentra un usuario con las credenciales proporcionadas, False si no.</returns>
-        public bool BuscarUsuarioExistenteBD(string correo, string legajo)
+        internal bool BuscarUsuarioExistenteBD(string correo, string legajo)
         {
             bool resultadoBusqueda = false;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class BaseDatosAdministradores
+    internal class BaseDatosAdministradores
     {
         //Lista que contiene todos los administradores
         private List<Administrador> listaAdministradores = new List<Administrador>();
@@ -16,7 +16,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Constructor de la clase BaseDatosAdministradores.
         /// Inicializa la lista de administradores cargándola desde un archivo JSON.
         /// </summary>
-        public BaseDatosAdministradores()
+        internal BaseDatosAdministradores()
         {
             listaAdministradores = ArchivosJsonAdmins.CargarAdminsDesdeArchivoJson();
         }
@@ -27,7 +27,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="correo">El correo del usuario.</param>
         /// <param name="contrasenia">La contraseña del usuario.</param>
         /// <returns>True si se encuentra un usuario con las credenciales proporcionadas, False si no.</returns>
-        public bool BuscarUsuarioBD(string correo, string contrasenia)
+        internal bool BuscarUsuarioBD(string correo, string contrasenia)
         {
             Debug.WriteLine($"Contrasenia recibida: {contrasenia}");
 

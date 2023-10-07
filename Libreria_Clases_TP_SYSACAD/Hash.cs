@@ -7,14 +7,14 @@ using System.Security.Cryptography;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public static class Hash
+    internal static class Hash
     {
         /// <summary>
         /// Genera un hash SHA-256 a partir de una contraseña.
         /// </summary>
         /// <param name="password">La contraseña a ser hasheada.</param>
         /// <returns>El hash de la contraseña como una cadena hexadecimal.</returns>
-        public static string HashPassword(string password)
+        internal static string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -42,7 +42,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="password">La contraseña a ser verificada.</param>
         /// <param name="hashedPassword">El hash de la contraseña a ser comparado.</param>
         /// <returns>True si la contraseña coincide con el hash, False si no coincide.</returns>
-        public static bool VerifyPassword(string password, string hashedPassword)
+        internal static bool VerifyPassword(string password, string hashedPassword)
         {
             // Calcular el hash de la contraseña proporcionada
             string hashedInput = HashPassword(password);

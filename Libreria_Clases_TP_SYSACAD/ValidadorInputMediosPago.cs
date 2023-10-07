@@ -45,7 +45,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="diccionarioConCamposIngresados">Diccionario que contiene los campos a validar.</param>
         /// <param name="modo">Modo de pago a validar (ModoPago.Tarjeta o ModoPago.Transferencia).</param>
         /// <returns>Una lista de cadenas que representan los errores de validación encontrados.</returns>
-        public override List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados, ModoPago modo)
+        protected override List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados, ModoPago modo)
         {
             List<string> listaErrores = new List<string>();
 

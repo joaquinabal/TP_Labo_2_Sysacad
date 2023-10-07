@@ -46,7 +46,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="codigo">El código del curso a validar (solo en modo Curso).</param>
         /// <param name="legajo">El legajo del estudiante a validar (solo en modo Estudiante).</param>
         /// <returns>true si se encuentra un registro duplicado en la base de datos, de lo contrario, false.</returns>
-        public static bool ComprobarExistenciaPrevia(Log modo, string correo = null, string codigo = null, string legajo = null)
+        private static bool ComprobarExistenciaPrevia(Log modo, string correo = null, string codigo = null, string legajo = null)
         {
             bool resultadoBusquedaUsuario = false;
 

@@ -19,7 +19,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="camposVacios">Indica si los campos están vacíos.</param>
         /// <param name="existenciaErrores">Indica si existen errores.</param>
         /// <param name="listaErrores">Lista de errores.</param>
-        public RespuestaValidacionInput(bool camposVacios, bool existenciaErrores ,List<string> listaErrores)
+        internal RespuestaValidacionInput(bool camposVacios, bool existenciaErrores ,List<string> listaErrores)
         {
             _camposVacios = camposVacios;
             _existenciaErrores = existenciaErrores;

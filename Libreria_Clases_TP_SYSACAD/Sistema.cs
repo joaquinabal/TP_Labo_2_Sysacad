@@ -52,7 +52,7 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         //Getters y Setters
-        public static BaseDatosAdministradores BaseDatosAdministradores { get { return _baseDatosAdministradores; } }
+        internal static BaseDatosAdministradores BaseDatosAdministradores { get { return _baseDatosAdministradores; } }
 
         public static BaseDatosEstudiantes BaseDatosEstudiantes { get { return _baseDatosEstudiantes; } }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ArchivosJson
+    internal class ArchivosJson
     {
         protected static readonly string fileEstudiantes = "Alumnos.json";
         protected static string fileCursos = "Cursos.json";

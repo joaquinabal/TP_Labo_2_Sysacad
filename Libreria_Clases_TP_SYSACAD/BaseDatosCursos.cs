@@ -16,18 +16,17 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Constructor de la clase BaseDatosCursos.
         /// Inicializa la lista de cursos cargándola desde un archivo JSON.
         /// </summary>
-        public BaseDatosCursos() 
+        internal BaseDatosCursos() 
         {
             this._listaCursos = ArchivosJsonCursos.CargarCursosDesdeArchivoJson();
         }
-
 
         /// <summary>
         /// Busca un curso en la base de datos por código.
         /// </summary>
         /// <param name="codigo">El código del curso.</param>
         /// <returns>True si se encuentra un curso con el código proporcionado, False si no.</returns>
-        public bool BuscarCursoBD(string codigo)
+        internal bool BuscarCursoBD(string codigo)
         {
             bool resultadoBusqueda = false;
 
@@ -47,7 +46,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Agrega un nuevo curso a la base de datos.
         /// </summary>
         /// <param name="nuevoCurso">El curso a ser agregado.</param>
-        public void IngresarCursoBD(Curso nuevoCurso)
+        internal void IngresarCursoBD(Curso nuevoCurso)
         {
             try
             {
@@ -121,7 +120,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Resta 1 al cupo disponible de un determinado curso.
         /// </summary>
         /// <param name="cursoARestarCupo">El curso al que se le restará un cupo.</param>
-        public void RestarCupoDisponible(Curso cursoARestarCupo)
+        internal void RestarCupoDisponible(Curso cursoARestarCupo)
         {
             for (int i = 0; i < _listaCursos.Count; i++)
             {

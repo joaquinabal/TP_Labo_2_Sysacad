@@ -86,7 +86,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public string Correo { get { return _correo; } }
 
-        public Guid IdentificadorUnico { get{ return _identificadorUnico; } set{ _identificadorUnico = value; } }
+        public Guid IdentificadorUnico { get{ return _identificadorUnico; } internal set{ _identificadorUnico = value; } }
 
         public string Nombre { get { return _nombre; } }
 
@@ -94,11 +94,11 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public string NumeroTelefono { get { return _numeroTelefono; } }
 
-        public string Contrasenia { get { return _contrasenia; } set { _contrasenia = value; } }
+        internal string Contrasenia { get { return _contrasenia; } set { _contrasenia = value; } }
 
         public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
 
-        public bool DebeCambiarContrasenia { get { return _debeCambiarContrasenia; } set { _debeCambiarContrasenia = value; } }
+        internal bool DebeCambiarContrasenia { get { return _debeCambiarContrasenia; } set { _debeCambiarContrasenia = value; } }
 
         public List<ConceptoDePago> ConceptosDePago { get { return _conceptosAPagar; } }
     }

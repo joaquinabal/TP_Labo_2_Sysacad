@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ArchivosJsonCursos : ArchivosJson
+    internal class ArchivosJsonCursos : ArchivosJson
     {
         /// <summary>
         /// Carga la lista de cursos desde un archivo JSON, o crea uno nuevo si no existe.
         /// </summary>
         /// <returns>Una lista de objetos Curso.</returns>
-        public static List<Curso>? CargarCursosDesdeArchivoJson()
+        internal static List<Curso>? CargarCursosDesdeArchivoJson()
         {
             List<Curso> listaCursos = new List<Curso>();
 
@@ -66,7 +66,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Guarda una lista de cursos en un archivo JSON.
         /// </summary>
         /// <param name="cursos">La lista de cursos a guardar.</param>
-        public static void GuardarArchivoJSON(List<Curso> cursos)
+        internal static void GuardarArchivoJSON(List<Curso> cursos)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Genera una lista de cursos por defecto con datos aleatorios.
         /// </summary>
         /// <returns>Una lista de cursos por defecto.</returns>
-        public static List<Curso> GenerarCursosPorDefecto()
+        private static List<Curso> GenerarCursosPorDefecto()
         {
             string[] nombresCursos =
             {"Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
@@ -144,7 +144,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="nombreCurso">El nombre del curso.</param>
         /// <param name="turno">El turno del curso.</param>
         /// <returns>El código de curso generado.</returns>
-        public static string GenerarCodigo(string nombreCurso, string turno)
+        private static string GenerarCodigo(string nombreCurso, string turno)
         {
             string codigo = $"{nombreCurso.Substring(0, 4)}{turno.Substring(0, 1)}";
             return codigo;
@@ -154,7 +154,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Genera un día de la semana aleatorio.
         /// </summary>
         /// <returns>Un día de la semana aleatorio.</returns>
-        public static string GenerarDiaAleatorio()
+        private static string GenerarDiaAleatorio()
         {
             string[] dias = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
             Random random = new Random();

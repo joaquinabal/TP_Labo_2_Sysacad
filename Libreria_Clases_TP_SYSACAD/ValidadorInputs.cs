@@ -15,7 +15,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// </summary>
         /// <param name="campos">La lista de cadenas de texto a validar.</param>
         /// <returns>True si no hay campos vacíos o nulos; de lo contrario, false.</returns>
-        public static bool ValidarCampos(List<string> campos)
+        protected static bool ValidarCampos(List<string> campos)
         {
             bool resultado = true;
 
@@ -35,7 +35,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// </summary>
         /// <param name="contrasenia">La cadena de texto que representa la contraseña.</param>
         /// <returns>True si la contraseña no está vacía ni nula; de lo contrario, false.</returns>
-        public static bool ValidarCampos(string contrasenia)
+        protected static bool ValidarCampos(string contrasenia)
         {
             bool resultado = true;
 
@@ -48,14 +48,14 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         //Metodo para aplicar polimorfismo 
-        public virtual List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados)
+        protected virtual List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados)
         {
             List<string> errores = new List<string>();
             return errores;
         }
 
         //Sobrecarga del metodo para aplicar polimorfismo 
-        public virtual List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados, ModoPago modo)
+        protected virtual List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados, ModoPago modo)
         {
             List<string> errores = new List<string>();
             return errores;
@@ -66,7 +66,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// </summary>
         /// <param name="listaDeErrores">La lista de errores a comprobar.</param>
         /// <returns>True si la lista contiene errores; de lo contrario, false.</returns>
-        public static bool ComprobarExistenciaErrores(List<string> listaDeErrores)
+        protected static bool ComprobarExistenciaErrores(List<string> listaDeErrores)
         {
             bool resultadoErrores = false;
 
@@ -87,7 +87,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// </summary>
         /// <param name="diccionarioConCampos">El diccionario que contiene campos y valores.</param>
         /// <returns>Una lista de cadenas de texto que representan los campos.</returns>
-        public static List<string> ObtenerListaDeCamposDesdeDiccionario(Dictionary<string, string> diccionarioConCampos)
+        protected static List<string> ObtenerListaDeCamposDesdeDiccionario(Dictionary<string, string> diccionarioConCampos)
         {
             List<string> listaCamposIngresados = new List<string>();
 

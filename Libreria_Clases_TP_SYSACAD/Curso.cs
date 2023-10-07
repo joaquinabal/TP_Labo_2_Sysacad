@@ -47,7 +47,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Verifica si hay cupos disponibles en el curso.
         /// </summary>
         /// <returns>True si hay cupos disponibles, False si no.</returns>
-        public bool ChequearCuposDisponibles()
+        internal bool ChequearCuposDisponibles()
         {
             if (CupoDisponible > 0)
             {
@@ -101,21 +101,21 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         //Setters y getters
-        public string Nombre { get { return _nombre; } set { _nombre = value; } }
+        public string Nombre { get { return _nombre; } internal set { _nombre = value; } }
 
-        public string Codigo { get { return _codigo; } set { _codigo = value; } }
+        public string Codigo { get { return _codigo; } internal set { _codigo = value; } }
 
-        public string Descripcion { get { return _descripcion; } set { _descripcion = value;} }
+        public string Descripcion { get { return _descripcion; } internal set { _descripcion = value;} }
 
-        public int CupoMaximo { get { return _cupoMaximo; } set { _cupoMaximo = value;} }
+        public int CupoMaximo { get { return _cupoMaximo; } internal set { _cupoMaximo = value;} }
 
-        public int CupoDisponible { get { return _cupoDisponible; } set { _cupoDisponible = value; } }
+        public int CupoDisponible { get { return _cupoDisponible; } internal set { _cupoDisponible = value; } }
 
-        public string Turno { get { return _turno;  } set { _turno = value; } }
+        public string Turno { get { return _turno;  } internal set { _turno = value; } }
 
-        public string Aula { get { return _aula; } set { _aula = value; } }
+        public string Aula { get { return _aula; } internal set { _aula = value; } }
 
-        public string Dia { get { return _dia; } set { _dia = value; } }
+        public string Dia { get { return _dia; } internal set { _dia = value; } }
 
         //public List<Estudiante> EstudiantesInscriptos { get { return _estudiantesInscriptos; } }
     }

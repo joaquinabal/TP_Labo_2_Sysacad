@@ -40,7 +40,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// </summary>
         /// <param name="diccionarioConCamposIngresados">Diccionario con campos de datos de cursos.</param>
         /// <returns>Una lista de mensajes de error para los campos que no cumplen con las expresiones regulares.</returns>
-        public override List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados)
+        protected override List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados)
         {
             List<string> listaErrores = new List<string>();
             

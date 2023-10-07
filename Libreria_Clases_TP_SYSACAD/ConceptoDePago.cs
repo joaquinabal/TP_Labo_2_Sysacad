@@ -25,7 +25,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public double MontoInicial { get { return _montoInicial;  } }
 
-        public double MontoPendiente { get { return _montoPendiente; } set { _montoPendiente = value; } }
+        public double MontoPendiente { get { return _montoPendiente; } internal set { _montoPendiente = value; } }
 
     }
 }

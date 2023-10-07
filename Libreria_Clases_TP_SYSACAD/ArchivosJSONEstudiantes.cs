@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ArchivosJsonEstudiantes : ArchivosJson
+    internal class ArchivosJsonEstudiantes : ArchivosJson
     {
         /// <summary>
         /// Carga la lista de estudiantes desde un archivo JSON, o crea uno nuevo si no existe.
         /// </summary>
         /// <returns>Una lista de objetos Estudiante.</returns>
-        public static List<Estudiante>? CargarAlumnosDesdeArchivoJson()
+        internal static List<Estudiante>? CargarAlumnosDesdeArchivoJson()
         {
             List<Estudiante> listaEstudiantes = new List<Estudiante>();
 
@@ -68,7 +68,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Guarda una lista de estudiantes en un archivo JSON.
         /// </summary>
         /// <param name="estudiantes">La lista de estudiantes a guardar.</param>
-        public static void GuardarArchivoJSON(List<Estudiante> estudiantes)
+        internal static void GuardarArchivoJSON(List<Estudiante> estudiantes)
         {
             try
             {

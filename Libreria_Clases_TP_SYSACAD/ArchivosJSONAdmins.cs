@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
 {
-    public class ArchivosJsonAdmins : ArchivosJson
+    internal class ArchivosJsonAdmins : ArchivosJson
     {
         /// <summary>
         /// Carga la lista de administradores desde un archivo JSON, o crea uno nuevo si no existe.
         /// </summary>
         /// <returns>Una lista de objetos Administrador.</returns>
-        public static List<Administrador>? CargarAdminsDesdeArchivoJson()
+        internal static List<Administrador>? CargarAdminsDesdeArchivoJson()
         {
 
             List<Administrador> listaAdmins = new List<Administrador>();
@@ -73,7 +73,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Guarda una lista de administradores en un archivo JSON.
         /// </summary>
         /// <param name="admins">La lista de administradores a guardar.</param>
-        public static void GuardarArchivoJSON(List<Administrador> admins)
+        private static void GuardarArchivoJSON(List<Administrador> admins)
         {
             try
             {

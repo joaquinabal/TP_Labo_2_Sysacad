@@ -58,7 +58,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <param name="contraseña">La contraseña proporcionada.</param>
         /// <param name="modo">El modo de inicio de sesión (Admin o Estudiante).</param>
         /// <returns>true si se encuentra el usuario en la base de datos, de lo contrario, false.</returns>
-        public static bool ValidarUsuarioEnBD(string correo, string contraseña, Log modo)
+        private static bool ValidarUsuarioEnBD(string correo, string contraseña, Log modo)
         {
             bool resultadoBusquedaUsuario = false;
             
