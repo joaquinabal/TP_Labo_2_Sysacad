@@ -22,8 +22,12 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             bool resultadoBusqueda = false;
 
+            //Debug.WriteLine($"Codigo que le paso desde el tb: {codigo}");
+
             foreach (Curso curso in _listaCursos)
             {
+                Debug.WriteLine($"Codigo iterado: {curso.Codigo}");
+
                 if (curso.Codigo == codigo)
                 {
                     resultadoBusqueda = true;

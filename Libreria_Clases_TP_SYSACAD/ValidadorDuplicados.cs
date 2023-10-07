@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,7 +81,7 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             bool resultadoBusquedaUsuario = false;
 
-            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Curso, codigo);
+            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: Log.Curso, codigo: codigo);
 
             return resultadoBusquedaUsuario;
         }
@@ -91,7 +92,7 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             bool resultadoBusquedaUsuario = false;
 
-            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(Log.Estudiante, correo, legajo);
+            resultadoBusquedaUsuario = ComprobarExistenciaPrevia(modo: Log.Estudiante, correo: correo, legajo: legajo);
 
             return resultadoBusquedaUsuario;
         }
@@ -109,7 +110,7 @@ namespace Libreria_Clases_TP_SYSACAD
         //    return mensajeADevolver;
         //}
 
-        public static bool ComprobarExistenciaPrevia(Log modo, string correo = null,string codigo = null, string legajo = null)
+        public static bool ComprobarExistenciaPrevia(Log modo, string correo = null, string codigo = null, string legajo = null)
         {
             bool resultadoBusquedaUsuario = false;
             //if (modo == Log.Admin)
