@@ -144,6 +144,33 @@ namespace Libreria_Clases_TP_SYSACAD
             ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         }
 
+        /// <summary>
+        /// Elimina un curso de inscripción de todos los estudiantes que lo tengan inscrito.
+        /// </summary>
+        /// <param name="codigo">El código del curso que se desea eliminar.</param>
+        internal void EliminarCursoAEstudiante(string codigo)
+        {
+            foreach (Estudiante estudiante in listaEstudiante)
+            {
+                // Creo una lista temporal para almacenar los cursos que serán eliminados.
+                List<Curso> cursosAEliminar = new List<Curso>();
+
+                foreach (Curso curso in estudiante.CursosInscriptos)
+                {
+                    // Verifico si el curso tiene el código que deseamos eliminar.
+                    if (curso.Codigo == codigo)
+                    {
+                        cursosAEliminar.Add(curso);
+                    }
+                }
+
+                foreach (Curso cursoAEliminar in cursosAEliminar)
+                {
+                    estudiante.CursosInscriptos.Remove(cursoAEliminar);
+                }
+            }
+        }
+
         //Getters y setters
         public List<Estudiante> Estudiantes { get { return listaEstudiante; } }
     }

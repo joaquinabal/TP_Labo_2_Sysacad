@@ -113,6 +113,8 @@ namespace Libreria_Clases_TP_SYSACAD
                 _listaCursos.Remove(curso);
             }
 
+            Sistema.BaseDatosEstudiantes.EliminarCursoAEstudiante(codigoABuscar);
+
             ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
