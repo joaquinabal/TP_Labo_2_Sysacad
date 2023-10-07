@@ -109,7 +109,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public int CupoMaximo { get { return _cupoMaximo; } internal set { _cupoMaximo = value;} }
 
-        public int CupoDisponible { get { return _cupoDisponible; } internal set { _cupoDisponible = value; } }
+        public int CupoDisponible { get { return _cupoDisponible; } set { _cupoDisponible = value; } }
 
         public string Turno { get { return _turno;  } internal set { _turno = value; } }
 

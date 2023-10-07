@@ -79,6 +79,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     }
                 }
             }
+            ArchivosJsonEstudiantes.GuardarArchivoJSON(Sistema.BaseDatosEstudiantes.Estudiantes);
         }
 
         //Getters y Setters
@@ -98,7 +99,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
 
-        internal bool DebeCambiarContrasenia { get { return _debeCambiarContrasenia; } set { _debeCambiarContrasenia = value; } }
+        public bool DebeCambiarContrasenia { get { return _debeCambiarContrasenia; } set { _debeCambiarContrasenia = value; } }
 
         public List<ConceptoDePago> ConceptosDePago { get { return _conceptosAPagar; } }
     }
