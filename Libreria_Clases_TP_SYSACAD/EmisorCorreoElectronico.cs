@@ -16,7 +16,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         //Este metodo lo llamo desde el Forms de registro de estudiante si todo sale ok y la validacion
         //es correcta.
-        public static bool EnviarCorreoElectronico(Estudiante estudianteReceptor)
+        public static bool EnviarCorreoElectronico(Estudiante estudianteReceptor, string contrasenia)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 mensaje.Subject = "SYSACAD - Credenciales de Inicio de Sesion";
                 mensaje.Body = "Hola " + estudianteReceptor.Nombre + ", a continuacion sus credenciales de inicio: \n" +
                     $"Correo: {estudianteReceptor.Correo} \n" +
-                    $"Contraseña: {estudianteReceptor.Contrasenia}";
+                    $"Contraseña: {contrasenia}";
 
                 // Envía el correo
                 clienteSmtp.Send(mensaje);
