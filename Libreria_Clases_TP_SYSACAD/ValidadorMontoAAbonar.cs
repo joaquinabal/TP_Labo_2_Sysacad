@@ -63,20 +63,6 @@ namespace Libreria_Clases_TP_SYSACAD
                 }
             }
 
-
-
-            /*foreach (double montoAbonar in _listaMontos)
-            {
-                foreach (double montoOriginal in _listaMontosOriginales)
-                {
-                    if (montoAbonar > montoOriginal)
-                    {
-                        hayValorExcesivo = true;
-                        break;
-                    }
-                }
-            }*/
-
             return hayValorExcesivo;
         }
     }
