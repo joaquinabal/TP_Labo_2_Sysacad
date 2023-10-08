@@ -44,7 +44,7 @@ namespace Libreria_Clases_TP_SYSACAD
         public void RegistrarEstudiante(Estudiante nuevoEstudiante)
         {
             Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
-            AñadirConceptosDePagoIniciales();
+ 
         }
 
         /// <summary>
