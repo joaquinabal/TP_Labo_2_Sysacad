@@ -38,7 +38,7 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Registra un nuevo curso en la base de datos.
         /// </summary>
         /// <param name="nuevoCurso">El curso a ser registrado.</param>
-        public void RegistrarCurso(Curso nuevoCurso)
+        public void RegistrarCurso()
         {
             Sistema.BaseDatosCursos.IngresarCursoBD(this);
         }
