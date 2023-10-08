@@ -41,9 +41,9 @@ namespace Libreria_Clases_TP_SYSACAD
         /// Registra un nuevo estudiante en la base de datos.
         /// </summary>
         /// <param name="nuevoEstudiante">El estudiante a ser registrado.</param>
-        public void RegistrarEstudiante(Estudiante nuevoEstudiante)
+        public void RegistrarEstudiante()
         {
-            Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(nuevoEstudiante);
+            Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(this);
  
         }
 
