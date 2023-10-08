@@ -21,13 +21,16 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             //Recibo el diccionario y meto sus valores a una lista
             List<string> listaCamposIngresados = ObtenerListaDeCamposDesdeDiccionario(diccionarioConCampos);
+            List<string> listaErrores = new List<string>();
 
             //Valido si no hay campos vacios. Si todo esta bien devuelve true
             bool resultadoCamposVacios = ValidarCampos(listaCamposIngresados);
 
-            //Valido que cumplan el regex. Si esta todo bien devuelve una lista vacia
-            List<string> listaErrores = new List<string>();
-            listaErrores = ValidarRegex(diccionarioConCampos, modo);
+            if (resultadoCamposVacios)
+            {
+                //Valido que cumplan el regex. Si esta todo bien devuelve una lista vacia
+                listaErrores = ValidarRegex(diccionarioConCampos, modo);
+            }
 
             //Compruebo si la lista de errores esta efectivamente vacia
             bool resultadoExistenciaErrores = ComprobarExistenciaErrores(listaErrores);
