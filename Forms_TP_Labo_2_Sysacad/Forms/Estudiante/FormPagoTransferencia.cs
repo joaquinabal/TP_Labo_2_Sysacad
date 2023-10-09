@@ -61,7 +61,7 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Close();
             FormGestionarPagos formGestionarPagos = new FormGestionarPagos();
-            formGestionarPagos.ShowDialog();
+            formGestionarPagos.Show();
         }
 
         private void nombreTxtbox_TextChanged(object sender, EventArgs e)

@@ -27,35 +27,35 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Hide();
             FormPrincipal formPrincipal = new FormPrincipal();
-            formPrincipal.ShowDialog();
+            formPrincipal.Show();
         }
 
         private void gestionarCursosBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             FormPanelEstCursos formPanelEstCursos = new FormPanelEstCursos();
-            formPanelEstCursos.ShowDialog();
+            formPanelEstCursos.Show();
         }
 
         private void consultarHorariosBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             FormConsultarHorario formConsultarHorario = new FormConsultarHorario();
-            formConsultarHorario.ShowDialog();
+            formConsultarHorario.Show();
         }
 
         private void RealizarPagosBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             FormGestionarPagos formGestionarPagos = new FormGestionarPagos();
-            formGestionarPagos.ShowDialog();
+            formGestionarPagos.Show();
         }
 
         private void backBtn_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             FormPrincipal formPrincipal = new FormPrincipal();
-            formPrincipal.ShowDialog();
+            formPrincipal.Show();
         }
     }
 }

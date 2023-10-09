@@ -13,14 +13,14 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Hide();
             FormLoginEst formLoginEst = new FormLoginEst();
-            formLoginEst.ShowDialog();
+            formLoginEst.Show();
         }
 
         private void admBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             FormLoginAdm formLoginAdm = new FormLoginAdm();
-            formLoginAdm.ShowDialog();
+            formLoginAdm.Show();
         }
 
     }

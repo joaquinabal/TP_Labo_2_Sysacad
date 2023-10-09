@@ -173,7 +173,7 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Close();
             FormPanelEst formPanelEst = new FormPanelEst();
-            formPanelEst.ShowDialog();
+            formPanelEst.Show();
         }
 
         private void metodoPagoCombobox_SelectedIndexChanged(object sender, EventArgs e)

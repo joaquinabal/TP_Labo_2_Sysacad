@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj": {}
+    "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj": {}
   },
   "projects": {
-    "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj": {
+    "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj",
+        "projectUniqueName": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj",
         "projectName": "Forms_TP_Labo_2_Sysacad",
-        "projectPath": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj",
+        "projectPath": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj",
         "packagesPath": "C:\\Users\\54113\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\obj\\",
+        "outputPath": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\54113\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj": {
-                "projectPath": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj"
+              "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj": {
+                "projectPath": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj"
               }
             }
           }
@@ -66,14 +66,14 @@
         }
       }
     },
-    "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj": {
+    "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
+        "projectUniqueName": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
         "projectName": "Libreria_Clases_TP_SYSACAD",
-        "projectPath": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
+        "projectPath": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
         "packagesPath": "C:\\Users\\54113\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\obj\\",
+        "outputPath": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\54113\\AppData\\Roaming\\NuGet\\NuGet.Config",

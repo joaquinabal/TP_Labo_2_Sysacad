@@ -66,7 +66,7 @@
             horariosDGV.AllowUserToDeleteRows = false;
             horariosDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             horariosDGV.Columns.AddRange(new DataGridViewColumn[] { dias, Mañana, Tarde, Noche });
-            horariosDGV.Location = new Point(120, 127);
+            horariosDGV.Location = new Point(121, 120);
             horariosDGV.Name = "horariosDGV";
             horariosDGV.ReadOnly = true;
             horariosDGV.RowTemplate.Height = 25;
@@ -137,10 +137,10 @@
             // estLbl
             // 
             estLbl.AutoSize = true;
-            estLbl.Font = new Font("Lucida Sans", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            estLbl.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             estLbl.Location = new Point(197, 75);
             estLbl.Name = "estLbl";
-            estLbl.Size = new Size(248, 23);
+            estLbl.Size = new Size(255, 25);
             estLbl.TabIndex = 79;
             estLbl.Text = "GRILLA DE HORARIOS";
             // 
@@ -159,7 +159,6 @@
             ((System.ComponentModel.ISupportInitialize)horariosDGV).EndInit();
             ((System.ComponentModel.ISupportInitialize)cursosInscriptosBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)estudianteBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)estudiantesInscriptosBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -125,7 +125,7 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Close();
             FormPanelEstCursos formPanelEstCursos = new FormPanelEstCursos();
-            formPanelEstCursos.ShowDialog();
+            formPanelEstCursos.Show();
         }
 
         private void FormInscripcionCurso_Load(object sender, EventArgs e)

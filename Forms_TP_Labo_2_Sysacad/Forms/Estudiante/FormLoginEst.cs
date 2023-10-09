@@ -38,7 +38,7 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Hide();
             FormPrincipal formPrincipal = new FormPrincipal();
-            formPrincipal.ShowDialog();
+            formPrincipal.Show();
         }
 
         private void mailTxtbox_TextChanged(object sender, EventArgs e)
@@ -58,13 +58,13 @@ namespace Forms_TP_Labo_2_Sysacad
                 {
                     this.Close();
                     FormContraseñaProv formContraseñaProv = new FormContraseñaProv(Mail);
-                    formContraseñaProv.ShowDialog();
+                    formContraseñaProv.Show();
                 }
 
                 Sistema.IngresarEstudianteComoUsuarioActivo(Mail);
                 this.Hide();
                 FormPanelEst formPanelEst = new FormPanelEst();
-                formPanelEst.ShowDialog();
+                formPanelEst.Show();
             }
             else if (resultadoValidacion == "CAMPOS VACIOS")
             {

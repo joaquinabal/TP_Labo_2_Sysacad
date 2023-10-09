@@ -120,7 +120,7 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Close();
             FormPanelAdmCursos formPanelAdmCursos = new FormPanelAdmCursos();
-            formPanelAdmCursos.ShowDialog();
+            formPanelAdmCursos.Show();
         }
     }
 }

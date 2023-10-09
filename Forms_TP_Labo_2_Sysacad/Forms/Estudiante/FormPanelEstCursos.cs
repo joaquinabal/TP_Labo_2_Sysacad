@@ -54,14 +54,14 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Close();
             FormInscripcionCurso formInscripcionCurso = new FormInscripcionCurso();
-            formInscripcionCurso.ShowDialog();
+            formInscripcionCurso.Show();
         }
 
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Close();
             FormPanelEst formPanelEst = new FormPanelEst();
-            formPanelEst.ShowDialog();
+            formPanelEst.Show();
         }
 
         public List<Curso> ListaCursos

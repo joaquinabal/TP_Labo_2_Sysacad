@@ -34,18 +34,11 @@ namespace Forms_TP_Labo_2_Sysacad
             InitializeComponent();
         }
 
-        private void backBtn_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            FormPrincipal formPrincipal = new FormPrincipal();
-            formPrincipal.ShowDialog();
-        }
-
         private void backBtn_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             FormPrincipal formPrincipal = new FormPrincipal();
-            formPrincipal.ShowDialog();
+            formPrincipal.Show();
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
@@ -53,7 +46,6 @@ namespace Forms_TP_Labo_2_Sysacad
             ValidadorCredenciales validadorCredenciales = new ValidadorCredenciales();
 
             string resultadoValidacion = validadorCredenciales.ValidarCredenciales(Mail, Password, Log.Admin);
-            Console.WriteLine(resultadoValidacion);
 
             if (resultadoValidacion == "OK")
             {

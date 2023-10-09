@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IVYQT+Zl++yNss9D9/Yrissr3yvjelO3YsveC5HA+g4/h1W+HFfc/eqI2KjU7MuwEQa1ZxcUhudW87zWF7wyGQ==",
+  "dgSpecHash": "mK7bxeWtd8qKWWzSL+sOrzcFZeaXa81VibZVTNuKiKyB4ydYBJiR6yuPqCYbpIeUhdirrVGNQ2VXaWoAijvqqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\54113\\Desktop\\tp\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj",
+  "projectFilePath": "C:\\Users\\54113\\Desktop\\tp - copia\\TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad\\Forms_TP_Labo_2_Sysacad.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\54113\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512"
   ],

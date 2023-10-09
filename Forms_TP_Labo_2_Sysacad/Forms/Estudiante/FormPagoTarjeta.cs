@@ -75,7 +75,7 @@ namespace Forms_TP_Labo_2_Sysacad
                 MessageBox.Show("vamos pa delante");
                 this.Close();
                 FormComprobantePago formComprobantePago = new FormComprobantePago(Monto, ConceptosSeleccionados, _cantCuotas);
-                formComprobantePago.ShowDialog();
+                formComprobantePago.Show();
             }
             else
             {

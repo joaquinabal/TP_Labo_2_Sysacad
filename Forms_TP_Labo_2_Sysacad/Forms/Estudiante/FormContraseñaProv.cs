@@ -31,7 +31,7 @@ namespace Forms_TP_Labo_2_Sysacad
                 Sistema.EstudianteLogueado.DebeCambiarContrasenia = false;
                 this.Close();
                 FormPanelEst formPanelEst = new FormPanelEst();
-                formPanelEst.ShowDialog();
+                formPanelEst.Show();
             }
             else
             {
@@ -53,7 +53,7 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Close();
             FormLoginEst formLoginEst = new FormLoginEst();
-            formLoginEst.ShowDialog();
+            formLoginEst.Show();
         }
 
         public string NuevaContraseña { get { return _nuevaContraseña; } set { _nuevaContraseña = value; } }

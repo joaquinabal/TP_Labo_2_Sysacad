@@ -117,7 +117,7 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Hide();
             FormPanelAdministrador formPanelAdministrador = new FormPanelAdministrador();
-            formPanelAdministrador.ShowDialog();
+            formPanelAdministrador.Show();
         }
     }
 }

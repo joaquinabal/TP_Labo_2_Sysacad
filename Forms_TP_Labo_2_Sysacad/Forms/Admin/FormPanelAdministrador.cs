@@ -22,21 +22,21 @@ namespace Forms_TP_Labo_2_Sysacad
         {
             this.Hide();
             FormPrincipal formPrincipal = new FormPrincipal();
-            formPrincipal.ShowDialog();
+            formPrincipal.Show();
         }
 
         private void registrarEstBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             FormRegEst formRegEst = new FormRegEst();
-            formRegEst.ShowDialog();
+            formRegEst.Show();
         }
 
         private void gestionarCursosBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             FormPanelAdmCursos formPanelAdmCursos = new FormPanelAdmCursos();
-            formPanelAdmCursos.ShowDialog();
+            formPanelAdmCursos.Show();
         }
     }
 }

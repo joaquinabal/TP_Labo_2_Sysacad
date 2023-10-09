@@ -60,7 +60,7 @@ namespace Forms_TP_Labo_2_Sysacad
 
                 this.Close();
                 FormEditarCurso formEditarCurso = new FormEditarCurso(CursoSeleccionado);
-                formEditarCurso.ShowDialog();
+                formEditarCurso.Show();
 
             }
             else
@@ -87,23 +87,18 @@ namespace Forms_TP_Labo_2_Sysacad
             CursoSeleccionado = new Curso(nombreCursoSeleccionado, codigoCursoSelecionado, descripcionCursoSelecionado, int.Parse(cupoMaxCursoSelecionado), turnoCursoSeleccionado, aulaCursoSeleccionado, diaCursoSeleccionado);
         }
 
-        private void backBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void backBtn_Click_1(object sender, EventArgs e)
         {
             this.Close();
             FormPanelAdministrador formPanelAdministrador = new FormPanelAdministrador();
-            formPanelAdministrador.ShowDialog();
+            formPanelAdministrador.Show();
         }
 
         private void agregarCursoBtn_Click(object sender, EventArgs e)
         {
             this.Close();
             FormAgregarCurso formAgregarCurso = new FormAgregarCurso();
-            formAgregarCurso.ShowDialog();
+            formAgregarCurso.Show();
         }
 
         private void eliminarCursoBtn_Click(object sender, EventArgs e)
@@ -113,7 +108,7 @@ namespace Forms_TP_Labo_2_Sysacad
 
                 this.Close();
                 FormEliminarCurso formEliminarCurso = new FormEliminarCurso(CursoSeleccionado);
-                formEliminarCurso.ShowDialog();
+                formEliminarCurso.Show();
             }
             else
             {
