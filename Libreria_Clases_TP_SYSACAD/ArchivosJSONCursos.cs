@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -115,9 +116,13 @@ namespace Libreria_Clases_TP_SYSACAD
         private static List<Curso> GenerarCursosPorDefecto()
         {
             string[] nombresCursos =
-            {"Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
+            {
+            "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
             "Programacion 1", "Laboratorio 1", "Arquitectura y Sistemas Operativos",
-            "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion"};
+            "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion",
+            "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes", "Ingles Tecnico Avanzado 1",
+            "Proyectos Informaticos", "Seminario", "Ingles Tecnico Avanzado 2"
+            };
 
             string[] turnos = { "Mañana", "Tarde", "Noche" };
 
@@ -134,18 +139,29 @@ namespace Libreria_Clases_TP_SYSACAD
                     string descripcion = $"1° año {nombreCurso.ToLower()} {turno.ToLower()}";
                     int aula = (turno == "Tarde") ? random.Next(100, 199) : (turno == "Mañana") ? random.Next(200, 299) : random.Next(300, 399);
                     string dia = GenerarDiaAleatorio();
+                    Carrera carrera = ObtenerCarrera(nombreCurso);
 
-                    Curso curso = new Curso(nombreCurso, codigo, descripcion, cupoMaximo, turno, aula.ToString(), dia);
+                    Curso curso = new Curso(nombreCurso, codigo, descripcion, cupoMaximo, turno, aula.ToString(), dia, carrera);
                     cursos.Add(curso);
                 }
             }
 
-            foreach (Curso curso in cursos)
-            {
-                Debug.WriteLine(curso);
-            }
-
             return cursos;
+        }
+
+        private static Carrera ObtenerCarrera(string nombreMateria)
+        {
+            if (nombreMateria == "Matematica" || nombreMateria == "Sistemas de Procesamiento de Datos" || nombreMateria == "Ingles 1" ||
+                nombreMateria == "Programacion 1" || nombreMateria == "Laboratorio 1" || nombreMateria == "Arquitectura y Sistemas Operativos" ||
+                nombreMateria == "Estadistica" || nombreMateria == "Ingles 2" || nombreMateria == "Programacion 2" || nombreMateria == "Laboratorio 2" ||
+                nombreMateria == "Metodologia de Investigacion")
+            {
+                return Carrera.TUP;
+            }
+            else
+            {
+                return Carrera.TUSI;
+            }
         }
 
         /// <summary>

@@ -13,6 +13,8 @@ namespace Libreria_Clases_TP_SYSACAD
         private static BaseDatosAdministradores _baseDatosAdministradores;
         private static BaseDatosEstudiantes _baseDatosEstudiantes;
         private static BaseDatosCursos _baseDatosCursos;
+        private static BaseDatosInscripciones _baseDatosInscripciones;
+        private static BaseDatosPagos _baseDatosPagos;
         private static Estudiante _estudianteLogueado;
 
         //Codigo de acceso que solo los admins poseen
@@ -28,6 +30,8 @@ namespace Libreria_Clases_TP_SYSACAD
                 _baseDatosAdministradores = new BaseDatosAdministradores();
                 _baseDatosEstudiantes = new BaseDatosEstudiantes();
                 _baseDatosCursos = new BaseDatosCursos();
+                _baseDatosInscripciones = new BaseDatosInscripciones();
+                _baseDatosPagos = new BaseDatosPagos();
             }
             catch (Exception e)
             {
@@ -57,6 +61,10 @@ namespace Libreria_Clases_TP_SYSACAD
         public static BaseDatosEstudiantes BaseDatosEstudiantes { get { return _baseDatosEstudiantes; } }
 
         public static BaseDatosCursos BaseDatosCursos { get {  return _baseDatosCursos; } }
+
+        public static BaseDatosInscripciones BaseDatosInscripciones { get { return _baseDatosInscripciones; } }
+
+        public static BaseDatosPagos BaseDatosPagos { get { return _baseDatosPagos; } }
 
         public static Estudiante EstudianteLogueado { get { return _estudianteLogueado; } set { _estudianteLogueado = value; } }
 

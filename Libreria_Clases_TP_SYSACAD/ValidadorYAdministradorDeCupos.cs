@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     }
                     else
                     {
-                        RestarCupoYAgregarCursoAEstudiante(curso);
+                        GestionarInscripcion(curso);
                     }
                 }
 
@@ -67,14 +67,25 @@ namespace Libreria_Clases_TP_SYSACAD
             return mensajeADevolver;
         }
 
-        /// <summary>
-        /// Resta un cupo disponible al curso y agrega el curso al estudiante.
-        /// </summary>
-        /// <param name="curso">El curso a agregar al estudiante.</param>
-        private static void RestarCupoYAgregarCursoAEstudiante(Curso curso)
+        private static void GestionarInscripcion(Curso curso)
         {
+            RegistroDeInscripcion nuevoRegistro = GenerarNuevoRegistroDeInscripcion(curso);
+            
             Sistema.BaseDatosCursos.RestarCupoDisponible(curso);
             Sistema.BaseDatosEstudiantes.AgregarCursoAEstudiante(Sistema.EstudianteLogueado, curso);
+            Sistema.BaseDatosInscripciones.IngresarNuevoRegistro(nuevoRegistro);
+        }
+
+        private static RegistroDeInscripcion GenerarNuevoRegistroDeInscripcion(Curso curso)
+        {
+            Estudiante estudianteInscripto = Sistema.EstudianteLogueado;
+            Curso cursoAlCualSeInscribe = curso;
+            DateTime fechaInscripcion = DateTime.Now;
+
+            RegistroDeInscripcion nuevoRegistro = new RegistroDeInscripcion(estudianteInscripto, 
+                cursoAlCualSeInscribe, fechaInscripcion);
+
+            return nuevoRegistro;
         }
 
         /// <summary>

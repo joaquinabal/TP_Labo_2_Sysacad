@@ -13,6 +13,8 @@ namespace Libreria_Clases_TP_SYSACAD
         protected static readonly string fileEstudiantes = "Alumnos.json";
         protected static string fileCursos = "Cursos.json";
         protected static string fileAdmins = "Admins.json";
+        protected static string fileRegistroInscripciones = "RegistroInscripciones.json";
+        protected static string fileRegistroPagos = "RegistroPagos.json";
         protected static string directoryName = "archivos";
 
         /// <summary>

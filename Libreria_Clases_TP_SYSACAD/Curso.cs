@@ -18,9 +18,9 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _turno;
         private string _aula;
         private string _dia;
-        //private List<Estudiante> _estudiantesInscriptos;
+        private Carrera _carrera;
 
-        public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula, string dia)
+        public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula, string dia, Carrera carrera)
         {
             _nombre = nombre;
             _codigo = codigo;
@@ -30,8 +30,7 @@ namespace Libreria_Clases_TP_SYSACAD
             _turno = turno;
             _aula = aula;
             _dia = dia;
-
-            //_estudiantesInscriptos = new List<Estudiante>();
+            _carrera = carrera;
         }
 
         /// <summary>
@@ -116,6 +115,8 @@ namespace Libreria_Clases_TP_SYSACAD
         public string Aula { get { return _aula; } internal set { _aula = value; } }
 
         public string Dia { get { return _dia; } internal set { _dia = value; } }
+
+        public Carrera Carrera { get { return _carrera; }}
 
         //public List<Estudiante> EstudiantesInscriptos { get { return _estudiantesInscriptos; } }
     }
