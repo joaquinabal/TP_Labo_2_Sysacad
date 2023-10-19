@@ -12,7 +12,12 @@ namespace Libreria_Clases_TP_SYSACAD
 
         internal BaseDatosInscripciones()
         {
-            this._listaRegistrosInscripcion = ArchivosJSONInscripciones.CargarInscripcionesDesdeArchivoJson();
+            List<RegistroDeInscripcion>? registrosCargados = ArchivosJSONInscripciones.CargarInscripcionesDesdeArchivoJson();
+
+            if (registrosCargados != null)
+            {
+                _listaRegistrosInscripcion = registrosCargados;
+            }
         }
 
         internal void IngresarNuevoRegistro(RegistroDeInscripcion nuevoRegistro)
@@ -31,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public List<RegistroDeInscripcion> ObtenerInscripcionesTotalesSegunFecha(DateTime fechaDesde, DateTime fechaHasta)
         {
-            List<RegistroDeInscripcion> listaInscripcionesSegunFecha = new List<RegistroDeInscripcion> ();
+            List<RegistroDeInscripcion> listaInscripcionesSegunFecha = new List<RegistroDeInscripcion>();
 
             foreach (RegistroDeInscripcion registro in _listaRegistrosInscripcion)
             {
@@ -44,13 +49,13 @@ namespace Libreria_Clases_TP_SYSACAD
             return listaInscripcionesSegunFecha;
         }
 
-        public List<RegistroDeInscripcion> ObtenerInscripcionesSegunCursoYFecha(DateTime fechaDesde, DateTime fechaHasta, Curso curso)
+        public List<RegistroDeInscripcion> ObtenerInscripcionesSegunCursoYFecha(DateTime fechaDesde, DateTime fechaHasta, string codigoCurso)
         {
             List<RegistroDeInscripcion> listaInscripcionesSegunCursoYFecha = new List<RegistroDeInscripcion>();
 
             foreach (RegistroDeInscripcion registro in _listaRegistrosInscripcion)
             {
-                if (registro.FechaInscripcion >= fechaDesde && registro.FechaInscripcion <= fechaHasta && registro.CodigoCurso == curso.Codigo)
+                if (registro.FechaInscripcion >= fechaDesde && registro.FechaInscripcion <= fechaHasta && registro.CodigoCurso == codigoCurso)
                 {
                     listaInscripcionesSegunCursoYFecha.Add(registro);
                 }
@@ -73,5 +78,8 @@ namespace Libreria_Clases_TP_SYSACAD
 
             return listaInscripcionesSegunCarreraYFecha;
         }
+
+        //Getters y Setters
+        public List<RegistroDeInscripcion> Inscripciones { get { return _listaRegistrosInscripcion; } }
     }
 }

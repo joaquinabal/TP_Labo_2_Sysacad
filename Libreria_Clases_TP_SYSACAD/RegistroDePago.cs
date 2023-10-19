@@ -27,6 +27,12 @@ namespace Libreria_Clases_TP_SYSACAD
         //Getters y Setters
         public DateTime FechaPago { get { return _fechaPago; } }
 
-        public string NombreConcepto { get { return _nombre; } }
+        public string Concepto { get { return _concepto; } }
+
+        public string Legajo { get {  return _legajo; } }
+
+        public string NombreEstudiante { get {  return _nombre; } }
+
+        public double Ingreso { get { return _ingreso; } }
     }
 }

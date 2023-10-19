@@ -12,7 +12,6 @@ namespace Libreria_Clases_TP_SYSACAD
     {
         internal static List<RegistroDeInscripcion>? CargarInscripcionesDesdeArchivoJson()
         {
-
             List<RegistroDeInscripcion> listaInscripciones = new List<RegistroDeInscripcion>();
 
             string stringInscripciones = "";

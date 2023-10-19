@@ -12,7 +12,12 @@ namespace Libreria_Clases_TP_SYSACAD
 
         internal BaseDatosPagos()
         {
-            this._listaRegistrosPagos = ArchivosJSONPagos.CargarPagosDesdeArchivoJson();
+            List<RegistroDePago>? registrosCargados = ArchivosJSONPagos.CargarPagosDesdeArchivoJson();
+
+            if (registrosCargados != null)
+            {
+                _listaRegistrosPagos = registrosCargados;
+            }
         }
 
         public void IngresarNuevoPago(List<RegistroDePago> nuevosPagos)
@@ -35,13 +40,13 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-        public List<RegistroDePago> ObtenerIngresosSegunConceptoYFecha(DateTime fechaDesde, DateTime fechaHasta, ConceptoDePago concepto)
+        public List<RegistroDePago> ObtenerIngresosSegunConceptoYFecha(DateTime fechaDesde, DateTime fechaHasta, string concepto)
         {
             List<RegistroDePago> listaIngresosSegunConceptoYFecha = new List<RegistroDePago>();
 
             foreach (RegistroDePago registro in _listaRegistrosPagos)
             {
-                if (registro.FechaPago >= fechaDesde && registro.FechaPago <= fechaHasta && registro.NombreConcepto == concepto.Nombre)
+                if (registro.FechaPago >= fechaDesde && registro.FechaPago <= fechaHasta && registro.Concepto == concepto)
                 {
                     listaIngresosSegunConceptoYFecha.Add(registro);
                 }
@@ -49,5 +54,8 @@ namespace Libreria_Clases_TP_SYSACAD
 
             return listaIngresosSegunConceptoYFecha;
         }
+
+        //Getters y Setters
+        public List<RegistroDePago> Pagos { get { return _listaRegistrosPagos; } }
     }
 }
