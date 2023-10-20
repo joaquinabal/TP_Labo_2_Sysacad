@@ -109,19 +109,71 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-        /// <summary>
-        /// Genera una lista de cursos por defecto con datos aleatorios.
-        /// </summary>
-        /// <returns>Una lista de cursos por defecto.</returns>
+
+        //private static List<Curso> GenerarCursosPorDefecto()
+        //{
+        //    string[] nombresCursos =
+        //    {
+        //    "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
+        //    "Programacion 1", "Laboratorio 1", "Arquitectura y Sistemas Operativos",
+        //    "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion",
+        //    "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes", "Ingles Tecnico Avanzado 1",
+        //    "Proyectos Informaticos", "Seminario", "Ingles Tecnico Avanzado 2"
+        //    };
+
+        //    string[] turnos = { "Mañana", "Tarde", "Noche" };
+
+        //    List<Curso> cursos = new List<Curso>();
+
+        //    Random random = new Random();
+
+        //    foreach (string nombreCurso in nombresCursos)
+        //    {
+        //        foreach (string turno in turnos)
+        //        {
+        //            int cupoMaximo = random.Next(80, 160);
+        //            string codigo = GenerarCodigo(nombreCurso, turno);
+        //            string descripcion = $"1° año {nombreCurso.ToLower()} {turno.ToLower()}";
+        //            int aula = (turno == "Tarde") ? random.Next(100, 199) : (turno == "Mañana") ? random.Next(200, 299) : random.Next(300, 399);
+        //            string dia = GenerarDiaAleatorio();
+        //            Carrera carrera = ObtenerCarrera(nombreCurso);
+
+        //            Curso curso = new Curso(nombreCurso, codigo, descripcion, cupoMaximo, turno, aula.ToString(), dia, carrera);
+        //            cursos.Add(curso);
+        //        }
+        //    }
+
+        //    return cursos;
+        //}
+
         private static List<Curso> GenerarCursosPorDefecto()
         {
+            List<string> materiasIniciales = new List<string>
+            {
+                "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
+                "Programacion 1", "Laboratorio 1"
+            };
+
+            List<string> materiasIntermedias = new List<string>
+            {
+                "Arquitectura y Sistemas Operativos", "Estadistica", "Ingles 2",
+                "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion"
+            };
+
+            List<string> materiasFinales = new List<string>
+            {
+                "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes",
+                "Ingles Tecnico Avanzado 1", "Proyectos Informaticos", "Seminario",
+                "Ingles Tecnico Avanzado 2"
+            };
+
             string[] nombresCursos =
             {
-            "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
-            "Programacion 1", "Laboratorio 1", "Arquitectura y Sistemas Operativos",
-            "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion",
-            "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes", "Ingles Tecnico Avanzado 1",
-            "Proyectos Informaticos", "Seminario", "Ingles Tecnico Avanzado 2"
+                "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
+                "Programacion 1", "Laboratorio 1", "Arquitectura y Sistemas Operativos",
+                "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion",
+                "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes", "Ingles Tecnico Avanzado 1",
+                "Proyectos Informaticos", "Seminario", "Ingles Tecnico Avanzado 2"
             };
 
             string[] turnos = { "Mañana", "Tarde", "Noche" };
@@ -140,8 +192,33 @@ namespace Libreria_Clases_TP_SYSACAD
                     int aula = (turno == "Tarde") ? random.Next(100, 199) : (turno == "Mañana") ? random.Next(200, 299) : random.Next(300, 399);
                     string dia = GenerarDiaAleatorio();
                     Carrera carrera = ObtenerCarrera(nombreCurso);
+                    int creditosRequeridos = random.Next(0, 1000);
+                    double promedioRequerido = random.NextDouble() * 10;
 
                     Curso curso = new Curso(nombreCurso, codigo, descripcion, cupoMaximo, turno, aula.ToString(), dia, carrera);
+
+                    curso.CreditosRequeridos = creditosRequeridos;
+                    curso.PromedioRequerido = promedioRequerido;
+
+                    List<Curso> cursosCorrelatividades = new List<Curso>();
+
+                    if (materiasIniciales.Contains(nombreCurso))
+                    {
+                        //No hago nada
+                    }
+                    else if (materiasIntermedias.Contains(nombreCurso))
+                    {
+                        // Asignar correlatividades intermedias (basadas en materias iniciales)
+                        cursosCorrelatividades = cursos.Where(c => materiasIniciales.Contains(c.Nombre)).ToList();
+                    }
+                    else if (materiasFinales.Contains(nombreCurso))
+                    {
+                        // Asignar correlatividades finales (basadas en todas las materias)
+                        cursosCorrelatividades = cursos.ToList();
+                    }
+
+                    curso.Correlatividades = cursosCorrelatividades;
+
                     cursos.Add(curso);
                 }
             }

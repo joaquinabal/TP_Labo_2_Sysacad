@@ -19,8 +19,12 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _aula;
         private string _dia;
         private Carrera _carrera;
+        private List<Curso> _correlatividades = new List<Curso>();
+        private int _creditosRequeridos = 0;
+        private double _promedioRequerido = 0;
 
-        public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula, string dia, Carrera carrera)
+        public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula, 
+            string dia, Carrera carrera)
         {
             _nombre = nombre;
             _codigo = codigo;
@@ -116,7 +120,13 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public string Dia { get { return _dia; } internal set { _dia = value; } }
 
-        public Carrera Carrera { get { return _carrera; }}
+        public Carrera Carrera { get { return _carrera; } }
+
+        public List<Curso> Correlatividades { get { return _correlatividades; }}
+
+        public int CreditosRequeridos { get { return _creditosRequeridos; } set { _creditosRequeridos = value; } }
+
+        public double PromedioRequerido { get { return _promedioRequerido; } set { _promedioRequerido = value; } }
 
         //public List<Estudiante> EstudiantesInscriptos { get { return _estudiantesInscriptos; } }
     }

@@ -153,6 +153,31 @@ namespace Libreria_Clases_TP_SYSACAD
             return listaCursosDisponibles;
         }
 
+        public void EliminarCursosRequeridosACursoExistente(Curso cursoAModificar, List<Curso> cursosAEliminar)
+        {
+            for (int i = 0; i < _listaCursos.Count; i++)
+            {
+                Curso curso = _listaCursos[i];
+
+                if (curso.Codigo == cursoAModificar.Codigo)
+                {
+                    List<Curso> nuevasCorrelatividades = new List<Curso>();
+
+                    foreach (Curso cursoRequerido in curso.Correlatividades)
+                    {
+                        if (!cursosAEliminar.Contains(cursoRequerido))
+                        {
+                            nuevasCorrelatividades.Add(cursoRequerido);
+                        }
+                    }
+
+                    curso.Correlatividades = nuevasCorrelatividades;
+                }
+            }
+
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
+        }
+
         //Getters y setters
         public List<Curso> Cursos { get { return _listaCursos; } }
     }

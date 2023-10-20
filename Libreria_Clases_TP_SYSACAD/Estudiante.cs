@@ -19,6 +19,9 @@ namespace Libreria_Clases_TP_SYSACAD
         private bool _debeCambiarContrasenia;
         private List<Curso> _cursosInscriptos;
         private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
+        private Dictionary<Curso, bool> _estadoCursos = new Dictionary<Curso, bool>();
+        private int _creditos;
+        private double _promedio;
 
         /// <summary>
         /// Constructor de la clase Estudiante.
@@ -35,6 +38,13 @@ namespace Libreria_Clases_TP_SYSACAD
             _contrasenia = contrasenia;
             _debeCambiarContrasenia = debeCambiarContrasenia;
             _cursosInscriptos = new List<Curso>();
+            _creditos = 0;
+            _promedio = 0;
+
+            foreach (Curso curso in Sistema.BaseDatosCursos.Cursos)
+            {
+                _estadoCursos[curso] = false;
+            }
         }
 
         /// <summary>
@@ -102,5 +112,11 @@ namespace Libreria_Clases_TP_SYSACAD
         public bool DebeCambiarContrasenia { get { return _debeCambiarContrasenia; } set { _debeCambiarContrasenia = value; } }
 
         public List<ConceptoDePago> ConceptosDePago { get { return _conceptosAPagar; } }
+
+        public Dictionary<Curso, bool> EstadoCursos { get { return _estadoCursos; } }
+
+        public int Creditos { get { return _creditos; } internal set { _creditos = value; } }
+
+        public double Promedio { get { return _promedio; } internal set { _promedio = value; } }
     }
 }
