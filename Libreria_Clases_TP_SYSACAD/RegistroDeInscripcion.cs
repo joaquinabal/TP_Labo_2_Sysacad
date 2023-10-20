@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +22,13 @@ namespace Libreria_Clases_TP_SYSACAD
         private Carrera _carrera;
         private DateTime _fechaInscripcion;
 
-        public RegistroDeInscripcion(Estudiante estudiante, Curso curso, DateTime fechaInscripcion)
+        public RegistroDeInscripcion(string legajo, string nombreAlumno, string nombreCurso, string codigoCurso, Carrera carrera, DateTime fechaInscripcion)
         {
-            _legajo = estudiante.Legajo;
-            _nombreAlumno = estudiante.Nombre;
-            _nombreCurso = curso.Nombre;
-            _codigoCurso = curso.Codigo;
-            _carrera = curso.Carrera;
+            _legajo = legajo;
+            _nombreAlumno = nombreAlumno;
+            _nombreCurso = nombreCurso;
+            _codigoCurso = codigoCurso;
+            _carrera = carrera;
             _fechaInscripcion = fechaInscripcion;
         }
 

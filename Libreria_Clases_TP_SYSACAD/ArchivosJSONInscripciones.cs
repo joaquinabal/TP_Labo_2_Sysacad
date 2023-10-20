@@ -37,10 +37,22 @@ namespace Libreria_Clases_TP_SYSACAD
                 }
                 else
                 {
+                    // Configurar los ajustes de serialización y deserialización con el formato de fecha personalizado.
+                    JsonSerializerSettings settings = new JsonSerializerSettings
+                    {
+                        DateFormatString = "yyyy-MM-ddTHH:mm:ss"
+                    };
+
+                    //stringInscripciones = LeerArchivoJson(fullPath);
+                    //if (!string.IsNullOrEmpty(stringInscripciones))
+                    //{
+                    //    listaInscripciones = JsonConvert.DeserializeObject<List<RegistroDeInscripcion>>(stringInscripciones);
+                    //}
+
                     stringInscripciones = LeerArchivoJson(fullPath);
                     if (!string.IsNullOrEmpty(stringInscripciones))
                     {
-                        listaInscripciones = JsonConvert.DeserializeObject<List<RegistroDeInscripcion>>(stringInscripciones);
+                        listaInscripciones = JsonConvert.DeserializeObject<List<RegistroDeInscripcion>>(stringInscripciones, settings);
                     }
                 }
             }
@@ -81,11 +93,26 @@ namespace Libreria_Clases_TP_SYSACAD
 
         private static void EscribirArchivoJSON(List<RegistroDeInscripcion> registrosInscripcion, string fullPath)
         {
-            using (var writer = new StreamWriter(fullPath))
+            // Configurar los ajustes de serialización con el formato de fecha personalizado.
+            JsonSerializerSettings settings = new JsonSerializerSettings
             {
-                var json = System.Text.Json.JsonSerializer.Serialize(registrosInscripcion);
-                writer.Write(json);
+                DateFormatString = "yyyy-MM-ddTHH:mm:ss"
+            };
+
+            string jsonString = JsonConvert.SerializeObject(registrosInscripcion, Formatting.Indented, settings);
+
+            using (StreamWriter writer = new StreamWriter(fullPath))
+            {
+                writer.Write(jsonString);
             }
+
+            //string jsonString = JsonConvert.SerializeObject(registrosInscripcion, Formatting.Indented);
+
+            //using (StreamWriter writer = new StreamWriter(fullPath))
+            //{
+            //    writer.Write(jsonString);
+            //}
         }
+
     }
 }

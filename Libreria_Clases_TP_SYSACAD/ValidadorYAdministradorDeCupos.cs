@@ -82,8 +82,9 @@ namespace Libreria_Clases_TP_SYSACAD
             Curso cursoAlCualSeInscribe = curso;
             DateTime fechaInscripcion = DateTime.Now;
 
-            RegistroDeInscripcion nuevoRegistro = new RegistroDeInscripcion(estudianteInscripto, 
-                cursoAlCualSeInscribe, fechaInscripcion);
+            RegistroDeInscripcion nuevoRegistro = new RegistroDeInscripcion(estudianteInscripto.Legajo, 
+                estudianteInscripto.Nombre, cursoAlCualSeInscribe.Nombre, cursoAlCualSeInscribe.Codigo, 
+                cursoAlCualSeInscribe.Carrera, fechaInscripcion);
 
             return nuevoRegistro;
         }

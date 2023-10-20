@@ -37,11 +37,22 @@ namespace Libreria_Clases_TP_SYSACAD
                 }
                 else
                 {
+                    JsonSerializerSettings settings = new JsonSerializerSettings
+                    {
+                        DateFormatString = "yyyy-MM-ddTHH:mm:ss"
+                    };
+
                     stringPagos = LeerArchivoJson(fullPath);
                     if (!string.IsNullOrEmpty(stringPagos))
                     {
-                        listaPagos = JsonConvert.DeserializeObject<List<RegistroDePago>>(stringPagos);
+                        listaPagos = JsonConvert.DeserializeObject<List<RegistroDePago>>(stringPagos, settings);
                     }
+
+                    //stringPagos = LeerArchivoJson(fullPath);
+                    //if (!string.IsNullOrEmpty(stringPagos))
+                    //{
+                    //    listaPagos = JsonConvert.DeserializeObject<List<RegistroDePago>>(stringPagos);
+                    //}
                 }
             }
             catch (FileNotFoundException ex)
@@ -81,11 +92,24 @@ namespace Libreria_Clases_TP_SYSACAD
 
         private static void EscribirArchivoJSON(List<RegistroDePago> registrosPagos, string fullPath)
         {
+            // Configurar los ajustes de serialización con el formato de fecha personalizado.
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                DateFormatString = "yyyy-MM-ddTHH:mm:ss"
+            };
+
+            string jsonString = JsonConvert.SerializeObject(registrosPagos, Formatting.Indented, settings);
+
             using (var writer = new StreamWriter(fullPath))
             {
-                var json = System.Text.Json.JsonSerializer.Serialize(registrosPagos);
-                writer.Write(json);
+                writer.Write(jsonString);
             }
+
+            //using (var writer = new StreamWriter(fullPath))
+            //{
+            //    var json = System.Text.Json.JsonSerializer.Serialize(registrosPagos);
+            //    writer.Write(json);
+            //}
         }
     }
 }
