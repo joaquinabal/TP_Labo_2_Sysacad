@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
@@ -19,9 +20,11 @@ namespace Libreria_Clases_TP_SYSACAD
         private string _aula;
         private string _dia;
         private Carrera _carrera;
-        private List<Curso> _correlatividades = new List<Curso>();
+        private List<string> _codigosCorrelatividades = new List<string>();
         private int _creditosRequeridos = 0;
         private double _promedioRequerido = 0;
+        private string _codigoFamilia;
+
 
         public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula, 
             string dia, Carrera carrera)
@@ -35,6 +38,15 @@ namespace Libreria_Clases_TP_SYSACAD
             _aula = aula;
             _dia = dia;
             _carrera = carrera;
+            _codigoFamilia = ObtenerCodigoDeFamilia();
+        }
+
+        public string ObtenerCodigoDeFamilia()
+        {
+            string codigoDeFamilia = _nombre.Trim().ToUpper();
+            codigoDeFamilia = codigoDeFamilia.Replace(" ", "");
+
+            return codigoDeFamilia;
         }
 
         /// <summary>
@@ -61,11 +73,6 @@ namespace Libreria_Clases_TP_SYSACAD
                 return false;
             }
         }
-
-        //public void AgregarEstudianteACurso(Estudiante estudiante, Curso curso)
-        //{
-        //    curso.EstudiantesInscriptos.Add(estudiante);
-        //}
 
         /// <summary>
         /// Devuelve el horario del curso en formato de texto.
@@ -122,11 +129,13 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public Carrera Carrera { get { return _carrera; } }
 
-        public List<Curso> Correlatividades { get { return _correlatividades; }}
+        public List<string> Correlatividades { get { return _codigosCorrelatividades; } internal set { _codigosCorrelatividades = value; } }
 
         public int CreditosRequeridos { get { return _creditosRequeridos; } set { _creditosRequeridos = value; } }
 
         public double PromedioRequerido { get { return _promedioRequerido; } set { _promedioRequerido = value; } }
+
+        public string CodigoFamilia { get { return _codigoFamilia; } }
 
         //public List<Estudiante> EstudiantesInscriptos { get { return _estudiantesInscriptos; } }
     }

@@ -40,6 +40,22 @@ namespace Libreria_Clases_TP_SYSACAD
                     estudiantePorDefecto.AñadirConceptosDePagoIniciales();
                     estudiantePorDefecto.Contrasenia = Hash.HashPassword(estudiantePorDefecto.Contrasenia);
 
+                    ///////////////////////////////////////////////////////////////////////////////////////
+                    
+                    ////TESTING PARA EL CASO DE USO 7 (CON CURSOS COMPLETADOS, CREDITOS Y BUEN PROMEDIO)
+                    //List<string> materiasIniciales = new List<string>
+                    //{
+                    //    "MATEMATICA", "SISTEMASDEPROCESAMIENTODEDATOS", "INGLES1",
+                    //    "PROGRAMACION1", "LABORATORIO1"
+                    //};
+
+                    //List<Estudiante> primerEstudiante = new List<Estudiante>();
+                    //Estudiante estudiantePorDefecto = new Estudiante("Pepe Peposo", "12543658", "Av Santa Fe 1241", "1132519841", "aaaa@hotmail.com", "123456", false, materiasIniciales, 500, 8);
+                    //estudiantePorDefecto.AñadirConceptosDePagoIniciales();
+                    //estudiantePorDefecto.Contrasenia = Hash.HashPassword(estudiantePorDefecto.Contrasenia);
+
+                    ////////////////////////////////////////////////////////////////////////////////////////
+
                     primerEstudiante.Add(estudiantePorDefecto);
                     listaEstudiantes.Add(estudiantePorDefecto);
                     GuardarArchivoJSON(primerEstudiante);

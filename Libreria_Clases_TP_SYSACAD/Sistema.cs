@@ -27,9 +27,9 @@ namespace Libreria_Clases_TP_SYSACAD
         {
             try
             {
+                _baseDatosCursos = new BaseDatosCursos();
                 _baseDatosAdministradores = new BaseDatosAdministradores();
                 _baseDatosEstudiantes = new BaseDatosEstudiantes();
-                _baseDatosCursos = new BaseDatosCursos();
                 _baseDatosInscripciones = new BaseDatosInscripciones();
                 _baseDatosPagos = new BaseDatosPagos();
             }

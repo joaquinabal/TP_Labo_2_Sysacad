@@ -19,7 +19,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private bool _debeCambiarContrasenia;
         private List<Curso> _cursosInscriptos;
         private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
-        private Dictionary<Curso, bool> _estadoCursos = new Dictionary<Curso, bool>();
+        private List<string> _codigosDeFamiliaDeCursosCompletados = new List<string>();
         private int _creditos;
         private double _promedio;
 
@@ -40,12 +40,25 @@ namespace Libreria_Clases_TP_SYSACAD
             _cursosInscriptos = new List<Curso>();
             _creditos = 0;
             _promedio = 0;
-
-            foreach (Curso curso in Sistema.BaseDatosCursos.Cursos)
-            {
-                _estadoCursos[curso] = false;
-            }
         }
+
+        ////SOBRECARGA PARA TESTING Y DEBUGGING
+        //public Estudiante(string nombre, string legajo, string direccion, string telefono,
+        //    string correo, string contrasenia, bool debeCambiarContrasenia, List<string> cursosCompletados, 
+        //    int creditos, double promedio)
+        //{
+        //    _nombre = nombre;
+        //    _legajo = legajo;
+        //    _direccion = direccion;
+        //    _numeroTelefono = telefono;
+        //    _correo = correo;
+        //    _contrasenia = contrasenia;
+        //    _debeCambiarContrasenia = debeCambiarContrasenia;
+        //    _cursosInscriptos = new List<Curso>();
+        //    _codigosDeFamiliaDeCursosCompletados = cursosCompletados;
+        //    _creditos = creditos;
+        //    _promedio = promedio;
+        //}
 
         /// <summary>
         /// Registra un nuevo estudiante en la base de datos.
@@ -113,7 +126,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         public List<ConceptoDePago> ConceptosDePago { get { return _conceptosAPagar; } }
 
-        public Dictionary<Curso, bool> EstadoCursos { get { return _estadoCursos; } }
+        public List<string> CursosCompletados { get { return _codigosDeFamiliaDeCursosCompletados; } }
 
         public int Creditos { get { return _creditos; } internal set { _creditos = value; } }
 

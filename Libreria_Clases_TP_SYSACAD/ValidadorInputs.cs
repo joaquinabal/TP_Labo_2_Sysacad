@@ -61,6 +61,12 @@ namespace Libreria_Clases_TP_SYSACAD
             return errores;
         }
 
+        protected virtual List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados, ModoValidacionInputCurso modo)
+        {
+            List<string> errores = new List<string>();
+            return errores;
+        }
+
         /// <summary>
         /// Comprueba si una lista de errores contiene algún error.
         /// </summary>

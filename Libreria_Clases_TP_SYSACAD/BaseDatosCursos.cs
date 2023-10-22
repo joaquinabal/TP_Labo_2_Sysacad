@@ -11,6 +11,7 @@ namespace Libreria_Clases_TP_SYSACAD
     {
         //Lista que contiene todos los cursos
         private List<Curso> _listaCursos = new List<Curso>();
+        private List<string> _codigosFamiliaDeCursos = new List<string>();
 
         /// <summary>
         /// Constructor de la clase BaseDatosCursos.
@@ -19,6 +20,25 @@ namespace Libreria_Clases_TP_SYSACAD
         internal BaseDatosCursos() 
         {
             this._listaCursos = ArchivosJsonCursos.CargarCursosDesdeArchivoJson();
+            ActualizarListaDeCodigosFamiliaDeCursos();
+        }
+
+        private void ActualizarListaDeCodigosFamiliaDeCursos()
+        {
+            _codigosFamiliaDeCursos.Clear();
+            HashSet<string> codigosAgregados = new HashSet<string>();
+
+            foreach (Curso curso in _listaCursos)
+            {
+                string codigoFamilia = curso.CodigoFamilia;
+
+                if (!codigosAgregados.Contains(codigoFamilia))
+                {
+                    _codigosFamiliaDeCursos.Add(codigoFamilia);
+
+                    codigosAgregados.Add(codigoFamilia);
+                }
+            }
         }
 
         /// <summary>
@@ -51,6 +71,8 @@ namespace Libreria_Clases_TP_SYSACAD
             try
             {
                 _listaCursos.Add(nuevoCurso);
+                ActualizarListaDeCodigosFamiliaDeCursos();
+
                 ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
             }
             catch (IOException ex)
@@ -89,6 +111,9 @@ namespace Libreria_Clases_TP_SYSACAD
                     curso.Aula = aula;
                 }
             }
+
+            ActualizarListaDeCodigosFamiliaDeCursos();
+
             ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
@@ -114,6 +139,8 @@ namespace Libreria_Clases_TP_SYSACAD
             }
 
             Sistema.BaseDatosEstudiantes.EliminarCursoAEstudiante(codigoABuscar);
+
+            ActualizarListaDeCodigosFamiliaDeCursos();
 
             ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
@@ -153,25 +180,74 @@ namespace Libreria_Clases_TP_SYSACAD
             return listaCursosDisponibles;
         }
 
-        public void EliminarCursosRequeridosACursoExistente(Curso cursoAModificar, List<Curso> cursosAEliminar)
+        public Curso ObtenerCursoDesdeCodigo(string codigo)
         {
-            for (int i = 0; i < _listaCursos.Count; i++)
+            foreach (Curso curso in _listaCursos)
             {
-                Curso curso = _listaCursos[i];
-
-                if (curso.Codigo == cursoAModificar.Codigo)
+                if (curso.Codigo == codigo)
                 {
-                    List<Curso> nuevasCorrelatividades = new List<Curso>();
+                    return curso;
+                }
+            }
 
-                    foreach (Curso cursoRequerido in curso.Correlatividades)
+            return null;
+        }
+
+        public string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
+        {
+            string codigoDeFamilia = "";
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Nombre == nombre)
+                {
+                    codigoDeFamilia = curso.CodigoFamilia;
+                }
+            }
+
+            return codigoDeFamilia;
+        }
+
+        public List<Curso> ObtenerCursosDesdeCodigoDeFamilia(string codigoDeFamilia)
+        {
+            List<Curso> cursosEncontrados = new List<Curso>();
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.CodigoFamilia == codigoDeFamilia)
+                {
+                    cursosEncontrados.Add(curso);
+                }
+            }
+
+            return cursosEncontrados;
+        }
+
+        public Curso ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
+        {
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.CodigoFamilia == codigoDeFamilia)
+                {
+                    return curso;
+                }
+            }
+
+            return null;
+        }
+
+        public void ActualizarRequisitosACursos(List<Curso> cursosAModificar, List<string> correlatividades, int creditos, double promedio)
+        {
+            foreach (Curso curso in _listaCursos)
+            {
+                foreach (Curso cursoAModificar in cursosAModificar)
+                {
+                    if (curso.CodigoFamilia == cursoAModificar.CodigoFamilia)
                     {
-                        if (!cursosAEliminar.Contains(cursoRequerido))
-                        {
-                            nuevasCorrelatividades.Add(cursoRequerido);
-                        }
+                        curso.Correlatividades = correlatividades;
+                        curso.CreditosRequeridos = creditos;
+                        curso.PromedioRequerido = promedio;
                     }
-
-                    curso.Correlatividades = nuevasCorrelatividades;
                 }
             }
 
@@ -180,5 +256,7 @@ namespace Libreria_Clases_TP_SYSACAD
 
         //Getters y setters
         public List<Curso> Cursos { get { return _listaCursos; } }
+
+        public List<string> CodigosFamiliaDeCursos { get { return _codigosFamiliaDeCursos; } }
     }
 }

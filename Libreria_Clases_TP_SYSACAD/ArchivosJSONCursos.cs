@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD
@@ -37,6 +39,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     CrearArchivo(fullPath, fileCursos);
 
                     List<Curso> listaCursosDefecto = GenerarCursosPorDefecto();
+
                     GuardarArchivoJSON(listaCursosDefecto);
 
                     foreach (Curso curso in listaCursosDefecto)
@@ -99,80 +102,60 @@ namespace Libreria_Clases_TP_SYSACAD
         /// </summary>
         /// <param name="cursos">La lista de cursos a escribir.</param>
         /// <param name="fullPath">La ruta completa del archivo JSON.</param
+        //private static void EscribirArchivoJSON(List<Curso> cursos, string fullPath)
+        //{
+        //    string jsonString = JsonConvert.SerializeObject(cursos, Formatting.Indented);
+
+        //    using (StreamWriter writer = new StreamWriter(fullPath))
+        //    {
+        //        writer.Write(jsonString);
+        //    }
+        //}
+
         private static void EscribirArchivoJSON(List<Curso> cursos, string fullPath)
         {
-            string jsonString = JsonConvert.SerializeObject(cursos, Formatting.Indented);
-
-            using (StreamWriter writer = new StreamWriter(fullPath))
+            try
             {
-                writer.Write(jsonString);
+                string jsonString = JsonConvert.SerializeObject(cursos, Formatting.Indented);
+
+                using (StreamWriter writer = new StreamWriter(fullPath))
+                {
+                    writer.Write(jsonString);
+                }
+            }
+            catch (JsonSerializationException ex)
+            {
+                Console.WriteLine("Error de deserialización JSON: " + ex.Message);
+                throw;  // Relanza la excepción para que puedas ver el stack trace completo en la consola
             }
         }
-
-
-        //private static List<Curso> GenerarCursosPorDefecto()
-        //{
-        //    string[] nombresCursos =
-        //    {
-        //    "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
-        //    "Programacion 1", "Laboratorio 1", "Arquitectura y Sistemas Operativos",
-        //    "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion",
-        //    "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes", "Ingles Tecnico Avanzado 1",
-        //    "Proyectos Informaticos", "Seminario", "Ingles Tecnico Avanzado 2"
-        //    };
-
-        //    string[] turnos = { "Mañana", "Tarde", "Noche" };
-
-        //    List<Curso> cursos = new List<Curso>();
-
-        //    Random random = new Random();
-
-        //    foreach (string nombreCurso in nombresCursos)
-        //    {
-        //        foreach (string turno in turnos)
-        //        {
-        //            int cupoMaximo = random.Next(80, 160);
-        //            string codigo = GenerarCodigo(nombreCurso, turno);
-        //            string descripcion = $"1° año {nombreCurso.ToLower()} {turno.ToLower()}";
-        //            int aula = (turno == "Tarde") ? random.Next(100, 199) : (turno == "Mañana") ? random.Next(200, 299) : random.Next(300, 399);
-        //            string dia = GenerarDiaAleatorio();
-        //            Carrera carrera = ObtenerCarrera(nombreCurso);
-
-        //            Curso curso = new Curso(nombreCurso, codigo, descripcion, cupoMaximo, turno, aula.ToString(), dia, carrera);
-        //            cursos.Add(curso);
-        //        }
-        //    }
-
-        //    return cursos;
-        //}
 
         private static List<Curso> GenerarCursosPorDefecto()
         {
             List<string> materiasIniciales = new List<string>
             {
-                "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
-                "Programacion 1", "Laboratorio 1"
+                "MATEMATICA", "SISTEMASDEPROCESAMIENTODEDATOS", "INGLES1",
+                "PROGRAMACION1", "LABORATORIO1"
             };
 
             List<string> materiasIntermedias = new List<string>
             {
-                "Arquitectura y Sistemas Operativos", "Estadistica", "Ingles 2",
-                "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion"
+                "ARQUITECTURAYSISTEMASOPERATIVOS", "ESTADISTICA", "INGLES2", 
+                "PROGRAMACION2", "LABORATORIO2", "METODOLOGIADELAINVESTIGACION",
             };
 
             List<string> materiasFinales = new List<string>
             {
-                "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes",
-                "Ingles Tecnico Avanzado 1", "Proyectos Informaticos", "Seminario",
-                "Ingles Tecnico Avanzado 2"
+                "METODOLOGIADESISTEMAS1", "PROGRAMACIONAVANZADA1", "REDES", "INGLESTECNICOAVANZADO1",
+                "PROYECTOSINFORMATICOS", "SEMINARIO", "INGLESTECNICOAVANZADO2"
             };
 
             string[] nombresCursos =
             {
                 "Matematica", "Sistemas de Procesamiento de Datos", "Ingles 1",
                 "Programacion 1", "Laboratorio 1", "Arquitectura y Sistemas Operativos",
-                "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de Investigacion",
-                "Metodologia de Sistemas 2", "Programacion Avanzada 1", "Redes", "Ingles Tecnico Avanzado 1",
+                "Estadistica", "Ingles 2", "Programacion 2", "Laboratorio 2", "Metodologia de la Investigacion",
+                "Metodologia de Sistemas 1", "Programacion Avanzada 1", "Redes", "Ingles Tecnico Avanzado 1",
                 "Proyectos Informaticos", "Seminario", "Ingles Tecnico Avanzado 2"
             };
 
@@ -187,43 +170,120 @@ namespace Libreria_Clases_TP_SYSACAD
                 foreach (string turno in turnos)
                 {
                     int cupoMaximo = random.Next(80, 160);
-                    string codigo = GenerarCodigo(nombreCurso, turno);
-                    string descripcion = $"1° año {nombreCurso.ToLower()} {turno.ToLower()}";
+                    string descripcion = $"{nombreCurso.ToLower()} {turno.ToLower()}";
                     int aula = (turno == "Tarde") ? random.Next(100, 199) : (turno == "Mañana") ? random.Next(200, 299) : random.Next(300, 399);
                     string dia = GenerarDiaAleatorio();
                     Carrera carrera = ObtenerCarrera(nombreCurso);
-                    int creditosRequeridos = random.Next(0, 1000);
-                    double promedioRequerido = random.NextDouble() * 10;
+                    string codigo = ObtenerCodigoDeCurso(nombreCurso, turno);
 
-                    Curso curso = new Curso(nombreCurso, codigo, descripcion, cupoMaximo, turno, aula.ToString(), dia, carrera);
+                    Curso curso = new Curso(nombreCurso, codigo ,descripcion, cupoMaximo, turno, aula.ToString(), dia, carrera);
+
+                    //Solo asigno creditos y promedio a aquellas materias intermedias y finales
+                    int creditosRequeridos = 0;
+                    double promedioRequerido = 0;
+
+                    if (materiasIntermedias.Contains(curso.CodigoFamilia) || materiasFinales.Contains(curso.CodigoFamilia))
+                    {
+                        creditosRequeridos = random.Next(1, 1000);  // Rango diferente para cursos intermedios y finales
+                        promedioRequerido = Math.Round(random.NextDouble() * 10, 2);
+                    }
 
                     curso.CreditosRequeridos = creditosRequeridos;
                     curso.PromedioRequerido = promedioRequerido;
 
-                    List<Curso> cursosCorrelatividades = new List<Curso>();
+                    List<string> codigosCursosCorrelatividades = new List<string>();
 
-                    if (materiasIniciales.Contains(nombreCurso))
+                    // Si la materia iterada se encuentra entre las iniciales
+                    if (materiasIniciales.Contains(curso.CodigoFamilia))
                     {
                         //No hago nada
                     }
-                    else if (materiasIntermedias.Contains(nombreCurso))
+                    // Si la materia iterada se encuentra entre las intermedias
+                    else if (materiasIntermedias.Contains(curso.CodigoFamilia))
                     {
                         // Asignar correlatividades intermedias (basadas en materias iniciales)
-                        cursosCorrelatividades = cursos.Where(c => materiasIniciales.Contains(c.Nombre)).ToList();
+                        codigosCursosCorrelatividades = materiasIniciales;
                     }
-                    else if (materiasFinales.Contains(nombreCurso))
+                    // Si la materia iterada se encuentra entre las finales
+                    else if (materiasFinales.Contains(curso.CodigoFamilia))
                     {
                         // Asignar correlatividades finales (basadas en todas las materias)
-                        cursosCorrelatividades = cursos.ToList();
+                        codigosCursosCorrelatividades = materiasIntermedias;
                     }
 
-                    curso.Correlatividades = cursosCorrelatividades;
+                    curso.Correlatividades = codigosCursosCorrelatividades;
 
                     cursos.Add(curso);
                 }
             }
 
             return cursos;
+        }
+
+        private static string ObtenerCodigoDeCurso(string nombre, string turno)
+        {
+            // Divido el nombre del curso en palabras
+            string[] palabras = nombre.Split(' ');
+            string codigo = "";
+
+            if (palabras.Length == 1)
+            {
+                codigo = palabras[0].Substring(0, Math.Min(4, palabras[0].Length)); ;
+            }
+            else if (palabras.Length > 1)
+            {
+                bool contieneNumero = palabras.Any(palabra => int.TryParse(palabra, out _));
+
+                if (!contieneNumero)
+                {
+                    string iniciales = "";
+
+                    foreach (string palabra in palabras)
+                    {
+                        iniciales += palabra[0];
+                    }
+                    codigo = iniciales;
+                }
+                else
+                {
+                    List<string> palabrasSinNumeros = new List<string>();
+
+                    foreach (string palabra in palabras)
+                    {
+                        if (Regex.IsMatch(palabra, "^[A-Za-z]+$"))
+                        {
+                            palabrasSinNumeros.Add(palabra);
+                        }
+                    }
+
+                    if (palabrasSinNumeros.Count == 1)
+                    {
+                        codigo = palabrasSinNumeros[0].Substring(0, Math.Min(4, palabras[0].Length)); ;
+                    }
+                    else if (palabrasSinNumeros.Count > 1)
+                    {
+                        string iniciales = "";
+
+                        foreach (string palabra in palabrasSinNumeros)
+                        {
+                            iniciales += palabra[0];
+                        }
+                        codigo = iniciales;
+                    }
+                }
+            }
+
+            // Verificar si hay un número en el nombre del curso y agregarlo
+            if (nombre.Any(char.IsDigit))
+            {
+                string numero = new string(nombre.Where(char.IsDigit).ToArray());
+                codigo += numero;
+            }
+
+            // Agregar la primera letra del turno
+            codigo += turno[0];
+
+            return codigo;
         }
 
         private static Carrera ObtenerCarrera(string nombreMateria)
@@ -242,24 +302,12 @@ namespace Libreria_Clases_TP_SYSACAD
         }
 
         /// <summary>
-        /// Genera un código de curso a partir del nombre del curso y el turno.
-        /// </summary>
-        /// <param name="nombreCurso">El nombre del curso.</param>
-        /// <param name="turno">El turno del curso.</param>
-        /// <returns>El código de curso generado.</returns>
-        private static string GenerarCodigo(string nombreCurso, string turno)
-        {
-            string codigo = $"{nombreCurso.Substring(0, 4)}{turno.Substring(0, 1)}";
-            return codigo;
-        }
-
-        /// <summary>
         /// Genera un día de la semana aleatorio.
         /// </summary>
         /// <returns>Un día de la semana aleatorio.</returns>
         private static string GenerarDiaAleatorio()
         {
-            string[] dias = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+            string[] dias = { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes" };
             Random random = new Random();
             int indice = random.Next(0, dias.Length);
             return dias[indice];
