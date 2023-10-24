@@ -12,6 +12,8 @@ namespace Libreria_Clases_TP_SYSACAD
         private bool _existenciaErrores;
         private List<string> _listaErrores = new List<string>();
         private string _mensajeErrores = string.Empty;
+        private bool _existenciaDelAlumno;
+        private bool _existenciaEnListaDeEspera;
 
         /// <summary>
         /// Constructor de la clase RespuestaValidacionInput.
@@ -24,6 +26,21 @@ namespace Libreria_Clases_TP_SYSACAD
             _camposVacios = camposVacios;
             _existenciaErrores = existenciaErrores;
             _listaErrores = listaErrores;
+
+            if (_existenciaErrores == true)
+            {
+                GenerarMensajeDeErrores();
+            }
+        }
+
+        internal RespuestaValidacionInput(bool camposVacios, bool existenciaErrores, List<string> listaErrores, 
+            bool existenciaDelAlumno, bool existenciaEnListaDeEspera)
+        {
+            _camposVacios = camposVacios;
+            _existenciaErrores = existenciaErrores;
+            _listaErrores = listaErrores;
+            _existenciaDelAlumno = existenciaDelAlumno;
+            _existenciaEnListaDeEspera = existenciaEnListaDeEspera;
 
             if (_existenciaErrores == true)
             {
@@ -50,6 +67,10 @@ namespace Libreria_Clases_TP_SYSACAD
         public bool ExistenciaErrores { get { return _existenciaErrores; } }
 
         public string MensajeErrores { get { return _mensajeErrores; } }
+
+        public bool ExistenciaDelAlumno { get { return _existenciaDelAlumno; } }
+
+        public bool ExistenciaEnListaDeEspera { get { return _existenciaEnListaDeEspera; } }
 
     }
 }

@@ -41,6 +41,7 @@ namespace Libreria_Clases_TP_SYSACAD
                     else if (resultadoValidacionCupos == false)
                     {
                         _cursosSinCupo.Add(curso.Nombre);
+                        Sistema.BaseDatosCursos.AgregarEstudianteAListaDeEspera(Sistema.EstudianteLogueado, curso);
                     }
                     // Si cumple con los requisitos y hay cupos
                     else
@@ -59,7 +60,7 @@ namespace Libreria_Clases_TP_SYSACAD
                 //Si todos los cursos tiene cupo, devolvemos "OK"
                 else if (_cursosSinCupo.Count > 0)
                 {
-                    if (cursosSeleccionados.Count == 1)
+                    if (_cursosSinCupo.Count == cursosSeleccionados.Count)
                     {
                         mensajeADevolver = "SIN CUPO: ABSOLUTO";
                     }

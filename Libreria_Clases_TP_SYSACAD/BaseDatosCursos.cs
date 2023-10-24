@@ -254,6 +254,47 @@ namespace Libreria_Clases_TP_SYSACAD
             ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
+        internal void AgregarEstudianteAListaDeEspera(Estudiante estudianteAAgregar, Curso cursoAModificar)
+        {
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Codigo == cursoAModificar.Codigo)
+                {
+                    curso.ListaDeEspera.Add(estudianteAAgregar.Legajo, DateTime.Now);
+                }
+            }
+
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
+        }
+
+        public Curso ObtenerCursoAPartirDeNombreYTurno(string nombre, string turno)
+        {
+            Curso cursoADevolver = null;
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Nombre == nombre && curso.Turno == turno)
+                {
+                    cursoADevolver = curso;
+                }
+            }
+
+            return cursoADevolver;
+        }
+
+        public void ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
+        {
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.Codigo == cursoRecibido.Codigo)
+                {
+                    curso.ListaDeEspera = listaEsperaRecibida;
+                }
+            }
+
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
+        }
+
         //Getters y setters
         public List<Curso> Cursos { get { return _listaCursos; } }
 

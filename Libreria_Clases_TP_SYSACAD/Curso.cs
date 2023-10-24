@@ -24,7 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD
         private int _creditosRequeridos = 0;
         private double _promedioRequerido = 0;
         private string _codigoFamilia;
-
+        private Dictionary<string, DateTime> _alumnosEnListaDeEspera = new Dictionary<string, DateTime>();
 
         public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula, 
             string dia, Carrera carrera)
@@ -136,6 +136,8 @@ namespace Libreria_Clases_TP_SYSACAD
         public double PromedioRequerido { get { return _promedioRequerido; } set { _promedioRequerido = value; } }
 
         public string CodigoFamilia { get { return _codigoFamilia; } }
+
+        public Dictionary<string, DateTime> ListaDeEspera { get { return _alumnosEnListaDeEspera; } internal set { _alumnosEnListaDeEspera = value; } }
 
         //public List<Estudiante> EstudiantesInscriptos { get { return _estudiantesInscriptos; } }
     }

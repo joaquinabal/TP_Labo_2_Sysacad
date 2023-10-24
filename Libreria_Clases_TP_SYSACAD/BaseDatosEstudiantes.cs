@@ -171,6 +171,21 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
+        public Estudiante ObtenerEstudianteSegunLegajo(string legajo)
+        {
+            Estudiante estudianteADevolver = null;
+
+            foreach (Estudiante estudiante in listaEstudiante)
+            {
+                if (estudiante.Legajo == legajo)
+                {
+                    estudianteADevolver = estudiante;
+                }
+            }
+
+            return estudianteADevolver;
+        }
+
         //Getters y setters
         public List<Estudiante> Estudiantes { get { return listaEstudiante; } }
     }
