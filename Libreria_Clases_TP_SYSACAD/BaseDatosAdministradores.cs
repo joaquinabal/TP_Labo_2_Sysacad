@@ -29,8 +29,6 @@ namespace Libreria_Clases_TP_SYSACAD
         /// <returns>True si se encuentra un usuario con las credenciales proporcionadas, False si no.</returns>
         internal bool BuscarUsuarioBD(string correo, string contrasenia)
         {
-            Debug.WriteLine($"Contrasenia recibida: {contrasenia}");
-
             bool resultadoBusqueda = false;
 
             foreach (Administrador administrador in listaAdministradores)

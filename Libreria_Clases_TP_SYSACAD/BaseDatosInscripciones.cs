@@ -34,49 +34,47 @@ namespace Libreria_Clases_TP_SYSACAD
             }
         }
 
-        public List<RegistroDeInscripcion> ObtenerInscripcionesTotalesSegunFecha(DateTime fechaDesde, DateTime fechaHasta)
+        //METODO PARA OBTENER INSCRIPCIONES SEGUN PERIODO
+        public List<RegistroDeInscripcion> ObtenerInscripciones(DateTime fechaDesde, DateTime fechaHasta)
         {
-            List<RegistroDeInscripcion> listaInscripcionesSegunFecha = new List<RegistroDeInscripcion>();
+            List<RegistroDeInscripcion> resultados = new List<RegistroDeInscripcion>();
 
+            // Recorro la lista de registros de inscripción
             foreach (RegistroDeInscripcion registro in _listaRegistrosInscripcion)
             {
+                resultados.Add(registro);
+            }
+
+            return resultados;
+        }
+
+        //SOBRECARGA DEL METODO. OBTIENE INSCRIPCIONES SEGUN T (CODIGO DE CURSO O CARRERA)
+        public List<RegistroDeInscripcion> ObtenerInscripciones<T>(DateTime fechaDesde, DateTime fechaHasta, T filtro)
+        {
+            // Creo una lista para ir guardando los resultados de las inscripciones que cumplan con los criterios
+            List<RegistroDeInscripcion> resultados = new List<RegistroDeInscripcion>();
+
+            // Recorro la lista de registros de inscripción
+            foreach (RegistroDeInscripcion registro in _listaRegistrosInscripcion)
+            {
+                // Verificamos si la fecha de inscripción del registro está dentro del rango especificado
                 if (registro.FechaInscripcion >= fechaDesde && registro.FechaInscripcion <= fechaHasta)
                 {
-                    listaInscripcionesSegunFecha.Add(registro);
+                    // Si el tipo de T es string, comparamos el filtro con el código de curso del registro
+                    if (typeof(T) == typeof(string) && filtro.Equals(registro.CodigoCurso))
+                    {
+                        resultados.Add(registro);
+                    }
+                    // Si el tipo de T es Carrera (enum), comparamos el filtro con la Carrera del registro
+                    else if (typeof(T) == typeof(Carrera) && filtro.Equals(registro.Carrera))
+                    {
+                        resultados.Add(registro);
+                    }
                 }
             }
 
-            return listaInscripcionesSegunFecha;
-        }
-
-        public List<RegistroDeInscripcion> ObtenerInscripcionesSegunCursoYFecha(DateTime fechaDesde, DateTime fechaHasta, string codigoCurso)
-        {
-            List<RegistroDeInscripcion> listaInscripcionesSegunCursoYFecha = new List<RegistroDeInscripcion>();
-
-            foreach (RegistroDeInscripcion registro in _listaRegistrosInscripcion)
-            {
-                if (registro.FechaInscripcion >= fechaDesde && registro.FechaInscripcion <= fechaHasta && registro.CodigoCurso == codigoCurso)
-                {
-                    listaInscripcionesSegunCursoYFecha.Add(registro);
-                }
-            }
-
-            return listaInscripcionesSegunCursoYFecha;
-        }
-
-        public List<RegistroDeInscripcion> ObtenerInscripcionesSegunCarreraYFecha(DateTime fechaDesde, DateTime fechaHasta, Carrera carrera)
-        {
-            List<RegistroDeInscripcion> listaInscripcionesSegunCarreraYFecha = new List<RegistroDeInscripcion>();
-
-            foreach (RegistroDeInscripcion registro in _listaRegistrosInscripcion)
-            {
-                if (registro.FechaInscripcion >= fechaDesde && registro.FechaInscripcion <= fechaHasta && registro.Carrera == carrera)
-                {
-                    listaInscripcionesSegunCarreraYFecha.Add(registro);
-                }
-            }
-
-            return listaInscripcionesSegunCarreraYFecha;
+            // Devuelvo la lista de resultados
+            return resultados;
         }
 
         //Getters y Setters
