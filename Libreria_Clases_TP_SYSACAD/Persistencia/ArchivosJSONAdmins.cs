@@ -28,10 +28,10 @@ namespace Libreria_Clases_TP_SYSACAD.Persistencia
 
             try
             {
-                if (!ValidarSiExisteDirectorio(pathName))
-                {
-                    CrearDirectorio(pathName);
-                }
+                //if (!ValidarSiExisteDirectorio(pathName))
+                //{
+                //    CrearDirectorio(pathName);
+                //}
 
                 fullPath = CombinePath(pathName, fileAdmins);
 

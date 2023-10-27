@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using Libreria_Clases_TP_SYSACAD.Persistencia;
 
 namespace Libreria_Clases_TP_SYSACAD.Herramientas
 {
@@ -36,16 +37,13 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                     return stringBuilder.ToString();
                 }
             }
-            catch (ArgumentNullException ex)
-            {
-                // Manejo de la excepción ArgumentNullException
-                Console.WriteLine("Se produjo una ArgumentNullException: " + ex.Message);
-                return string.Empty;
-            }
             catch (Exception ex)
             {
-                // Manejo de excepciones genéricas
-                Console.WriteLine("Se produjo una excepción: " + ex.Message);
+                // No freno el programa, sino que registro el tipo de excepcion que se produjo y
+                // devuelvo una pass vacia. Que obviamente no esta hasheada porque se produjo un
+                // error.
+
+                RegistroExcepciones.RegistrarExcepcion(ex);
                 return string.Empty;
             }
         }

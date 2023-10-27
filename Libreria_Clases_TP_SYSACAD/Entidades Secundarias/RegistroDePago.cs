@@ -15,12 +15,12 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
         private double _ingreso;
         private DateTime _fechaPago;
 
-        public RegistroDePago(Estudiante estudiante, string concepto, double ingreso,
+        public RegistroDePago(string legajo, string nombre, string concepto, double ingreso,
             DateTime fechaPago)
         {
             _concepto = concepto;
-            _legajo = estudiante.Legajo;
-            _nombre = estudiante.Nombre;
+            _legajo = legajo;
+            _nombre = nombre;
             _ingreso = ingreso;
             _fechaPago = fechaPago;
         }

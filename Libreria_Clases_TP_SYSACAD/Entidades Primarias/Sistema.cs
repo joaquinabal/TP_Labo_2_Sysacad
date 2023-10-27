@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Libreria_Clases_TP_SYSACAD.Persistencia;
 using Libreria_Clases_TP_SYSACAD.Tablas;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
@@ -17,6 +18,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         private static BaseDatosInscripciones _baseDatosInscripciones;
         private static BaseDatosPagos _baseDatosPagos;
         private static Estudiante _estudianteLogueado;
+        private static RegistroExcepciones _registroExcepciones;
 
         //Codigo de acceso que solo los admins poseen
         private static string _codigoDeAccesoAdmins = "ts5bf4";
@@ -26,19 +28,12 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// </summary>
         public static void InicializarSistema()
         {
-            try
-            {
-                _baseDatosCursos = new BaseDatosCursos();
-                _baseDatosAdministradores = new BaseDatosAdministradores();
-                _baseDatosEstudiantes = new BaseDatosEstudiantes();
-                _baseDatosInscripciones = new BaseDatosInscripciones();
-                _baseDatosPagos = new BaseDatosPagos();
-            }
-            catch (Exception e)
-            {
-
-                throw new Exception(e.Message, e.InnerException);
-            }
+            _baseDatosCursos = new BaseDatosCursos();
+            _baseDatosAdministradores = new BaseDatosAdministradores();
+            _baseDatosEstudiantes = new BaseDatosEstudiantes();
+            _baseDatosInscripciones = new BaseDatosInscripciones();
+            _baseDatosPagos = new BaseDatosPagos();
+            _registroExcepciones = new RegistroExcepciones();
         }
 
         /// <summary>

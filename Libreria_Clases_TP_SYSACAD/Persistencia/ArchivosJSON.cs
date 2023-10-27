@@ -15,6 +15,7 @@ namespace Libreria_Clases_TP_SYSACAD.Persistencia
         protected static string fileAdmins = "Admins.json";
         protected static string fileRegistroInscripciones = "RegistroInscripciones.json";
         protected static string fileRegistroPagos = "RegistroPagos.json";
+        protected static string fileRegistroExcepciones = "RegistroExcepciones.json";
         protected static string directoryName = "archivos";
 
         /// <summary>

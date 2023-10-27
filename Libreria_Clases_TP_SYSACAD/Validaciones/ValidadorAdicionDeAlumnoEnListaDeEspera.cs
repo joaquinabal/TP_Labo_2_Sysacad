@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
-using Libreria_Clases_TP_SYSACAD.Usuarios;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {

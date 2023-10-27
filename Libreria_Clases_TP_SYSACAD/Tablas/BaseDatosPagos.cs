@@ -24,21 +24,13 @@ namespace Libreria_Clases_TP_SYSACAD.Tablas
 
         public void IngresarNuevoPago(List<RegistroDePago> nuevosPagos)
         {
-            try
+            if (nuevosPagos.Count > 0)
             {
-                if (nuevosPagos.Count > 0)
+                foreach (RegistroDePago pago in nuevosPagos)
                 {
-                    foreach (RegistroDePago pago in nuevosPagos)
-                    {
-                        _listaRegistrosPagos.Add(pago);
-                    }
-                    ArchivosJSONPagos.GuardarArchivoJSON(_listaRegistrosPagos);
+                    _listaRegistrosPagos.Add(pago);
                 }
-            }
-            catch (IOException ex)
-            {
-                // Manejo específico de excepciones de entrada/salida al guardar el archivo JSON.
-                Console.WriteLine("Error al guardar el archivo JSON: " + ex.Message);
+                ArchivosJSONPagos.GuardarArchivoJSON(_listaRegistrosPagos);
             }
         }
 

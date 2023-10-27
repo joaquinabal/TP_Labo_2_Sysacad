@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Persistencia;
 
 namespace Libreria_Clases_TP_SYSACAD.Herramientas
 {
@@ -178,7 +179,10 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al generar el PDF: " + ex.Message);
+                // El programa no se detiene, sino que devuelve false al form
+                // para que mostrar el error mediante un messageBox. Se registra
+                // la excepcion en el JSON
+                RegistroExcepciones.RegistrarExcepcion(ex);
                 return false;
             }
         }

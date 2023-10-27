@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
+using Libreria_Clases_TP_SYSACAD.Persistencia;
 
 namespace Libreria_Clases_TP_SYSACAD.Herramientas
 {
@@ -53,9 +54,12 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
 
                 return true;
             }
-            catch (Exception ex)
+            catch (SmtpException smtpEx)
             {
-                Console.WriteLine("Error al enviar el correo: " + ex.Message);
+                // El programa no se detiene, sino que devuelve false al form
+                // para que mostrar el error mediante un messageBox. Se registra
+                // la excepcion en el JSON
+                RegistroExcepciones.RegistrarExcepcion(smtpEx);
                 return false;
             }
         }

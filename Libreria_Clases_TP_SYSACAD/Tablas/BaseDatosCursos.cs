@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using Libreria_Clases_TP_SYSACAD.Persistencia;
-using Libreria_Clases_TP_SYSACAD.Usuarios;
 
 namespace Libreria_Clases_TP_SYSACAD.Tablas
 {
@@ -73,18 +72,10 @@ namespace Libreria_Clases_TP_SYSACAD.Tablas
         /// <param name="nuevoCurso">El curso a ser agregado.</param>
         internal void IngresarCursoBD(Curso nuevoCurso)
         {
-            try
-            {
-                _listaCursos.Add(nuevoCurso);
-                ActualizarListaDeCodigosFamiliaDeCursos();
+            _listaCursos.Add(nuevoCurso);
+            ActualizarListaDeCodigosFamiliaDeCursos();
 
-                ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
-            }
-            catch (IOException ex)
-            {
-                // Manejo específico de excepciones de entrada/salida al guardar el archivo JSON.
-                Console.WriteLine("Error al guardar el archivo JSON: " + ex.Message);
-            }
+            ArchivosJsonCursos.GuardarArchivoJSON(_listaCursos);
         }
 
         ///////////////////////READ

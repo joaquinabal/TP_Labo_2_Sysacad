@@ -22,10 +22,10 @@ namespace Libreria_Clases_TP_SYSACAD.Persistencia
 
             try
             {
-                if (!ValidarSiExisteDirectorio(pathName))
-                {
-                    CrearDirectorio(pathName);
-                }
+                //if (!ValidarSiExisteDirectorio(pathName))
+                //{
+                //    CrearDirectorio(pathName);
+                //}
 
                 fullPath = CombinePath(pathName, fileRegistroPagos);
 
@@ -38,15 +38,10 @@ namespace Libreria_Clases_TP_SYSACAD.Persistencia
                 }
                 else
                 {
-                    JsonSerializerSettings settings = new JsonSerializerSettings
-                    {
-                        DateFormatString = "yyyy-MM-ddTHH:mm:ss"
-                    };
-
                     stringPagos = LeerArchivoJson(fullPath);
                     if (!string.IsNullOrEmpty(stringPagos))
                     {
-                        listaPagos = JsonConvert.DeserializeObject<List<RegistroDePago>>(stringPagos, settings);
+                        listaPagos = JsonConvert.DeserializeObject<List<RegistroDePago>>(stringPagos);
                     }
                 }
             }

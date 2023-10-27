@@ -149,8 +149,6 @@ namespace Libreria_Clases_TP_SYSACAD.Tablas
             ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         }
 
-
-
         /// <summary>
         /// Cambia la contraseña de un estudiante y marca que no debe cambiarla nuevamente.
         /// </summary>

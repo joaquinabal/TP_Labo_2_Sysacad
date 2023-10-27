@@ -140,6 +140,5 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
 
         public Dictionary<string, DateTime> ListaDeEspera { get { return _alumnosEnListaDeEspera; } internal set { _alumnosEnListaDeEspera = value; } }
 
-        //public List<Estudiante> EstudiantesInscriptos { get { return _estudiantesInscriptos; } }
     }
 }

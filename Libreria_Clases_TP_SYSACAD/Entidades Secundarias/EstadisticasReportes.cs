@@ -32,7 +32,8 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
             return ingresosTotales;
         }
 
-        public static DateTime CalcularFechaMasPopular<T>(List<T> listaRegistrosMostrados) where T : IRegistroEstadistico
+        public static DateTime CalcularFechaMasPopular<T>(List<T> listaRegistrosMostrados) 
+            where T : IRegistroEstadistico
         {
             // Creamos un diccionario para contar cuántas veces ocurre cada fecha
             Dictionary<DateTime, int> conteoFechas = new Dictionary<DateTime, int>();

@@ -5,84 +5,72 @@ using System.Text;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
-using Libreria_Clases_TP_SYSACAD.Usuarios;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
+    public enum ValidacionInscripcionResultado
+    {
+        SinSeleccion,
+        Exitoso,
+        NoCumpleRequisitos,
+        SinCupoAbsoluto,
+        SinCupoParcial
+    }
+
     public class ValidadorDeInscripciones
     {
         private List<string> _cursosSinCupo = new List<string>();
         private List<string> _cursosProhibidos = new List<string>();
 
-        //Fx que recibe cursos seleccionados
-        //No hay ninguno seleccionado devuelve "SIN SELECCION"
-        //Busca si de los seleccionados hay alguno sin cupo
-        //Si todos tienen cupo devuelve "OK"
-        //Si alguno no tiene cupo: 
-        //-Si hay uno seleccionado devuelve "SIN CUPO: ABSOLUTO"
-        //-Si hay varios seleccionados devuelve "SIN CUPO: PARCIAL"
-        public string ValidarCursosSegunCupo(List<Curso> cursosSeleccionados)
+        public ValidacionInscripcionResultado ValidarCursosSegunCupo(List<Curso> cursosSeleccionados)
         {
-            string mensajeADevolver;
-
-            if (cursosSeleccionados.Count > 0)
+            if (cursosSeleccionados.Count == 0)
             {
-                //Buscamos si hay cupos disponibles en aquellos cursos seleccionados
-                //En caso de que no tenga cupo, se agrega a la lista de "cursos sin cupo"
-                //En caso de que haya cupo, restamos un cupo al curso y agregamos el curso al estudiante
-                foreach (Curso curso in cursosSeleccionados)
-                {
-                    bool resultadoValidacionCupos = ComprobarSiHayCuposDisponiblesEnCurso(curso);
-                    bool resultadoValidacionRequisitosAcademicos = ComprobarSiCumpleRequisitosAcademicos(curso);
+                return ValidacionInscripcionResultado.SinSeleccion;
+            }
 
-                    //Si no cumplio con los requisitos
-                    if (resultadoValidacionRequisitosAcademicos == false)
-                    {
-                        _cursosProhibidos.Add(curso.Nombre);
-                    }
-                    // Si no hay cupos
-                    else if (resultadoValidacionCupos == false)
-                    {
-                        _cursosSinCupo.Add(curso.Nombre);
-                        Sistema.BaseDatosCursos.AgregarEstudianteAListaDeEspera(Sistema.EstudianteLogueado, curso);
-                    }
-                    // Si cumple con los requisitos y hay cupos
-                    else
-                    {
-                        GestionarInscripcion(curso);
-                    }
-                }
+            //Buscamos si hay cupos disponibles en aquellos cursos seleccionados
+            //En caso de que no tenga cupo, se agrega a la lista de "cursos sin cupo"
+            //En caso de que haya cupo, restamos un cupo al curso y agregamos el curso al estudiante
+            foreach (Curso curso in cursosSeleccionados)
+            {
+                bool resultadoValidacionCupos = ComprobarSiHayCuposDisponiblesEnCurso(curso);
+                bool resultadoValidacionRequisitosAcademicos = ComprobarSiCumpleRequisitosAcademicos(curso);
 
-                //SI NO CUMPLE REQUISITOS
-                if (_cursosProhibidos.Count > 0)
+                //Si no cumplio con los requisitos
+                if (resultadoValidacionRequisitosAcademicos == false)
                 {
-                    mensajeADevolver = "NO CUMPLE REQUISITOS";
+                    _cursosProhibidos.Add(curso.Nombre);
                 }
-                //SI NO HAY CUPOS
-                //Si hay cursos sin cupo y hay uno solo seleccionado, devolvemos "SIN CUPO: ABSOLUTO"
-                //Si todos los cursos tiene cupo, devolvemos "OK"
-                else if (_cursosSinCupo.Count > 0)
+                // Si no hay cupos
+                else if (resultadoValidacionCupos == false)
                 {
-                    if (_cursosSinCupo.Count == cursosSeleccionados.Count)
-                    {
-                        mensajeADevolver = "SIN CUPO: ABSOLUTO";
-                    }
-                    else
-                    {
-                        mensajeADevolver = "SIN CUPO: PARCIAL";
-                    }
+                    _cursosSinCupo.Add(curso.Nombre);
+                    Sistema.BaseDatosCursos.AgregarEstudianteAListaDeEspera(Sistema.EstudianteLogueado, curso);
                 }
+                // Si cumple con los requisitos y hay cupos
                 else
                 {
-                    mensajeADevolver = "OK";
+                    GestionarInscripcion(curso);
                 }
+            }
+
+            if (_cursosProhibidos.Count > 0)
+            {
+                return ValidacionInscripcionResultado.NoCumpleRequisitos; //SI NO CUMPLE REQUISITOS
+            }
+            else if (_cursosSinCupo.Count == cursosSeleccionados.Count)
+            {
+                return ValidacionInscripcionResultado.SinCupoAbsoluto; //SI NO HAY CUPO EN NINGUNO DE LOS SELECCIONADOS
+            }
+            else if (_cursosSinCupo.Count > 0)
+            {
+                return ValidacionInscripcionResultado.SinCupoParcial; //SI NO HAY CUPO EN ALGUNOS DE LOS SELECCIONADOS
             }
             else
             {
-                mensajeADevolver = "SIN SELECCION";
+                return ValidacionInscripcionResultado.Exitoso;
             }
-
-            return mensajeADevolver;
         }
 
         private static void GestionarInscripcion(Curso curso)
