@@ -75,7 +75,7 @@ namespace Libreria_Clases_TP_SYSACAD.Tablas
         }
 
         /// <summary>
-        /// Busca un usuario en la base de datos por correo y legajo.
+        /// Busca un usuario en la base de datos por correo o legajo.
         /// </summary>
         /// <param name="correo">El correo del usuario.</param>
         /// <param name="legajo">El legajo del usuario.</param>
@@ -86,7 +86,7 @@ namespace Libreria_Clases_TP_SYSACAD.Tablas
 
             foreach (Estudiante estudiante in listaEstudiante)
             {
-                if (estudiante.Correo == correo && estudiante.Legajo == legajo)
+                if (estudiante.Correo == correo || estudiante.Legajo == legajo)
                 {
                     resultadoBusqueda = true;
                 }

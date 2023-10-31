@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
 using Libreria_Clases_TP_SYSACAD.Persistencia;
 
@@ -68,7 +69,8 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// <param name="nuevoEstudiante">El estudiante a ser registrado.</param>
         public void RegistrarEstudiante()
         {
-            Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(this);
+            //Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(this);
+            ConsultasEstudiantes.IngresarUsuarioBD(this);
 
         }
 

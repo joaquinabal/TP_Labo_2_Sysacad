@@ -1,4 +1,5 @@
-﻿using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
+﻿using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
+using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -57,11 +58,13 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
 
             if (modo == Log.Admin)
             {
-                resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo, contraseña);
+                //resultadoBusquedaUsuario = Sistema.BaseDatosAdministradores.BuscarUsuarioBD(correo, contraseña);
+                resultadoBusquedaUsuario = ConsultasAdministradores.BuscarUsuarioBD(correo, contraseña);
             }
             else if (modo == Log.Estudiante)
             {
-                resultadoBusquedaUsuario = Sistema.BaseDatosEstudiantes.BuscarUsuarioCredencialesBD(correo, contraseña);
+                //resultadoBusquedaUsuario = Sistema.BaseDatosEstudiantes.BuscarUsuarioCredencialesBD(correo, contraseña);
+                resultadoBusquedaUsuario = ConsultasEstudiantes.BuscarUsuarioCredencialesBD(correo, contraseña);
             }
 
             return resultadoBusquedaUsuario;

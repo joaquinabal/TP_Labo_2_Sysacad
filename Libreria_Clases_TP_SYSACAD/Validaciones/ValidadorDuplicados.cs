@@ -1,4 +1,5 @@
-﻿using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
+﻿using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
+using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,12 +23,14 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
 
         private static bool ComprobarExistenciaPrevia(string codigo)
         {
-            return Sistema.BaseDatosCursos.BuscarCursoBD(codigo);
+            //return Sistema.BaseDatosCursos.BuscarCursoBD(codigo);
+            return ConsultasCursos.BuscarCursoBD(codigo);
         }
 
         private static bool ComprobarExistenciaPrevia(string legajo, string correo)
         {
-            return Sistema.BaseDatosEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
+            //return Sistema.BaseDatosEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
+            return ConsultasEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
         }
     }
 }
