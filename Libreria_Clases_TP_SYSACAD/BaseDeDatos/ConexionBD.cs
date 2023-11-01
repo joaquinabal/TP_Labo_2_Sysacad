@@ -10,15 +10,17 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
     public class ConexionBD
     {
-        protected static SqlConnection connection; // Puente.
-        protected static SqlCommand command;      // Quien lleva la consulta.
-        protected static SqlDataReader reader;   // Quien trae los datos.
+        protected static SqlConnection connection;
+        protected static SqlCommand command;
+        protected static SqlDataReader reader;  
 
         static ConexionBD()
         {
-            connection = new SqlConnection(@"Data Source=(local); 
-                Database=TestSYSACAD; 
-                Trusted_Connection = True;");
+            //connection = new SqlConnection(@"Data Source=(local); 
+            //    Database=TestSYSACAD; 
+            //    Trusted_Connection = True;");
+
+            connection = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;");
 
             command = new SqlCommand();
             command.CommandType = CommandType.Text;

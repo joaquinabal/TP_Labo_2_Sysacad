@@ -12,32 +12,31 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
-    internal class ConsultasAdministradores : ConexionBD
+    public class ConsultasAdministradores : ConexionBD
     {
-
         internal static bool BuscarUsuarioBD(string correo, string contrasenia)
         {
             try
             {
-                command.CommandText = "SELECT correo, contrasenia FROM Administrador WHERE correo = @correo";
+                connection.Open();
 
-                // Borrar cualquier parámetro existente en el comando.
-                command.Parameters.Clear();
+                command.CommandText = "SELECT correo, contrasenia FROM Administrador WHERE correo = @correo"; ;
 
-                // Agregar el nuevo parámetro.
                 command.Parameters.AddWithValue("@correo", correo);
 
-                connection.Open();
-                reader = command.ExecuteReader();
+                command.Parameters.Clear();
 
-                while (reader.Read())
+                using (var reader = command.ExecuteReader())
                 {
-                    string contraseniaEnBD = reader["contrasenia"].ToString();
-                    bool comparacionContrasenias = Hash.VerifyPassword(contrasenia, contraseniaEnBD);
-
-                    if (comparacionContrasenias)
+                    while (reader.Read())
                     {
-                        return true;
+                        string contraseniaEnBD = reader["contrasenia"].ToString();
+                        bool comparacionContrasenias = Hash.VerifyPassword(contrasenia, contraseniaEnBD);
+
+                        if (comparacionContrasenias)
+                        {
+                            return true;
+                        }
                     }
                 }
 
@@ -49,11 +48,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
             finally
             {
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
+                connection.Close();
             }
         }
+
     }
 }

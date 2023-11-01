@@ -16,70 +16,72 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
     public class ConsultasEstudiantes : ConexionBD
     {
+
+        ///////////////////////CREATE
+        
         internal static void IngresarUsuarioBD(Estudiante nuevoEstudiante)
         {
             try
             {
-                using (connection)
-                {
-                    Guid nuevoGuid = Guid.NewGuid();
-                    nuevoEstudiante.IdentificadorUnico = nuevoGuid;
-                    nuevoEstudiante.Contrasenia = Hash.HashPassword(nuevoEstudiante.Contrasenia);
+                connection.Open();
 
-                    // Secuencia INSERT
-                    command.CommandText = "INSERT INTO Estudiante (legajo, nombre, direccion, numeroTelefono, correo, contrasenia, identificadorUnico, debeCambiarContrasenia, creditos, promedio) " +
-                                          "VALUES (@legajoEstudiante, @nombreEstudiante, @direccionEstudiante, @telefonoEstudiante, @correoEstudiante, @contraseniaEstudiante, @identifiadorUnicoEstudiante, @debeCambiarContraseniaEstudiante, @creditosEstudiante, @promedioEstudiante)";
+                Guid nuevoGuid = Guid.NewGuid();
+                nuevoEstudiante.IdentificadorUnico = nuevoGuid;
+                nuevoEstudiante.Contrasenia = Hash.HashPassword(nuevoEstudiante.Contrasenia);
 
-                    // Borrar cualquier parámetro existente en el comando.
-                    command.Parameters.Clear();
+                command.CommandText = "INSERT INTO Estudiante (legajo, nombre, direccion, numeroTelefono, correo, contrasenia, identificadorUnico, debeCambiarContrasenia, creditos, promedio) " +
+                                      "VALUES (@legajoEstudiante, @nombreEstudiante, @direccionEstudiante, @telefonoEstudiante, @correoEstudiante, @contraseniaEstudiante, @identifiadorUnicoEstudiante, @debeCambiarContraseniaEstudiante, @creditosEstudiante, @promedioEstudiante)";
 
-                    // Agrego los parametros
-                    command.Parameters.AddWithValue("@legajoEstudiante", nuevoEstudiante.Legajo);
-                    command.Parameters.AddWithValue("@nombreEstudiante", nuevoEstudiante.Nombre);
-                    command.Parameters.AddWithValue("@direccionEstudiante", nuevoEstudiante.Direccion);
-                    command.Parameters.AddWithValue("@telefonoEstudiante", nuevoEstudiante.NumeroTelefono);
-                    command.Parameters.AddWithValue("@correoEstudiante", nuevoEstudiante.Correo);
-                    command.Parameters.AddWithValue("@contraseniaEstudiante", nuevoEstudiante.Contrasenia);
-                    command.Parameters.AddWithValue("@identifiadorUnicoEstudiante", nuevoEstudiante.IdentificadorUnico);
-                    command.Parameters.AddWithValue("@debeCambiarContraseniaEstudiante", nuevoEstudiante.DebeCambiarContrasenia);
-                    command.Parameters.AddWithValue("@creditosEstudiante", nuevoEstudiante.Creditos);
-                    command.Parameters.AddWithValue("@promedioEstudiante", nuevoEstudiante.Promedio);
+                command.Parameters.AddWithValue("@legajoEstudiante", nuevoEstudiante.Legajo);
+                command.Parameters.AddWithValue("@nombreEstudiante", nuevoEstudiante.Nombre);
+                command.Parameters.AddWithValue("@direccionEstudiante", nuevoEstudiante.Direccion);
+                command.Parameters.AddWithValue("@telefonoEstudiante", nuevoEstudiante.NumeroTelefono);
+                command.Parameters.AddWithValue("@correoEstudiante", nuevoEstudiante.Correo);
+                command.Parameters.AddWithValue("@contraseniaEstudiante", nuevoEstudiante.Contrasenia);
+                command.Parameters.AddWithValue("@identifiadorUnicoEstudiante", nuevoEstudiante.IdentificadorUnico);
+                command.Parameters.AddWithValue("@debeCambiarContraseniaEstudiante", nuevoEstudiante.DebeCambiarContrasenia);
+                command.Parameters.AddWithValue("@creditosEstudiante", nuevoEstudiante.Creditos);
+                command.Parameters.AddWithValue("@promedioEstudiante", nuevoEstudiante.Promedio);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                command.Parameters.Clear();
+
+                command.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
                 throw new Exception("Error de conexión a la base de datos: " + ex.Message);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         ///////////////////////READ
-
+        
         internal static bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
         {
             try
             {
+                connection.Open();
+
                 command.CommandText = "SELECT * FROM Estudiante WHERE correo = @correo";
 
-                // Borrar cualquier parámetro existente en el comando.
-                command.Parameters.Clear();
-
-                // Agregar el nuevo parámetro.
                 command.Parameters.AddWithValue("@correo", correo);
 
-                connection.Open();
-                reader = command.ExecuteReader();
+                command.Parameters.Clear();
 
-                while (reader.Read())
+                using (var reader = command.ExecuteReader())
                 {
-                    string contraseniaEnBD = reader["contrasenia"].ToString();
-                    bool comparacionContrasenias = Hash.VerifyPassword(contrasenia, contraseniaEnBD);
-
-                    if (comparacionContrasenias)
+                    while (reader.Read())
                     {
-                        return true;
+                        string contraseniaEnBD = reader["contrasenia"].ToString();
+                        bool comparacionContrasenias = Hash.VerifyPassword(contrasenia, contraseniaEnBD);
+
+                        if (comparacionContrasenias)
+                        {
+                            return true;
+                        }
                     }
                 }
 
@@ -91,10 +93,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
             finally
             {
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
+                connection.Close();
             }
         }
 
@@ -102,16 +101,15 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         {
             try
             {
+                connection.Open();
+
                 command.CommandText = "SELECT * FROM Estudiante WHERE correo = @correo or legajo = @legajo";
 
-                // Borrar cualquier parámetro existente en el comando.
-                command.Parameters.Clear();
-
-                // Agregar el nuevo parámetro.
                 command.Parameters.AddWithValue("@correo", correo);
                 command.Parameters.AddWithValue("@legajo", legajo);
 
-                connection.Open();
+                command.Parameters.Clear();
+
                 reader = command.ExecuteReader();
 
                 bool tieneFilas = reader.HasRows;
@@ -124,10 +122,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
             finally
             {
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
+                connection.Close();
             }
         }
 
@@ -135,22 +130,22 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         {
             try
             {
+                connection.Open();
+
                 command.CommandText = "SELECT * FROM Estudiante WHERE correo = @correo";
 
-                // Borrar cualquier parámetro existente en el comando.
-                command.Parameters.Clear();
-
-                // Agregar el nuevo parámetro.
                 command.Parameters.AddWithValue("@correo", correo);
 
-                connection.Open();
-                reader = command.ExecuteReader();
+                command.Parameters.Clear();
 
                 bool debeCambiarContrasenia = false;
 
-                while (reader.Read())
+                using (var reader = command.ExecuteReader())
                 {
-                    debeCambiarContrasenia = Convert.ToBoolean(reader["debeCambiarContrasenia"]);
+                    while (reader.Read())
+                    {
+                        debeCambiarContrasenia = Convert.ToBoolean(reader["debeCambiarContrasenia"]);
+                    }
                 }
 
                 return debeCambiarContrasenia;
@@ -161,10 +156,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
             finally
             {
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
+                connection.Close();
             }
         }
 
@@ -283,29 +275,28 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static void CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
         {
+            string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);
+
             try
             {
-                string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);
+                connection.Open();
 
-                using (connection)
-                {
-                    // Secuencia INSERT
-                    command.CommandText = "UPDATE Estudiante SET contrasenia = @nuevaContraseniaHasheada, debeCambiarContrasenia = 'False' WHERE correo = @correo";
+                command.CommandText = "UPDATE Estudiante SET contrasenia = @nuevaContraseniaHasheada, debeCambiarContrasenia = 'False' WHERE correo = @correo";
 
-                    // Borrar cualquier parámetro existente en el comando.
-                    command.Parameters.Clear();
+                command.Parameters.AddWithValue("@nuevaContraseniaHasheada", nuevaContraseniaHasheada);
+                command.Parameters.AddWithValue("@correo", correo);
 
-                    // Agrego los parametros
-                    command.Parameters.AddWithValue("@nuevaContraseniaHasheada", nuevaContraseniaHasheada);
-                    command.Parameters.AddWithValue("@correo", correo);
+                command.Parameters.Clear();
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                command.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
                 throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -314,24 +305,23 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         {
             try
             {
-                using (connection)
-                {
-                    // Secuencia DELETE
-                    command.CommandText = "DELETE FROM RegistroInscripcion WHERE codigoCurso = @codigo";
+                connection.Open();
 
-                    // Borrar cualquier parámetro existente en el comando.
-                    command.Parameters.Clear();
+                command.CommandText = "DELETE FROM RegistroInscripcion WHERE codigoCurso = @codigo";
 
-                    // Agrego los parametros
-                    command.Parameters.AddWithValue("@codigo", codigo);
+                command.Parameters.AddWithValue("@codigo", codigo);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                command.Parameters.Clear();
+
+                command.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
                 throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
