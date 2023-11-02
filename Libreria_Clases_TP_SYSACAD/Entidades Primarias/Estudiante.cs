@@ -20,11 +20,12 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         private string _contrasenia;
         private Guid _identificadorUnico;
         private bool _debeCambiarContrasenia;
-        private List<Curso> _cursosInscriptos;
-        private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
-        private List<string> _codigosDeFamiliaDeCursosCompletados = new List<string>();
         private int _creditos;
         private double _promedio;
+
+        private List<string> _codigosCursosInscriptos = new List<string>();
+        private List<ConceptoDePago> _conceptosAPagar = new List<ConceptoDePago>();
+        private List<string> _codigosDeFamiliaDeCursosCompletados = new List<string>();
 
         /// <summary>
         /// Constructor de la clase Estudiante.
@@ -40,28 +41,27 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             _correo = correo;
             _contrasenia = contrasenia;
             _debeCambiarContrasenia = debeCambiarContrasenia;
-            _cursosInscriptos = new List<Curso>();
             _creditos = 0;
             _promedio = 0;
         }
 
-        ////SOBRECARGA PARA TESTING Y DEBUGGING
-        //public Estudiante(string nombre, string legajo, string direccion, string telefono,
-        //    string correo, string contrasenia, bool debeCambiarContrasenia, List<string> cursosCompletados, 
-        //    int creditos, double promedio)
-        //{
-        //    _nombre = nombre;
-        //    _legajo = legajo;
-        //    _direccion = direccion;
-        //    _numeroTelefono = telefono;
-        //    _correo = correo;
-        //    _contrasenia = contrasenia;
-        //    _debeCambiarContrasenia = debeCambiarContrasenia;
-        //    _cursosInscriptos = new List<Curso>();
-        //    _codigosDeFamiliaDeCursosCompletados = cursosCompletados;
-        //    _creditos = creditos;
-        //    _promedio = promedio;
-        //}
+        public Estudiante(string nombre, string legajo, string direccion, string telefono,
+            string correo, string contrasenia, bool debeCambiarContrasenia, int creditos, double promedio,
+            List<string> codigosCursosInscriptos, List<ConceptoDePago> conceptosAPagar, List<string> codigosDeFamiliaDeCursosCompletados)
+        {
+            _nombre = nombre;
+            _legajo = legajo;
+            _direccion = direccion;
+            _numeroTelefono = telefono;
+            _correo = correo;
+            _contrasenia = contrasenia;
+            _debeCambiarContrasenia = debeCambiarContrasenia;
+            _creditos = creditos;
+            _promedio = promedio;
+            _codigosCursosInscriptos = codigosCursosInscriptos;
+            _conceptosAPagar = conceptosAPagar;
+            _codigosDeFamiliaDeCursosCompletados = codigosDeFamiliaDeCursosCompletados;
+        }
 
         /// <summary>
         /// Registra un nuevo estudiante en la base de datos.
@@ -124,7 +124,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
 
         public string Contrasenia { get { return _contrasenia; } set { _contrasenia = value; } }
 
-        public List<Curso> CursosInscriptos { get { return _cursosInscriptos; } }
+        public List<string> CursosInscriptos { get { return _codigosCursosInscriptos; } }
 
         public bool DebeCambiarContrasenia { get { return _debeCambiarContrasenia; } set { _debeCambiarContrasenia = value; } }
 

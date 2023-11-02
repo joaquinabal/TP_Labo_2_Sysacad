@@ -39,15 +39,26 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             _aula = aula;
             _dia = dia;
             _carrera = carrera;
-            _codigoFamilia = ObtenerCodigoDeFamilia();
         }
 
-        public string ObtenerCodigoDeFamilia()
+        public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula,
+            string dia, Carrera carrera, List<string> codigosCorrelatividades, int creditosRequeridos,
+            double promedioRequerido, string codigoFamilia, Dictionary<string, DateTime> alumnosEnListaDeEspera)
         {
-            string codigoDeFamilia = _nombre.Trim().ToUpper();
-            codigoDeFamilia = codigoDeFamilia.Replace(" ", "");
-
-            return codigoDeFamilia;
+            _nombre = nombre;
+            _codigo = codigo;
+            _descripcion = descripcion;
+            _cupoMaximo = cupoMaximo;
+            _cupoDisponible = cupoMaximo;
+            _turno = turno;
+            _aula = aula;
+            _dia = dia;
+            _carrera = carrera;
+            _codigosCorrelatividades = codigosCorrelatividades;
+            _creditosRequeridos = creditosRequeridos;
+            _promedioRequerido = promedioRequerido;
+            _codigoFamilia = codigoFamilia;
+            _alumnosEnListaDeEspera = alumnosEnListaDeEspera;
         }
 
         /// <summary>

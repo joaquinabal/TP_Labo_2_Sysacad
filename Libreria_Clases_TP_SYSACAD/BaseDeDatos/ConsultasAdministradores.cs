@@ -24,8 +24,6 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
                 command.Parameters.AddWithValue("@correo", correo);
 
-                command.Parameters.Clear();
-
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -48,6 +46,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
             finally
             {
+                command.Parameters.Clear();
                 connection.Close();
             }
         }
