@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
 
@@ -46,7 +47,7 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
                 else if (resultadoValidacionCupos == false)
                 {
                     _cursosSinCupo.Add(curso.Nombre);
-                    Sistema.BaseDatosCursos.AgregarEstudianteAListaDeEspera(Sistema.EstudianteLogueado, curso);
+                    ConsultasCursos.AgregarEstudianteAListaDeEspera(curso.Codigo, Sistema.EstudianteLogueado.Legajo);
                 }
                 // Si cumple con los requisitos y hay cupos
                 else
@@ -77,9 +78,11 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         {
             RegistroDeInscripcion nuevoRegistro = GenerarNuevoRegistroDeInscripcion(curso);
 
-            Sistema.BaseDatosCursos.RestarCupoDisponible(curso);
-            Sistema.BaseDatosEstudiantes.AgregarCursoAEstudiante(Sistema.EstudianteLogueado, curso);
-            Sistema.BaseDatosInscripciones.IngresarNuevoRegistro(nuevoRegistro);
+            ConsultasInscripciones.IngresarNuevoRegistro(nuevoRegistro);
+            ConsultasCursos.RestarCupoDisponible(curso);
+
+            //Sistema.BaseDatosEstudiantes.AgregarCursoAEstudiante(Sistema.EstudianteLogueado, curso);
+            //Sistema.BaseDatosInscripciones.IngresarNuevoRegistro(nuevoRegistro);
         }
 
         private static RegistroDeInscripcion GenerarNuevoRegistroDeInscripcion(Curso curso)
@@ -102,7 +105,7 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         /// <returns>True si hay cupos disponibles; de lo contrario, false.</returns>
         private static bool ComprobarSiHayCuposDisponiblesEnCurso(Curso cursoSeleccionado)
         {
-            List<Curso> lista_cursos_disponibles = Sistema.BaseDatosCursos.Cursos;
+            List<Curso> lista_cursos_disponibles = ConsultasCursos.Cursos;
             bool respuestaCuposDisponibles = false;
 
             foreach (Curso cursoDisponible in lista_cursos_disponibles)

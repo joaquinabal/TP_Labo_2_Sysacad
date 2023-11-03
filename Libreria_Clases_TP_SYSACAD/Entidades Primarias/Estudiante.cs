@@ -75,38 +75,12 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         }
 
         /// <summary>
-        /// Añade conceptos de pago iniciales al estudiante.
-        /// </summary>
-        public void AñadirConceptosDePagoIniciales()
-        {
-            ConceptoDePago matriculaIngreso = new ConceptoDePago("Matricula de Ingreso", 20000, 20000);
-            ConceptoDePago primerCuatrimestre = new ConceptoDePago("Matricula del Primer Cuatrimestre", 15000, 15000);
-            ConceptoDePago cargosAdministrativosPrimerCuatrimestre = new ConceptoDePago("Cargos Administrativos primer cuatrimestre", 5000, 5000);
-            ConceptoDePago BibliografiaPrimerCuatrimestre = new ConceptoDePago("Bibliografia Primer Cuatrimestre", 5000, 5000);
-
-            _conceptosAPagar.Add(matriculaIngreso);
-            _conceptosAPagar.Add(primerCuatrimestre);
-            _conceptosAPagar.Add(cargosAdministrativosPrimerCuatrimestre);
-            _conceptosAPagar.Add(BibliografiaPrimerCuatrimestre);
-        }
-
-        /// <summary>
         /// Actualiza los conceptos de pago del estudiante en base a los pagos realizados.
         /// </summary>
         /// <param name="listaConceptosPagados">La lista de conceptos pagados con sus montos.</param>
         public void ActualizarConceptosDePago(Dictionary<string, double> listaConceptosPagados)
         {
-            foreach (ConceptoDePago concepto in _conceptosAPagar)
-            {
-                foreach (var conceptoPagado in listaConceptosPagados)
-                {
-                    if (conceptoPagado.Key == concepto.Nombre)
-                    {
-                        concepto.MontoPendiente -= conceptoPagado.Value;
-                    }
-                }
-            }
-            ArchivosJsonEstudiantes.GuardarArchivoJSON(Sistema.BaseDatosEstudiantes.Estudiantes);
+            ConsultasPagos.ActualizarConceptosDePagoDeEstudiante(listaConceptosPagados, Legajo);
         }
 
         //Getters y Setters

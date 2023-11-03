@@ -48,7 +48,7 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 "Media de Inscripciones por día: " + mediaPorDia
             };
 
-            return GenerarPDF(nombreArchivo, titulo, fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas);
+            return GenerarPDF(nombreArchivo, titulo, fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas, "Inscripciones");
         }
 
         public static bool GenerarPDFIngresos(string nombreArchivo, List<RegistroDePago> registros,
@@ -81,27 +81,28 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 "Fecha con mayor cantidad de pagos: " + fechaPopular.ToString("dd/MM/yyyy")
             };
 
-            return GenerarPDF(nombreArchivo, "Reporte de Ingresos", fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas);
+            return GenerarPDF(nombreArchivo, "Reporte de Ingresos", fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas, "Ingresos");
         }
 
         public static bool GenerarPDF(string nombreArchivo, string titulo, string fechaEmision,
             string fechaDesde, string fechaHasta, List<List<string>> datos, List<string> encabezados,
-            List<string> estadisticas)
+            List<string> estadisticas, string directorioEspecifico)
         {
             try
             {
-                // Obtiene la ruta de la carpeta "Documentos" del usuario actual
-                string documentosPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                Environment.SpecialFolder directorioDocumentos = Environment.SpecialFolder.MyDocuments;
+                string pathSYSACAD = Path.Combine(Environment.GetFolderPath(directorioDocumentos), "SYSACAD");
+                string pathReportes = Path.Combine(pathSYSACAD, "Reportes PDF");
+                string carpetaEspecifica = Path.Combine(pathReportes, directorioEspecifico);
+                string rutaPDF = Path.Combine(carpetaEspecifica, nombreArchivo);
 
-                // Combina la ruta de "Documentos" con "Reportes Sistema" y el nombre del archivo PDF
-                string carpetaReportes = Path.Combine(documentosPath, "Reportes Sistema");
-                string rutaPDF = Path.Combine(carpetaReportes, nombreArchivo);
+                bool validacionExisteDirectorio = Directory.Exists(carpetaEspecifica);
 
-                // Verificar si la carpeta de reportes existe, y si no, crearla
-                if (!Directory.Exists(carpetaReportes))
+                if (!validacionExisteDirectorio)
                 {
-                    Directory.CreateDirectory(carpetaReportes);
+                    Directory.CreateDirectory(carpetaEspecifica);
                 }
+
 
                 // Crear un nuevo documento PDF
                 Document document = new Document();

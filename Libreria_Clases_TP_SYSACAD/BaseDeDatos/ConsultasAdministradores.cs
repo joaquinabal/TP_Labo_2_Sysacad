@@ -20,7 +20,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             {
                 connection.Open();
 
-                command.CommandText = "SELECT correo, contrasenia FROM Administrador WHERE correo = @correo"; ;
+                command.CommandText = "SELECT correo, contrasenia FROM Administrador WHERE correo = @correo";
 
                 command.Parameters.AddWithValue("@correo", correo);
 

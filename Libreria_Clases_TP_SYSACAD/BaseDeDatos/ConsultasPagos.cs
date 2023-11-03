@@ -1,4 +1,5 @@
-﻿using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+﻿using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
+using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
 using Libreria_Clases_TP_SYSACAD.Herramientas;
 using Libreria_Clases_TP_SYSACAD.Persistencia;
 using System;
@@ -12,11 +13,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
     public class ConsultasPagos : ConexionBD
     {
-        private List<RegistroDePago> _listaRegistrosPagos = new List<RegistroDePago>();
+        private static List<RegistroDePago> _listaRegistrosPagos = new List<RegistroDePago>();
 
         ///////////////////RECONSTRUCCION DE LA LISTA DE PAGOS A PARTIR DE BD
-
-        internal void CrearInstanciasDeInscripcionesAPartirDeBD()
+        internal static void CrearInstanciasDePagosAPartirDeBD()
         {
             _listaRegistrosPagos.Clear();
 
@@ -24,7 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             {
                 connection.Open();
 
-                command.CommandText = "SELECT * FROM RegistroPago";
+                command.CommandText = "SELECT * FROM RegistroDePago";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -54,19 +54,21 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //////////////////////CREATE
-        public void IngresarNuevoPago(List<RegistroDePago> nuevosPagos)
+        public static void IngresarNuevoPago(List<RegistroDePago> nuevosPagos)
         {
             foreach (RegistroDePago registro in nuevosPagos)
             {
                 try
                 {
+                    connection.Open();
+
                     command.CommandText = "INSERT INTO RegistroDePago (legajoEstudiante, conceptoNombre, ingreso, fechaPago)" +
                         " VALUES (@legajoEstudiante, @conceptoNombre, @ingreso, @fechaPago)";
 
                     command.Parameters.AddWithValue("@legajoEstudiante", registro.Legajo);
                     command.Parameters.AddWithValue("@conceptoNombre", registro.Concepto);
                     command.Parameters.AddWithValue("@ingreso", registro.Ingreso);
-                    command.Parameters.AddWithValue("@fechaPago", registro.Fecha);
+                    command.Parameters.AddWithValue("@fechaPago", DateTime.Now);
 
                     command.ExecuteNonQuery();
                 }
@@ -81,11 +83,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 }
             }
 
-            CrearInstanciasDeInscripcionesAPartirDeBD();
+            CrearInstanciasDePagosAPartirDeBD();
         }
 
         //////////////////////READ
-        public List<RegistroDePago> ObtenerIngresosSegunConceptoYFecha(DateTime fechaDesde, DateTime fechaHasta, string concepto)
+        public static List<RegistroDePago> ObtenerIngresosSegunConceptoYFecha(DateTime fechaDesde, DateTime fechaHasta, string concepto)
         {
             List<RegistroDePago> listaIngresosSegunConceptoYFecha = new List<RegistroDePago>();
 
@@ -100,7 +102,45 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return listaIngresosSegunConceptoYFecha;
         }
 
+        /////////////////////UPDATE
+        public static void ActualizarConceptosDePagoDeEstudiante(Dictionary<string, double> listaConceptosPagados, string legajo)
+        {
+            foreach (var parKeyValue in listaConceptosPagados)
+            {
+                try
+                {
+                    connection.Open();
+
+                    command.CommandText = "UPDATE ConceptosDePagoDeEstudiante SET montoPendiente = montoPendiente - @montoPagado WHERE legajoEstudiante = @legajo and conceptoNombre = @conceptoPago";
+
+                    command.Parameters.AddWithValue("@montoPagado", parKeyValue.Value);
+                    command.Parameters.AddWithValue("@legajo", legajo);
+                    command.Parameters.AddWithValue("@conceptoPago", parKeyValue.Key);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+                }
+                finally
+                {
+                    command.Parameters.Clear();
+                    connection.Close();
+                }
+            }
+
+            RefrescarEstudianteLogueado();
+        }
+
+        ///////// REFRESCAR ESTUDIANTE LOGUEADO
+        private static void RefrescarEstudianteLogueado()
+        {
+            ConsultasEstudiantes.CrearInstanciasDeEstudiantesAPartirDeBD();
+            Sistema.IngresarEstudianteComoUsuarioActivo(Sistema.CorreoEstudianteLogueado);
+        }
+
         //Getters y Setters
-        public List<RegistroDePago> Pagos { get { return _listaRegistrosPagos; } }
+        public static List<RegistroDePago> Pagos { get { return _listaRegistrosPagos; } }
     }
 }

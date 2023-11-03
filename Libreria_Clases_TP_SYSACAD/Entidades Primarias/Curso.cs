@@ -1,4 +1,5 @@
-﻿using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+﻿using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
+using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +40,10 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             _aula = aula;
             _dia = dia;
             _carrera = carrera;
+            _codigoFamilia = ObtenerNuevoCodigoFamilia();
         }
 
-        public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula,
+        public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, int cupoDisponible ,string turno, string aula,
             string dia, Carrera carrera, List<string> codigosCorrelatividades, int creditosRequeridos,
             double promedioRequerido, string codigoFamilia, Dictionary<string, DateTime> alumnosEnListaDeEspera)
         {
@@ -49,7 +51,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             _codigo = codigo;
             _descripcion = descripcion;
             _cupoMaximo = cupoMaximo;
-            _cupoDisponible = cupoMaximo;
+            _cupoDisponible = cupoDisponible;
             _turno = turno;
             _aula = aula;
             _dia = dia;
@@ -67,7 +69,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// <param name="nuevoCurso">El curso a ser registrado.</param>
         public void RegistrarCurso()
         {
-            Sistema.BaseDatosCursos.IngresarCursoBD(this);
+            ConsultasCursos.IngresarCursoBD(this);
         }
 
         /// <summary>
@@ -108,6 +110,12 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             }
 
             return horarioADevolver;
+        }
+
+        private string ObtenerNuevoCodigoFamilia()
+        {
+            string codigoFamiliaGenerado = _nombre.Replace(" ", "").ToUpper();
+            return codigoFamiliaGenerado;
         }
 
         /// <summary>

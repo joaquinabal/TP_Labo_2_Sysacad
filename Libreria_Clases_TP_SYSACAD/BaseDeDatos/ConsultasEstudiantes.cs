@@ -20,115 +20,112 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         /////////////////// RECONSTRUCCION DE LA LISTA DE CURSOS A PARTIR DE BD
 
-        private List<string> DevolverListaConCodigosCursosInscriptos(string legajo)
+        private static List<string> DevolverListaConCodigosCursosInscriptos(string legajo)
         {
             List<string> listaCodigoCursosInscriptos = new List<string>();
 
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT codigoCurso FROM RegistroInscripcion WHERE legajo = @legajo";
-
-                command.Parameters.AddWithValue("@legajo", legajo);
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT codigoCurso FROM RegistroInscripcion WHERE legajo = @legajo", connectionAlternativa))
                 {
-                    while (reader.Read())
+                    commandAlternativo.Parameters.AddWithValue("@legajo", legajo);
+
+                    try
                     {
-                        string codigoCurso = reader["codigoCurso"].ToString();
-                        listaCodigoCursosInscriptos.Add(codigoCurso);
+                        connectionAlternativa.Open();
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                string codigoCurso = readerAlternativo["codigoCurso"].ToString();
+                                listaCodigoCursosInscriptos.Add(codigoCurso);
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
 
             return listaCodigoCursosInscriptos;
         }
 
-        private List<ConceptoDePago> DevolverListaConConceptosDePagoDeEstudiante(string legajo)
+        private static List<ConceptoDePago> DevolverListaConConceptosDePagoDeEstudiante(string legajo)
         {
             List<ConceptoDePago> listaConceptosDePagoDeEstudiante = new List<ConceptoDePago>();
 
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT CP.nombre AS nombreConceptoPago, CP.montoInicial, CPE.montoPendiente FROM ConceptosDePagoEstudiante CPE" +
-                    "INNER JOIN ConceptoDePago CP ON CPE.conceptoNombre = CP.nombre" +
-                    "WHERE CPE.legajoEstudiante = @legajo";
-
-                command.Parameters.AddWithValue("@legajo", legajo);
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT CP.nombre AS nombreConceptoPago, CP.montoInicial, CPE.montoPendiente FROM ConceptosDePagoDeEstudiante CPE " +
+                                    "INNER JOIN ConceptoDePago CP ON CPE.conceptoNombre = CP.nombre " +
+                                    "WHERE CPE.legajoEstudiante = @legajo", connectionAlternativa))
                 {
-                    while (reader.Read())
-                    {
-                        string nombre = reader["nombreConceptoPago"].ToString();
-                        double montoInicial = Double.Parse(reader["montoInicial"].ToString());
-                        double montoPendiente = Double.Parse(reader["montoPendiente"].ToString());
+                    commandAlternativo.Parameters.AddWithValue("@legajo", legajo);
 
-                        ConceptoDePago nuevoConceptoPagoRecreado = new ConceptoDePago(nombre, montoInicial, montoPendiente);
-                        listaConceptosDePagoDeEstudiante.Add(nuevoConceptoPagoRecreado);
+                    try
+                    {
+                        connectionAlternativa.Open();
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                string nombre = readerAlternativo["nombreConceptoPago"].ToString();
+                                double montoInicial = Double.Parse(readerAlternativo["montoInicial"].ToString());
+                                double montoPendiente = Double.Parse(readerAlternativo["montoPendiente"].ToString());
+
+                                ConceptoDePago nuevoConceptoPagoRecreado = new ConceptoDePago(nombre, montoInicial, montoPendiente);
+                                listaConceptosDePagoDeEstudiante.Add(nuevoConceptoPagoRecreado);
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
 
             return listaConceptosDePagoDeEstudiante;
         }
 
-        private List<string> DevolverCFCursosCompletados(string legajo)
+        private static List<string> DevolverCFCursosCompletados(string legajo)
         {
             List<string> listaCFCursosCompletados = new List<string>();
 
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT codigoFamiliaCurso FROM RegistroCursosCompletados WHERE legajo = @legajo";
-
-                command.Parameters.AddWithValue("@legajo", legajo);
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT codigoFamiliaCurso FROM RegistroCursosCompletados WHERE legajo = @legajo", connectionAlternativa))
                 {
-                    while (reader.Read())
+                    commandAlternativo.Parameters.AddWithValue("@legajo", legajo);
+
+                    try
                     {
-                        string CFCursoCompletado = reader["codigoFamiliaCurso"].ToString();
-                        listaCFCursosCompletados.Add(CFCursoCompletado);
+                        connectionAlternativa.Open();
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                string CFCursoCompletado = readerAlternativo["codigoFamiliaCurso"].ToString();
+                                listaCFCursosCompletados.Add(CFCursoCompletado);
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
 
             return listaCFCursosCompletados;
         }
 
-        private void CrearInstanciasDeEstudiantesAPartirDeBD()
+        internal static void CrearInstanciasDeEstudiantesAPartirDeBD()
         {
             _listaEstudiantes.Clear();
 
@@ -178,8 +175,44 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ///////////////////////CREATE
+        private static void AñadirConceptosDePagoIniciales(string legajo)
+        {
+            Dictionary<string, double> conceptosIniciales = new Dictionary<string, double>
+            {
+                { "Matricula de Ingreso", 20000 },
+                { "Matricula del Primer Cuatrimestre", 15000 },
+                { "Cargos Administrativos primer cuatrimestre", 5000 },
+                { "Bibliografia Primer Cuatrimestre", 5000 }
+            };
 
-        internal void IngresarUsuarioBD(Estudiante nuevoEstudiante)
+            foreach (var parKeyValue in conceptosIniciales)
+            {
+                try
+                {
+                    connection.Open();
+
+                    command.CommandText = "INSERT INTO ConceptosDePagoDeEstudiante (legajoEstudiante, conceptoNombre, montoPendiente)" +
+                                          "VALUES (@legajoEstudiante, @conceptoNombre, @montoPendiente)";
+
+                    command.Parameters.AddWithValue("@legajoEstudiante", legajo);
+                    command.Parameters.AddWithValue("@conceptoNombre", parKeyValue.Key);
+                    command.Parameters.AddWithValue("@montoPendiente", parKeyValue.Value);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+                }
+                finally
+                {
+                    command.Parameters.Clear();
+                    connection.Close();
+                }
+            }
+        }
+
+        internal static void IngresarUsuarioBD(Estudiante nuevoEstudiante)
         {
             try
             {
@@ -219,11 +252,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 connection.Close();
             }
 
+            AñadirConceptosDePagoIniciales(nuevoEstudiante.Legajo);
             CrearInstanciasDeEstudiantesAPartirDeBD();
         }
 
         ///////////////////////READ
-        internal bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
+        internal static bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
         {
             bool resultadoBusqueda = false;
 
@@ -240,7 +274,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultadoBusqueda;
         }
 
-        internal bool BuscarUsuarioExistenteBD(string correo, string legajo)
+        internal static bool BuscarUsuarioExistenteBD(string correo, string legajo)
         {
             bool resultadoBusqueda = false;
 
@@ -255,7 +289,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultadoBusqueda;
         }
 
-        public bool BuscarSiUsuarioDebeCambiarContrasenia(string correo)
+        public static bool BuscarSiUsuarioDebeCambiarContrasenia(string correo)
         {
             bool resultadoBusqueda = false;
 
@@ -270,7 +304,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultadoBusqueda;
         }
 
-        public Estudiante ObtenerEstudianteSegunLegajo(string legajo)
+        public static Estudiante ObtenerEstudianteSegunLegajo(string legajo)
         {
             Estudiante estudianteADevolver = null;
 
@@ -300,7 +334,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         //    ArchivosJsonEstudiantes.GuardarArchivoJSON(listaEstudiante);
         //}
 
-        public void CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
+        public static void CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
         {
             string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);
 
@@ -329,6 +363,6 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //Getters y setters
-        public List<Estudiante> Estudiantes { get { return _listaEstudiantes; } }
+        public static List<Estudiante> Estudiantes { get { return _listaEstudiantes; } }
     }
 }

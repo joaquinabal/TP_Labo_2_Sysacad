@@ -15,84 +15,78 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
     public class ConsultasCursos : ConexionBD
     {
-        private List<Curso> _listaCursos = new List<Curso>();
+        private static List<Curso> _listaCursos = new List<Curso>();
 
         /////////////////// RECONSTRUCCION DE LA LISTA DE CURSOS A PARTIR DE BD
-        private List<string> DevolverListaDeCorrelatividadesSegunCFId(int CFid)
+        private static List<string> DevolverListaDeCorrelatividadesSegunCFId(int CFid)
         {
             List<string> CFCorrelatividades = new List<string>();
 
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT codigoFamiliaCorrelatividad FROM Correlatividades WHERE idFamiliaCursoBase = @CFid";
-
-                command.Parameters.AddWithValue("@CFid", CFid);
-
-                reader = command.ExecuteReader();
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT codigoFamiliaCorrelatividad FROM Correlatividades WHERE idFamiliaCursoBase = @CFid", connectionAlternativa))
                 {
-                    while (reader.Read())
+                    commandAlternativo.Parameters.AddWithValue("@CFid", CFid);
+
+                    try
                     {
-                        string codigoFamiliaCorrelatividad = reader["codigoFamiliaCorrelatividad"].ToString();
-                        CFCorrelatividades.Add(codigoFamiliaCorrelatividad);
+                        connectionAlternativa.Open();
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                string codigoFamiliaCorrelatividad = readerAlternativo["codigoFamiliaCorrelatividad"].ToString();
+                                CFCorrelatividades.Add(codigoFamiliaCorrelatividad);
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
 
             return CFCorrelatividades;
         }
 
-        private Dictionary<string, DateTime> DevolverListaEsperaSegunCodigoCurso(string codigo)
+        private static Dictionary<string, DateTime> DevolverListaEsperaSegunCodigoCurso(string codigo)
         {
             Dictionary<string, DateTime> listaEspera = new Dictionary<string, DateTime>();
 
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT legajoEstudiante, fechaIngreso FROM AlumnosEnListaDeEspera WHERE codigoCurso = @codigo";
-
-                command.Parameters.AddWithValue("@codigo", codigo);
-
-                reader = command.ExecuteReader();
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT legajoEstudiante, fechaIngreso FROM AlumnosEnListaDeEspera WHERE codigoCurso = @codigo", connectionAlternativa))
                 {
-                    while (reader.Read())
-                    {
-                        string legajoEstudiante = reader["legajoEstudiante"].ToString();
-                        DateTime fechaInscripcion = DateTime.Parse(reader["fechaIngreso"].ToString());
+                    commandAlternativo.Parameters.AddWithValue("@codigo", codigo);
 
-                        listaEspera[legajoEstudiante] = fechaInscripcion;
+                    try
+                    {
+                        connectionAlternativa.Open();
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                string legajoEstudiante = readerAlternativo["legajoEstudiante"].ToString();
+                                DateTime fechaInscripcion = DateTime.Parse(readerAlternativo["fechaIngreso"].ToString());
+
+                                listaEspera[legajoEstudiante] = fechaInscripcion;
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
 
             return listaEspera;
         }
 
-        internal void CrearInstanciasDeCursoAPartirDeBD()
+        internal static void CrearInstanciasDeCursoAPartirDeBD()
         {
             _listaCursos.Clear();
 
@@ -100,9 +94,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             {
                 connection.Open();
 
-                command.CommandText = "SELECT C.*, T.nombre AS nombreTurno, D.nombre AS nombreDia, CF.codigo AS codigoCF FROM Curso C" +
-                    "INNER JOIN Turno T ON C.turnoId = T.id" +
-                    "INNER JOIN Dia D ON C.diaId = D.id" +
+                command.CommandText = "SELECT C.*, T.nombre AS nombreTurno, D.nombre AS nombreDia, CF.codigo AS codigoCF FROM Curso C " +
+                    "INNER JOIN Turno T ON C.turnoId = T.id " +
+                    "INNER JOIN Dia D ON C.diaId = D.id " +
                     "INNER JOIN CodigoFamilia CF ON C.codigoFamiliaId = CF.id";
 
                 using (var reader = command.ExecuteReader())
@@ -126,7 +120,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                         Dictionary<string, DateTime> alumnosEnListaDeEspera = DevolverListaEsperaSegunCodigoCurso(codigo);
 
                         Curso cursoReconstruido = new Curso(nombre, codigo, descripcion,
-                            cupoMaximo, turno, aula, dia, carrera, codigosCorrelatividades,
+                            cupoMaximo, cupoDisponible, turno, aula, dia, carrera, codigosCorrelatividades,
                             creditosRequeridos, promedioRequerido, codigoFamilia, alumnosEnListaDeEspera);
 
                         _listaCursos.Add(cursoReconstruido);
@@ -145,130 +139,126 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //////////////////////////////////CREATE
-        private int ObtenerTurnoIdSegunTexto(string nombreTurno)
+        private static int ObtenerTurnoIdSegunTexto(string nombreTurno)
         {
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT * FROM Turno WHERE nombre = @nombre";
-
-                command.Parameters.AddWithValue("@nombre", nombreTurno);
-
-                int idDelTurno = 0;
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT * FROM Turno WHERE nombre = @nombre", connectionAlternativa))
                 {
-                    while (reader.Read())
+                    commandAlternativo.Parameters.AddWithValue("@nombre", nombreTurno);
+
+                    try
                     {
-                        idDelTurno = Convert.ToInt32(reader["id"]);
+                        connectionAlternativa.Open();
+
+                        int idDelTurno = 0;
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                idDelTurno = Convert.ToInt32(readerAlternativo["id"]);
+                            }
+                        }
+
+                        return idDelTurno;
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-
-                return idDelTurno;
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
         }
 
-        private int ObtenerDiaIdSegunTexto(string nombreDia)
+        private static int ObtenerDiaIdSegunTexto(string nombreDia)
         {
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT * FROM Dia WHERE nombre = @nombre";
-
-                command.Parameters.AddWithValue("@nombre", nombreDia);
-
-                int idDelDia = 0;
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT * FROM Dia WHERE nombre = @nombre", connectionAlternativa))
                 {
-                    while (reader.Read())
+                    commandAlternativo.Parameters.AddWithValue("@nombre", nombreDia);
+
+                    try
                     {
-                        idDelDia = Convert.ToInt32(reader["id"]);
+                        connectionAlternativa.Open();
+
+                        int idDelDia = 0;
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                idDelDia = Convert.ToInt32(readerAlternativo["id"]);
+                            }
+                        }
+
+                        return idDelDia;
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-
-                return idDelDia;
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
         }
 
         private static int ObtenerIdDeCodigoFamilia(string codigoFamilia)
         {
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT id FROM CodigoFamilia WHERE codigo = @codigo";
-
-                command.Parameters.AddWithValue("@codigo", codigoFamilia);
-
-                reader = command.ExecuteReader();
-
-                if (reader.Read())
+                using (var commandAlternativo = new SqlCommand("SELECT id FROM CodigoFamilia WHERE codigo = @codigo", connectionAlternativa))
                 {
-                    return Convert.ToInt32(reader["id"]);
+                    commandAlternativo.Parameters.AddWithValue("@codigo", codigoFamilia);
+
+                    try
+                    {
+                        connectionAlternativa.Open();
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            if (readerAlternativo.Read())
+                            {
+                                return Convert.ToInt32(readerAlternativo["id"]);
+                            }
+                            else
+                            {
+                                // El código de familia no existe en la tabla, lo agrego y obtengo su ID.
+                                return AgregarNuevoCodigoDeFamiliaYDevolverSuId(codigoFamilia);
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+                    }
                 }
-                else
-                {
-                    // El código de familia no existe en la tabla, lo agrego y obtengo su ID.
-                    return AgregarNuevoCodigoDeFamiliaYDevolverSuId(codigoFamilia);
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
         }
 
         private static int AgregarNuevoCodigoDeFamiliaYDevolverSuId(string codigoFamilia)
         {
-            try
+            using (var connectionAlternativa2 = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
+                using (var commandAlternativo2 = new SqlCommand("INSERT INTO CodigoFamilia (codigo) VALUES (@codigo); SELECT SCOPE_IDENTITY();", connectionAlternativa2))
+                {
+                    commandAlternativo2.Parameters.AddWithValue("@codigo", codigoFamilia);
+                    connectionAlternativa2.Open();
 
-                command.CommandText = "INSERT INTO CodigoFamilia (codigo) VALUES (@codigo); SELECT SCOPE_IDENTITY();";
-
-                command.Parameters.AddWithValue("@codigo", codigoFamilia);
-
-                // Ejecuta la consulta y devuelve el ID del código de familia recién agregado.
-                return Convert.ToInt32(command.ExecuteScalar());
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error al agregar un nuevo código de familia: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
+                    try
+                    {
+                        // Ejecuta la consulta y devuelve el ID del código de familia recién agregado.
+                        return Convert.ToInt32(commandAlternativo2.ExecuteScalar());
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+                    }
+                }
             }
         }
 
-        internal void IngresarCursoBD(Curso nuevoCurso)
+        internal static void IngresarCursoBD(Curso nuevoCurso)
         {
             try
             {
@@ -307,7 +297,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         /////////////////////////////////////READ
-        internal bool BuscarCursoBD(string codigo)
+        internal static bool BuscarCursoBD(string codigo)
         {
             bool resultadoBusqueda = false;
 
@@ -321,7 +311,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultadoBusqueda;
         }
 
-        public List<Curso> ObtenerUnCursoPorCadaCodigoDeFamilia()
+        public static List<Curso> ObtenerUnCursoPorCadaCodigoDeFamilia()
         {
             // Almaceno un curso por cada código de familia dentro del diccionario
             Dictionary<string, Curso> cursosPorCodigoFamilia = new Dictionary<string, Curso>();
@@ -344,7 +334,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return cursosUnicos;
         }
 
-        public HashSet<string> ObtenerNombresDeCursosNoCorrelativos(Curso cursoSeleccionado)
+        public static HashSet<string> ObtenerNombresDeCursosNoCorrelativos(Curso cursoSeleccionado)
         {
             HashSet<string> nombresAgregados = new HashSet<string>();
 
@@ -356,7 +346,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 if (!cursoSeleccionado.Correlatividades.Contains(curso.CodigoFamilia) &&
                     curso.CodigoFamilia != cursoSeleccionado.CodigoFamilia)
                 {
-                    if (!nombresAgregados.Contains(curso.Nombre))
+                    if (!nombresAgregados.Contains(curso.CodigoFamilia))
                     {
                         nombresAgregados.Add(curso.Nombre);
                     }
@@ -366,7 +356,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return nombresAgregados;
         }
 
-        public Curso ObtenerCursoDesdeCodigo(string codigo)
+        public static Curso ObtenerCursoDesdeCodigo(string codigo)
         {
             foreach (Curso curso in _listaCursos)
             {
@@ -379,7 +369,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return null;
         }
 
-        public string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
+        public static string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
         {
             string codigoDeFamilia = "";
 
@@ -394,7 +384,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return codigoDeFamilia;
         }
 
-        public List<Curso> ObtenerCursosDesdeCodigoDeFamilia(string codigoDeFamilia)
+        public static List<Curso> ObtenerCursosDesdeCodigoDeFamilia(string codigoDeFamilia)
         {
             List<Curso> cursosEncontrados = new List<Curso>();
 
@@ -409,7 +399,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return cursosEncontrados;
         }
 
-        public Curso ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
+        public static Curso ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
         {
             foreach (Curso curso in _listaCursos)
             {
@@ -422,7 +412,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return null;
         }
 
-        public Curso ObtenerCursoAPartirDeNombreYTurno(string nombre, string turno)
+        public static Curso ObtenerCursoAPartirDeNombreYTurno(string nombre, string turno)
         {
             Curso cursoADevolver = null;
 
@@ -437,10 +427,33 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return cursoADevolver;
         }
 
+        public static List<Curso> ObtenerListaCursosDesdeListaCodigos(List<string> listaCodigos)
+        {
+            List<Curso> cursos = new List<Curso>(); 
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (listaCodigos.Contains(curso.Codigo))
+                {
+                    cursos.Add(curso);
+                }
+            }
+
+            return cursos;
+        }
+
+        public static string ObtenerCodigoDeFamilia(string nombre)
+        {
+            string codigoDeFamilia = nombre.Trim().ToUpper();
+            codigoDeFamilia = codigoDeFamilia.Replace(" ", "");
+
+            return codigoDeFamilia;
+        }
+
         ///////////////////////////////////UPDATE
 
         ///////UPDATE REQUISITOS
-        private void EliminarCorrelatividadesDeCursoSeleccionado(int idCodigoFamilia)
+        private static void EliminarCorrelatividadesDeCursoSeleccionado(int idCodigoFamilia)
         {
             try
             {
@@ -492,7 +505,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
-        public void ActualizarRequisitosACursos(string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
+        public static void ActualizarRequisitosACursos(string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
         {
             int idCodigoFamilia = ObtenerIdDeCodigoFamilia(CFCursoAModificar);
 
@@ -526,22 +539,15 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
 
         ///////UPDATE TABLA CURSOS
-        public static string ObtenerCodigoDeFamilia(string nombre)
+
+        public static void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
         {
-            string codigoDeFamilia = nombre.Trim().ToUpper();
-            codigoDeFamilia = codigoDeFamilia.Replace(" ", "");
-
-            return codigoDeFamilia;
-        }
-
-        public void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
-        {
-            int idTurno = ObtenerTurnoIdSegunTexto(turno);
-            int idDia = ObtenerDiaIdSegunTexto(dia);
-
             try
             {
                 connection.Open();
+
+                int idTurno = ObtenerTurnoIdSegunTexto(turno);
+                int idDia = ObtenerDiaIdSegunTexto(dia);
 
                 command.CommandText = "UPDATE Curso SET codigo = @codigo, nombre = @nombre, descripcion = @descripcion," +
                     "cupoMaximo = @cupoMaximo, cupoDisponible = @cupoMaximo, turnoId = @turnoId, aula = @aula, " +
@@ -571,15 +577,15 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
-        public void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
+        public static void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
         {
-            int idTurno = ObtenerTurnoIdSegunTexto(turno);
-            int idDia = ObtenerDiaIdSegunTexto(dia);
-            int CFid = ObtenerIdDeCodigoFamilia(codigoFamilia);
-
             try
             {
                 connection.Open();
+
+                int idTurno = ObtenerTurnoIdSegunTexto(turno);
+                int idDia = ObtenerDiaIdSegunTexto(dia);
+                int CFid = ObtenerIdDeCodigoFamilia(codigoFamilia);
 
                 command.CommandText = "UPDATE Curso SET codigo = @codigo, nombre = @nombre, descripcion = @descripcion," +
                     "cupoMaximo = @cupoMaximo, cupoDisponible = @cupoMaximo, turnoId = @turnoId, aula = @aula, " +
@@ -636,33 +642,62 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         private static void AgregarNuevaListaEsperaACursoSeleccionado(string codigoCurso, Dictionary<string, DateTime> listaEsperaRecibida)
         {
-            foreach (var parKeyValue in listaEsperaRecibida)
+            try
             {
-                try
-                {
-                    connection.Open();
+                connection.Open();
 
+                foreach (var parKeyValue in listaEsperaRecibida)
+                {
                     command.CommandText = @"INSERT INTO AlumnosEnListaDeEspera (legajoEstudiante, codigoCurso, fechaIngreso) VALUES (@legajo, @codigoCurso, @fechaIngreso)";
 
-                    command.Parameters.AddWithValue("@legajo", listaEsperaRecibida.Keys);
+                    command.Parameters.Clear(); // Limpia los parámetros anteriores
+
+                    command.Parameters.AddWithValue("@legajo", parKeyValue.Key);
                     command.Parameters.AddWithValue("@codigoCurso", codigoCurso);
-                    command.Parameters.AddWithValue("@fechaIngreso", listaEsperaRecibida.Values);
+                    command.Parameters.AddWithValue("@fechaIngreso", parKeyValue.Value);
 
                     command.ExecuteNonQuery();
                 }
-                catch (SqlException ex)
-                {
-                    throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-                }
-                finally
-                {
-                    command.Parameters.Clear();
-                    connection.Close();
-                }
             }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+
+
+
+            //foreach (var parKeyValue in listaEsperaRecibida)
+            //{
+            //    try
+            //    {
+            //        connection.Open();
+
+            //        command.CommandText = @"INSERT INTO AlumnosEnListaDeEspera (legajoEstudiante, codigoCurso, fechaIngreso) VALUES (@legajo, @codigoCurso, @fechaIngreso)";
+
+            //        command.Parameters.AddWithValue("@legajo", listaEsperaRecibida.Keys);
+            //        command.Parameters.AddWithValue("@codigoCurso", codigoCurso);
+            //        command.Parameters.AddWithValue("@fechaIngreso", listaEsperaRecibida.Values);
+
+            //        command.ExecuteNonQuery();
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+            //    }
+            //    finally
+            //    {
+            //        command.Parameters.Clear();
+            //        connection.Close();
+            //    }
+            //}
         }
 
-        public void ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
+        public static void ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
         {
             EliminarListaEsperaDeCursoSeleccionado(cursoRecibido.Codigo);
             AgregarNuevaListaEsperaACursoSeleccionado(cursoRecibido.Codigo, listaEsperaRecibida);
@@ -670,8 +705,37 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
+        ////// AGREGAR ESTUDIANTE A LISTA DE ESPERA
+        internal static void AgregarEstudianteAListaDeEspera(string codigoCurso, string legajoEstudiante)
+        {
+            try
+            {
+                connection.Open();
+
+                command.CommandText = @"INSERT INTO AlumnosEnListaDeEspera (legajoEstudiante, codigoCurso, fechaIngreso) VALUES (@legajo, @codigoCurso, @fechaIngreso)";
+
+                command.Parameters.AddWithValue("@legajo", legajoEstudiante);
+                command.Parameters.AddWithValue("@codigoCurso", codigoCurso);
+                command.Parameters.AddWithValue("@fechaIngreso", DateTime.Now);
+
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+            }
+            finally
+            {
+                command.Parameters.Clear();
+                connection.Close();
+            }
+
+            CrearInstanciasDeCursoAPartirDeBD();
+        }
+
+
         ///////UPDATE UNICAMENTE CUPOS DISPONIBLES
-        internal void RestarCupoDisponible(Curso cursoARestarCupo)
+        internal static void RestarCupoDisponible(Curso cursoARestarCupo)
         {
             try
             {
@@ -722,13 +786,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         /// Elimina un curso de la base de datos por su código.
         /// </summary>
         /// <param name="codigoABuscar">El código del curso a ser eliminado.</param>
-        public void EliminarCursoBD(string codigoABuscar)
+        public static void EliminarCursoBD(string codigoABuscar)
         {
             try
             {
                 connection.Open();
 
-                command.CommandText = @"DELETE FROM Curso WHERE codigoCurso = @codigoABuscar";
+                command.CommandText = @"DELETE FROM Curso WHERE codigo = @codigoABuscar";
 
                 command.Parameters.AddWithValue("@codigoABuscar", codigoABuscar);
 
@@ -744,14 +808,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 connection.Close();
             }
 
-            ConsultasEstudiantes.EliminarCursoATodosLosEstudiantes(codigoABuscar); //VER EN CLASS DE CONSULTAS ESTUDIANTES
-
+            //ConsultasInscripciones.EliminarCursoATodosLosEstudiantes(codigoABuscar);
             CorroborarSiHayCFSinCursosCorrespondientesYBorrarlos();
-
             CrearInstanciasDeCursoAPartirDeBD();
+            ConsultasInscripciones.RefrescarEstudianteLogueado();
         }
 
         //Getters y setters
-        public List<Curso> Cursos { get { return _listaCursos; } }
+        public static List<Curso> Cursos { get { return _listaCursos; } }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
@@ -40,7 +41,8 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
                 if (!existenciaDeErrores)
                 {
                     //Guardo el resultado de la busqueda
-                    Estudiante estudianteEncontrado = Sistema.BaseDatosEstudiantes.ObtenerEstudianteSegunLegajo(legajoDelAlumno);
+                    //Estudiante estudianteEncontrado = Sistema.BaseDatosEstudiantes.ObtenerEstudianteSegunLegajo(legajoDelAlumno);
+                    Estudiante estudianteEncontrado = ConsultasEstudiantes.ObtenerEstudianteSegunLegajo(legajoDelAlumno);
 
                     //Verifico si se encontro al estudiante
                     if (estudianteEncontrado != null)

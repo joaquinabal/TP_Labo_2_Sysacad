@@ -12,76 +12,106 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
     public class ConsultasInscripciones : ConexionBD
     {
-        private List<RegistroDeInscripcion> _listaRegistrosInscripcion = new List<RegistroDeInscripcion>();
+        private static List<RegistroDeInscripcion> _listaRegistrosInscripcion = new List<RegistroDeInscripcion>();
 
         /////////////////// RECONSTRUCCION DE LA LISTA DE INSCRIPCIONES A PARTIR DE BD
         internal static string ObtenerNombreAlumnoDesdeLegajo(string legajo)
         {
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT nombre FROM Estudiante WHERE legajo = @legajo";
-
-                command.Parameters.AddWithValue("@legajo", legajo);
-
-                string nombreAlumno = "";
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT nombre FROM Estudiante WHERE legajo = @legajo", connectionAlternativa))
                 {
-                    while (reader.Read())
+                    commandAlternativo.Parameters.AddWithValue("@legajo", legajo);
+
+                    try
                     {
-                        nombreAlumno = reader["codigoCurso"].ToString();
+                        connectionAlternativa.Open();
+
+                        string nombreAlumno = "";
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                nombreAlumno = readerAlternativo["nombre"].ToString();
+                            }
+                        }
+
+                        return nombreAlumno;
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-
-                return nombreAlumno;
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
         }
 
-        private string ObtenerNombreCursoDesdeCodigo(string codigo)
+        private static string ObtenerNombreCursoDesdeCodigo(string codigo)
         {
-            try
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
-                connection.Open();
-
-                command.CommandText = "SELECT nombre FROM Curso WHERE codigo = @codigo";
-
-                command.Parameters.AddWithValue("@codigo", codigo);
-
-                string nombreCurso = "";
-
-                using (var reader = command.ExecuteReader())
+                using (var commandAlternativo = new SqlCommand("SELECT nombre FROM Curso WHERE codigo = @codigo", connectionAlternativa))
                 {
-                    while (reader.Read())
+                    commandAlternativo.Parameters.AddWithValue("@codigo", codigo);
+
+                    try
                     {
-                        nombreCurso = reader["nombre"].ToString();
+                        connectionAlternativa.Open();
+
+                        string nombreCurso = "";
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                nombreCurso = readerAlternativo["nombre"].ToString();
+                            }
+                        }
+
+                        return nombreCurso;
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
-
-                return nombreCurso;
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
             }
         }
 
-        internal void CrearInstanciasDeInscripcionesAPartirDeBD()
+        internal static Carrera DevolverCarreraDedeCodigoCurso(string codigoCurso)
+        {
+            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
+            {
+                using (var commandAlternativo = new SqlCommand("SELECT carreraCodigo FROM Curso WHERE codigo = @codigoCurso", connectionAlternativa))
+                {
+                    commandAlternativo.Parameters.AddWithValue("@codigoCurso", codigoCurso);
+
+                    try
+                    {
+                        connectionAlternativa.Open();
+
+                        string carrera = "";
+
+                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
+                        {
+                            while (readerAlternativo.Read())
+                            {
+                                carrera = readerAlternativo["carreraCodigo"].ToString();
+                            }
+                        }
+
+                        return (Carrera)Enum.Parse(typeof(Carrera), carrera);
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        internal static void CrearInstanciasDeInscripcionesAPartirDeBD()
         {
             _listaRegistrosInscripcion.Clear();
 
@@ -98,9 +128,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                         string legajo = reader["legajo"].ToString();
                         string codigoCurso = reader["codigoCurso"].ToString();
                         DateTime fechaInscripcion = DateTime.Parse(reader["fechaInscripcion"].ToString());
+
                         string nombreAlumno = ObtenerNombreAlumnoDesdeLegajo(legajo);
                         string nombreCurso = ObtenerNombreCursoDesdeCodigo(codigoCurso);
-                        Carrera carrera = (Carrera)Enum.Parse(typeof(Carrera), reader["carreraCodigo"].ToString());
+                        Carrera carrera = DevolverCarreraDedeCodigoCurso(codigoCurso);
 
                         RegistroDeInscripcion registroInscripcionReconstruido = new RegistroDeInscripcion(legajo, nombreAlumno, nombreCurso, codigoCurso, carrera, fechaInscripcion);
 
@@ -120,7 +151,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ////////////////////////CREATE
-        internal void IngresarNuevoRegistro(RegistroDeInscripcion nuevoRegistro)
+        internal static void IngresarNuevoRegistro(RegistroDeInscripcion nuevoRegistro)
         {
             try
             {
@@ -146,26 +177,30 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
 
             CrearInstanciasDeInscripcionesAPartirDeBD();
+            RefrescarEstudianteLogueado();
         }
 
         ////////////////////////READ
 
         //METODO PARA OBTENER INSCRIPCIONES SEGUN PERIODO
-        public List<RegistroDeInscripcion> ObtenerInscripciones(DateTime fechaDesde, DateTime fechaHasta)
+        public static List<RegistroDeInscripcion> ObtenerInscripciones(DateTime fechaDesde, DateTime fechaHasta)
         {
             List<RegistroDeInscripcion> resultados = new List<RegistroDeInscripcion>();
 
             // Recorro la lista de registros de inscripción
             foreach (RegistroDeInscripcion registro in _listaRegistrosInscripcion)
             {
-                resultados.Add(registro);
+                if (registro.Fecha >= fechaDesde && registro.Fecha <= fechaHasta)
+                {
+                    resultados.Add(registro);
+                }
             }
 
             return resultados;
         }
 
         //SOBRECARGA DEL METODO. OBTIENE INSCRIPCIONES SEGUN T (CODIGO DE CURSO O CARRERA)
-        public List<RegistroDeInscripcion> ObtenerInscripciones<T>(DateTime fechaDesde, DateTime fechaHasta, T filtro)
+        public static List<RegistroDeInscripcion> ObtenerInscripciones<T>(DateTime fechaDesde, DateTime fechaHasta, T filtro)
         {
             // Creo una lista para ir guardando los resultados de las inscripciones que cumplan con los criterios
             List<RegistroDeInscripcion> resultados = new List<RegistroDeInscripcion>();
@@ -194,7 +229,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //////////////DELETE
-        internal void EliminarCursoATodosLosEstudiantes(string codigo)
+        internal static void EliminarCursoATodosLosEstudiantes(string codigo)
         {
             try
             {
@@ -217,9 +252,17 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
 
             CrearInstanciasDeInscripcionesAPartirDeBD();
+            RefrescarEstudianteLogueado();
+        }
+
+        ///////// REFRESCAR ESTUDIANTE LOGUEADO
+        public static void RefrescarEstudianteLogueado()
+        {
+            ConsultasEstudiantes.CrearInstanciasDeEstudiantesAPartirDeBD();
+            Sistema.IngresarEstudianteComoUsuarioActivo(Sistema.CorreoEstudianteLogueado);
         }
 
         //Getters y Setters
-        public List<RegistroDeInscripcion> Inscripciones { get { return _listaRegistrosInscripcion; } }
+        public static List<RegistroDeInscripcion> Inscripciones { get { return _listaRegistrosInscripcion; } }
     }
 }

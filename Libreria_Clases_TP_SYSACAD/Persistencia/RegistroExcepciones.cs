@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -11,22 +12,31 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Persistencia
 {
-    internal class RegistroExcepciones : ArchivosJson
+    internal class RegistroExcepciones
     {
-        private static string _fullpath; 
+        private static string _pathArchivoJSON;
 
         public RegistroExcepciones() 
         {
-            string pathName = CombinePath(GetPath(), directoryName);
+            Environment.SpecialFolder directorioDocumentos = Environment.SpecialFolder.MyDocuments;
+            string pathSYSACAD = Path.Combine(Environment.GetFolderPath(directorioDocumentos), "SYSACAD");
+            string pathExcepciones = Path.Combine(pathSYSACAD, "Excepciones");
+            _pathArchivoJSON = Path.Combine(pathExcepciones, "RegistroExcepciones.json");
 
-            string fullPath = CombinePath(pathName, fileRegistroExcepciones);
-            _fullpath = fullPath;
+            bool validacionExisteDirectorio = Directory.Exists(pathExcepciones);
+            bool validacionExisteArchivo = File.Exists(_pathArchivoJSON);
 
-            bool validacionExisteArchivo = ValidarSiExisteArchivo(fullPath);
+            if (!validacionExisteDirectorio)
+            {
+                Directory.CreateDirectory(pathExcepciones);
+            }
 
             if (!validacionExisteArchivo)
             {
-                CrearArchivo(fullPath, fileRegistroExcepciones);
+                using (StreamWriter sw = new StreamWriter(_pathArchivoJSON, true, Encoding.Default))
+                {
+                    sw.WriteLine();
+                }
             }
         }
 
@@ -47,7 +57,7 @@ namespace Libreria_Clases_TP_SYSACAD.Persistencia
             };
 
             // Guardar el JSON en un archivo utilizando StreamWriter
-            using (var writer = new StreamWriter(_fullpath, true))
+            using (var writer = new StreamWriter(_pathArchivoJSON, true, Encoding.Default))
             {
                 // Serializar el objeto a JSON y escribirlo en el archivo
                 var json = System.Text.Json.JsonSerializer.Serialize(excepcionInfo, opciones);
