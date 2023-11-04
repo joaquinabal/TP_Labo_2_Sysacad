@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
-    public enum Log { Admin, Estudiante, Curso }
+    public enum Log { Admin, Estudiante }
 
     public class ValidadorCredenciales
     {

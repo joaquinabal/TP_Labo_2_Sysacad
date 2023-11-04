@@ -24,6 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             ConsultasEstudiantes.CrearInstanciasDeEstudiantesAPartirDeBD();
             ConsultasInscripciones.CrearInstanciasDeInscripcionesAPartirDeBD();
             ConsultasPagos.CrearInstanciasDePagosAPartirDeBD();
+            ConsultasProfesores.CrearInstanciasDeProfesoresAPartirDeBD();
 
             _registroExcepciones = new RegistroExcepciones();
         }
