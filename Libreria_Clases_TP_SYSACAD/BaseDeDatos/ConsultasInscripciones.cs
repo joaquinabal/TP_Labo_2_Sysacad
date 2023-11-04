@@ -15,166 +15,27 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         private static List<RegistroDeInscripcion> _listaRegistrosInscripcion = new List<RegistroDeInscripcion>();
 
         /////////////////// RECONSTRUCCION DE LA LISTA DE INSCRIPCIONES A PARTIR DE BD
-        internal static string ObtenerNombreAlumnoDesdeLegajo(string legajo)
-        {
-            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
-            {
-                using (var commandAlternativo = new SqlCommand("SELECT nombre FROM Estudiante WHERE legajo = @legajo", connectionAlternativa))
-                {
-                    commandAlternativo.Parameters.AddWithValue("@legajo", legajo);
-
-                    try
-                    {
-                        connectionAlternativa.Open();
-
-                        string nombreAlumno = "";
-
-                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
-                        {
-                            while (readerAlternativo.Read())
-                            {
-                                nombreAlumno = readerAlternativo["nombre"].ToString();
-                            }
-                        }
-
-                        return nombreAlumno;
-                    }
-                    catch (SqlException ex)
-                    {
-                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-                    }
-                }
-            }
-        }
-
-        private static string ObtenerNombreCursoDesdeCodigo(string codigo)
-        {
-            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
-            {
-                using (var commandAlternativo = new SqlCommand("SELECT nombre FROM Curso WHERE codigo = @codigo", connectionAlternativa))
-                {
-                    commandAlternativo.Parameters.AddWithValue("@codigo", codigo);
-
-                    try
-                    {
-                        connectionAlternativa.Open();
-
-                        string nombreCurso = "";
-
-                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
-                        {
-                            while (readerAlternativo.Read())
-                            {
-                                nombreCurso = readerAlternativo["nombre"].ToString();
-                            }
-                        }
-
-                        return nombreCurso;
-                    }
-                    catch (SqlException ex)
-                    {
-                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-                    }
-                }
-            }
-        }
-
-        internal static Carrera DevolverCarreraDedeCodigoCurso(string codigoCurso)
-        {
-            using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
-            {
-                using (var commandAlternativo = new SqlCommand("SELECT carreraCodigo FROM Curso WHERE codigo = @codigoCurso", connectionAlternativa))
-                {
-                    commandAlternativo.Parameters.AddWithValue("@codigoCurso", codigoCurso);
-
-                    try
-                    {
-                        connectionAlternativa.Open();
-
-                        string carrera = "";
-
-                        using (var readerAlternativo = commandAlternativo.ExecuteReader())
-                        {
-                            while (readerAlternativo.Read())
-                            {
-                                carrera = readerAlternativo["carreraCodigo"].ToString();
-                            }
-                        }
-
-                        return (Carrera)Enum.Parse(typeof(Carrera), carrera);
-                    }
-                    catch (SqlException ex)
-                    {
-                        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-                    }
-                }
-            }
-        }
 
         internal static void CrearInstanciasDeInscripcionesAPartirDeBD()
         {
             _listaRegistrosInscripcion.Clear();
-
-            try
-            {
-                connection.Open();
-
-                command.CommandText = "SELECT * FROM RegistroInscripcion";
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string legajo = reader["legajo"].ToString();
-                        string codigoCurso = reader["codigoCurso"].ToString();
-                        DateTime fechaInscripcion = DateTime.Parse(reader["fechaInscripcion"].ToString());
-
-                        string nombreAlumno = ObtenerNombreAlumnoDesdeLegajo(legajo);
-                        string nombreCurso = ObtenerNombreCursoDesdeCodigo(codigoCurso);
-                        Carrera carrera = DevolverCarreraDedeCodigoCurso(codigoCurso);
-
-                        RegistroDeInscripcion registroInscripcionReconstruido = new RegistroDeInscripcion(legajo, nombreAlumno, nombreCurso, codigoCurso, carrera, fechaInscripcion);
-
-                        _listaRegistrosInscripcion.Add(registroInscripcionReconstruido);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
-            }
+            _listaRegistrosInscripcion = CargaDeInstanciasDesdeBD.CrearInstanciasDeInscripcionesAPartirDeBD();
         }
 
         ////////////////////////CREATE
         internal static void IngresarNuevoRegistro(RegistroDeInscripcion nuevoRegistro)
         {
-            try
-            {
-                connection.Open();
+            string query = "INSERT INTO RegistroInscripcion (legajo, codigoCurso, fechaInscripcion) " +
+                   "VALUES (@legajo, @codigoCurso, @fechaInscripcion)";
 
-                command.CommandText = "INSERT INTO RegistroInscripcion (legajo, codigoCurso, fechaInscripcion) " +
-                    "VALUES (@legajo, @codigoCurso, @fechaInscripcion)";
-
-                command.Parameters.AddWithValue("@legajo", nuevoRegistro.Legajo);
-                command.Parameters.AddWithValue("@codigoCurso", nuevoRegistro.CodigoCurso);
-                command.Parameters.AddWithValue("@fechaInscripcion", nuevoRegistro.Fecha);
-
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException ex)
+            Dictionary<string, object> parametros = new Dictionary<string, object>
             {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
-            }
+                { "@legajo", nuevoRegistro.Legajo },
+                { "@codigoCurso", nuevoRegistro.CodigoCurso },
+                { "@fechaInscripcion", nuevoRegistro.Fecha }
+            };
+
+            ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeInscripcionesAPartirDeBD();
             RefrescarEstudianteLogueado();
@@ -231,25 +92,14 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         //////////////DELETE
         internal static void EliminarCursoATodosLosEstudiantes(string codigo)
         {
-            try
-            {
-                connection.Open();
+            string query = "DELETE FROM RegistroInscripcion WHERE codigoCurso = @codigo";
 
-                command.CommandText = "DELETE FROM RegistroInscripcion WHERE codigoCurso = @codigo";
-
-                command.Parameters.AddWithValue("@codigo", codigo);
-
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException ex)
+            Dictionary<string, object> parametros = new Dictionary<string, object>
             {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
-            }
+                { "@codigo", codigo }
+            };
+
+            ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeInscripcionesAPartirDeBD();
             RefrescarEstudianteLogueado();

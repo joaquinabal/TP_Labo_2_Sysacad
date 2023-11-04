@@ -19,38 +19,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         internal static void CrearInstanciasDePagosAPartirDeBD()
         {
             _listaRegistrosPagos.Clear();
-
-            try
-            {
-                connection.Open();
-
-                command.CommandText = "SELECT * FROM RegistroDePago";
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string concepto = reader["conceptoNombre"].ToString();
-                        string legajo = reader["legajoEstudiante"].ToString();
-                        string nombreAlumno = ConsultasInscripciones.ObtenerNombreAlumnoDesdeLegajo(legajo);
-                        double ingreso = Double.Parse(reader["ingreso"].ToString());
-                        DateTime fechaPago = DateTime.Parse(reader["fechaPago"].ToString());
-                        
-                        RegistroDePago registroPagoReconstruido = new RegistroDePago(legajo, nombreAlumno, concepto, ingreso, fechaPago);
-
-                        _listaRegistrosPagos.Add(registroPagoReconstruido);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-            }
-            finally
-            {
-                command.Parameters.Clear();
-                connection.Close();
-            }
+            _listaRegistrosPagos = CargaDeInstanciasDesdeBD.CrearInstanciasDePagosAPartirDeBD();
         }
 
         //////////////////////CREATE
@@ -58,29 +27,18 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         {
             foreach (RegistroDePago registro in nuevosPagos)
             {
-                try
-                {
-                    connection.Open();
+                string query = "INSERT INTO RegistroDePago (legajoEstudiante, conceptoNombre, ingreso, fechaPago) " +
+                       "VALUES (@legajoEstudiante, @conceptoNombre, @ingreso, @fechaPago)";
 
-                    command.CommandText = "INSERT INTO RegistroDePago (legajoEstudiante, conceptoNombre, ingreso, fechaPago)" +
-                        " VALUES (@legajoEstudiante, @conceptoNombre, @ingreso, @fechaPago)";
-
-                    command.Parameters.AddWithValue("@legajoEstudiante", registro.Legajo);
-                    command.Parameters.AddWithValue("@conceptoNombre", registro.Concepto);
-                    command.Parameters.AddWithValue("@ingreso", registro.Ingreso);
-                    command.Parameters.AddWithValue("@fechaPago", DateTime.Now);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (SqlException ex)
+                Dictionary<string, object> parametros = new Dictionary<string, object>
                 {
-                    throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-                }
-                finally
-                {
-                    command.Parameters.Clear();
-                    connection.Close();
-                }
+                    { "@legajoEstudiante", registro.Legajo },
+                    { "@conceptoNombre", registro.Concepto },
+                    { "@ingreso", registro.Ingreso },
+                    { "@fechaPago", DateTime.Now }
+                };
+
+                ConsultasGenericas.EjecutarNonQuery(query, parametros);
             }
 
             CrearInstanciasDePagosAPartirDeBD();
@@ -107,27 +65,17 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         {
             foreach (var parKeyValue in listaConceptosPagados)
             {
-                try
-                {
-                    connection.Open();
+                string query = "UPDATE ConceptosDePagoDeEstudiante SET montoPendiente = montoPendiente - @montoPagado " +
+                       "WHERE legajoEstudiante = @legajo and conceptoNombre = @conceptoPago";
 
-                    command.CommandText = "UPDATE ConceptosDePagoDeEstudiante SET montoPendiente = montoPendiente - @montoPagado WHERE legajoEstudiante = @legajo and conceptoNombre = @conceptoPago";
-
-                    command.Parameters.AddWithValue("@montoPagado", parKeyValue.Value);
-                    command.Parameters.AddWithValue("@legajo", legajo);
-                    command.Parameters.AddWithValue("@conceptoPago", parKeyValue.Key);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (SqlException ex)
+                Dictionary<string, object> parametros = new Dictionary<string, object>
                 {
-                    throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-                }
-                finally
-                {
-                    command.Parameters.Clear();
-                    connection.Close();
-                }
+                    { "@montoPagado", parKeyValue.Value },
+                    { "@legajo", legajo },
+                    { "@conceptoPago", parKeyValue.Key }
+                };
+
+                ConsultasGenericas.EjecutarNonQuery(query, parametros);
             }
 
             RefrescarEstudianteLogueado();
