@@ -16,7 +16,7 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             return ConsultasCursos.BuscarCursoBD(codigo);
         }
 
-        public static bool ValidarDuplicados(string legajo, string correo)
+        public static bool ValidarDuplicadosEstudiantes(string legajo, string correo)
         {
             return ConsultasEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
         }

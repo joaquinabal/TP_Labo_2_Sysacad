@@ -1,5 +1,6 @@
 ﻿using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -77,6 +78,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         //////////////////////// CREACION DE INSTANCIAS
 
         public static List<T> CrearInstanciasDesdeBD<T>(string query, Func<SqlDataReader, T> mapper)
+            where T : IEntidadReconstruida
         {
             List<T> listaReconstruida = new List<T>();
 
@@ -112,6 +114,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         ////////// METODO GENERICO PARA LOS READ
 
         public static List<T> FiltrarElementos<T>(List<T> lista, Func<T, bool> predicado)
+            where T : IEntidadFiltrada
         {
             List<T> elementosFiltrados = new List<T>();
 

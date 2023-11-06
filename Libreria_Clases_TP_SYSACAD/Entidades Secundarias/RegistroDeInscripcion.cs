@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Libreria_Clases_TP_SYSACAD.Interfaces;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
@@ -13,7 +14,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
         TUSI
     }
 
-    public class RegistroDeInscripcion : IRegistroEstadistico
+    public class RegistroDeInscripcion : IRegistroEstadistico, IEntidadReconstruida
     {
         private string _legajo;
         private string _nombreAlumno;

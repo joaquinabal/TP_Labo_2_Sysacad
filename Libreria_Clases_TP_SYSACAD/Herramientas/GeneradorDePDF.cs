@@ -81,7 +81,7 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 "Fecha con mayor cantidad de pagos: " + fechaPopular.ToString("dd/MM/yyyy")
             };
 
-            return GenerarPDF(nombreArchivo, "Reporte de Ingresos", fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas, "Ingresos");
+            return GenerarPDF(nombreArchivo, "REPORTE DE INGRESOS", fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas, "Ingresos");
         }
 
         public static bool GenerarPDF(string nombreArchivo, string titulo, string fechaEmision,
@@ -103,7 +103,6 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                     Directory.CreateDirectory(carpetaEspecifica);
                 }
 
-
                 // Crear un nuevo documento PDF
                 Document document = new Document();
 
@@ -114,25 +113,48 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 section.PageSetup.PageFormat = PageFormat.A4;
                 section.PageSetup.Orientation = Orientation.Portrait;
 
-                // Agregar un título al documento con espacio antes y después
-                Paragraph title = section.AddParagraph($"{titulo}  \nPeriodo: {fechaDesde} a {fechaHasta}");
+                //// Agregar un título al documento con espacio antes y después
+                // Crear el párrafo para el título
+                Paragraph title = section.AddParagraph($"{titulo}  \nPERIODO: {fechaDesde} A {fechaHasta}");
+
+                // Definir un color rojo sangre
+                Color rojoSangre = new Color(220, 20, 60);
+
+                // Aplicar el color rojo sangre al título
+                title.Format.Font.Color = rojoSangre;
+                title.Format.Font.Bold = true;
+
+                // Establecer el formato del título
                 title.Format.Alignment = ParagraphAlignment.Center;
                 title.Format.Font.Size = 16;
-                title.Format.SpaceBefore = "1cm"; // Agrega espacio antes del título
-                title.Format.SpaceAfter = "0.5cm"; // Agrega espacio después del título
+                title.Format.SpaceAfter = "1cm"; // Agrega espacio después del título
+                title.Format.Font.Underline = Underline.Single;
 
-                // Agregar un párrafo para la fecha de emisión
-                Paragraph emisionParagraph = section.AddParagraph($"Fecha de Emisión: {fechaEmision}");
+                // Crear el párrafo
+                Paragraph emisionParagraph = section.AddParagraph();
+
+                // Definir un color azul personalizado
+                Color miAzulPersonalizado = new Color(0, 100, 162);
+
+                // Agregar el texto "FECHA DE EMISIÓN:" en negrita y el color personalizado
+                FormattedText fechaEmisionText = emisionParagraph.AddFormattedText("FECHA DE EMISIÓN:");
+                fechaEmisionText.Bold = true;
+                fechaEmisionText.Color = miAzulPersonalizado;
+
+                // Agregar la fecha después del texto
+                emisionParagraph.AddText($" {fechaEmision}");
+
+                // Establecer el formato del párrafo
                 emisionParagraph.Format.Alignment = ParagraphAlignment.Left;
-                emisionParagraph.Format.Font.Size = 14;
+                emisionParagraph.Format.Font.Size = 13;
                 emisionParagraph.Format.SpaceAfter = "0.5cm"; // Agrega espacio después del párrafo
 
                 // Crear una tabla para los registros con espacio antes y después
                 Table table = section.AddTable();
                 table.Borders.Width = 0.75;
                 table.Format.Alignment = ParagraphAlignment.Left;
-                table.Format.SpaceBefore = "1cm"; // Agrega espacio antes de la tabla
-                table.Format.SpaceAfter = "1cm"; // Agrega espacio después de la tabla
+                table.Format.SpaceBefore = "0.3cm"; // Agrega espacio antes de la tabla
+                table.Format.SpaceAfter = "0.3cm"; // Agrega espacio después de la tabla
 
                 // Definir el ancho de las columnas
                 double columnWidth = Unit.FromCentimeter(3.0);
@@ -158,12 +180,15 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                     }
                 }
 
-                // Agregar las estadísticas con espacio antes y después
+                // Crear el párrafo para las estadísticas con el mismo color azul y negrita que FECHA DE EMISIÓN
                 Paragraph statistics = section.AddParagraph();
-                statistics.AddText("Estadísticas:");
-                statistics.Format.Font.Size = 12;
+                FormattedText estadisticasText = statistics.AddFormattedText("ESTADÍSTICAS");
+                estadisticasText.Color = miAzulPersonalizado; // Utiliza el mismo color que FECHA DE EMISIÓN
+                estadisticasText.Bold = true; // Establece la negrita
+
+                statistics.Format.Font.Size = 13;
                 statistics.Format.SpaceBefore = "1cm"; // Agrega espacio antes de las estadísticas
-                statistics.Format.SpaceAfter = "0.5cm"; // Agrega espacio después de las estadísticas
+                statistics.Format.SpaceAfter = "0.3cm"; // Agrega espacio después de las estadísticas
 
                 foreach (var estadistica in estadisticas)
                 {

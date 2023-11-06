@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Libreria_Clases_TP_SYSACAD.Interfaces;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,10 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
-    public interface IRegistroEstadistico
-    {
-        DateTime Fecha { get; }
-    }
-
     public static class EstadisticasReportes
     {
-        public static int CalcularRegistrosTotales<T>(List<T> listaRegistrosMostrados) where T : IRegistroEstadistico
+        public static int CalcularRegistrosTotales<T>(List<T> listaRegistrosMostrados) 
+            where T : IRegistroEstadistico
         {
             return listaRegistrosMostrados.Count;
         }

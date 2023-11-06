@@ -1,5 +1,6 @@
 ﻿using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
 {
-    public class Curso
+    public class Curso : IEntidadFiltrada, IEntidadReconstruida
     {
         //Atributos que debe contener todo curso
         private string _nombre;
@@ -116,18 +117,6 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         {
             string codigoFamiliaGenerado = _nombre.Replace(" ", "").ToUpper();
             return codigoFamiliaGenerado;
-        }
-
-        /// <summary>
-        /// Sobrecarga del operador '-' para reducir el cupo disponible del curso.
-        /// </summary>
-        /// <param name="curso">El curso al que se reduce el cupo.</param>
-        /// <param name="numero">La cantidad a restar al cupo disponible.</param>
-        /// <returns>El curso con el cupo actualizado.</returns>
-        public static Curso operator -(Curso curso, int numero)
-        {
-            curso.CupoDisponible -= numero;
-            return curso;
         }
 
         //Setters y getters

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dRS5aOGRWKYKu15msn7/YnJy+teSsYVLmfaE5B89p3rIzTxdU+QeqSdnVT5pKy9IoASEAHX3Td/XpkDoNqYkYA==",
+  "dgSpecHash": "Iguy0p9do/vCOJeDSIquppzjtwGyRfofQOIVXHkueM4PXCCiv2Z3WtJ+8k11LRv46hl+28e9ox72crqxnkWvbg==",
   "success": true,
   "projectFilePath": "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\x\\.nuget\\packages\\docx\\2.5.0\\docx.2.5.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
@@ -15,6 +16,7 @@
     "C:\\Users\\x\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\system.data.sqlclient\\4.8.5\\system.data.sqlclient.4.8.5.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\x\\.nuget\\packages\\system.io.packaging\\4.5.0\\system.io.packaging.4.5.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
   ],

@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces;
 using Libreria_Clases_TP_SYSACAD.Persistencia;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
 {
-    public class Estudiante
+    public class Estudiante : IEntidadFiltrada, IEntidadReconstruida
     {
         //Atributos del estudiante
         private string _nombre;

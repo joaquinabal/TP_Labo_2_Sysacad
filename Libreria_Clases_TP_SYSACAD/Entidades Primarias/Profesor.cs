@@ -1,4 +1,5 @@
 ﻿using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
+using Libreria_Clases_TP_SYSACAD.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Entidades_Primarias
 {
-    public class Profesor
+    public class Profesor : IEntidadReconstruida
     {
         private string _nombre;
         private string _direccion;

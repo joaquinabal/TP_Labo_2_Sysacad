@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
-    public class RegistroDePago : IRegistroEstadistico
+    public class RegistroDePago : IRegistroEstadistico, IEntidadReconstruida
     {
         private string _concepto;
         private string _legajo;

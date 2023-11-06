@@ -45,10 +45,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         private static int ObtenerIdDeCodigoFamilia(string codigoFamilia)
         {
-            string query = "SELECT id FROM CodigoFamilia WHERE codigo = @codigo";
             int? codigoFamiliaId = ObtenerIdDesdeTexto("CodigoFamilia", "codigo", codigoFamilia);
 
-            if (codigoFamiliaId.HasValue)
+            if (codigoFamiliaId != 0)
             {
                 return codigoFamiliaId.Value; // Devuelve el ID existente si se encontró.
             }
