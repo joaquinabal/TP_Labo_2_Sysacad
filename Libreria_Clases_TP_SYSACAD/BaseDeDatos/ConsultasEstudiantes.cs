@@ -89,7 +89,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         ///////////////////////READ
         internal static bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
         {
-            Func<Estudiante, bool> predicado = estudiante => estudiante.Correo == correo && Hash.VerifyPassword(contrasenia, estudiante.Contrasenia);
+            Predicate<Estudiante> predicado = estudiante => estudiante.Correo == correo && Hash.VerifyPassword(contrasenia, estudiante.Contrasenia);
 
             List<Estudiante> estudiantesFiltrados = ConsultasGenericas.FiltrarElementos(_listaEstudiantes, predicado);
             return estudiantesFiltrados.Count > 0;
@@ -97,7 +97,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         internal static bool BuscarUsuarioExistenteBD(string correo, string legajo)
         {
-            Func<Estudiante, bool> predicado = estudiante => estudiante.Correo == correo || estudiante.Legajo == legajo;
+            Predicate<Estudiante> predicado = estudiante => estudiante.Correo == correo || estudiante.Legajo == legajo;
 
             List<Estudiante> estudiantesFiltrados = ConsultasGenericas.FiltrarElementos(_listaEstudiantes, predicado);
             return estudiantesFiltrados.Count > 0;
@@ -105,7 +105,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static bool BuscarSiUsuarioDebeCambiarContrasenia(string correo)
         {
-            Func<Estudiante, bool> predicado = estudiante => estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true;
+            Predicate<Estudiante> predicado = estudiante => estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true;
 
             List<Estudiante> estudiantesFiltrados = ConsultasGenericas.FiltrarElementos(_listaEstudiantes, predicado);
             return estudiantesFiltrados.Count > 0;
@@ -113,7 +113,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static Estudiante ObtenerEstudianteSegunLegajo(string legajo)
         {
-            Func<Estudiante, bool> predicado = estudiante => estudiante.Legajo == legajo;
+            Predicate<Estudiante> predicado = estudiante => estudiante.Legajo == legajo;
 
             //Uso .FirstOrDefault() para agarrar al primer curso que encuentre que tenga el legajo.
             List<Estudiante> estudiantesFiltrados = ConsultasGenericas.FiltrarElementos(_listaEstudiantes, predicado);

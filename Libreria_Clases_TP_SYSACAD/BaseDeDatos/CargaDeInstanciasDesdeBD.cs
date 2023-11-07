@@ -1,6 +1,8 @@
 ﻿using Libreria_Clases_TP_SYSACAD.Entidades_Primarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
+using Libreria_Clases_TP_SYSACAD.Persistencia;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -46,6 +48,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     }
                     catch (SqlException ex)
                     {
+                        RegistroExcepciones.RegistrarExcepcion(ex);
                         throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }

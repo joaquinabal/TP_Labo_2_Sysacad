@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

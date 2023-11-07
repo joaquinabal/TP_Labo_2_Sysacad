@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
-    public enum ValidacionInscripcionResultado
-    {
-        SinSeleccion,
-        Exitoso,
-        NoCumpleRequisitos,
-        SinCupoAbsoluto,
-        SinCupoParcial
-    }
+    //public enum ValidacionInscripcionResultado
+    //{
+    //    SinSeleccion,
+    //    Exitoso,
+    //    NoCumpleAlgunosRequisitos,
+    //    NoCumpleNingunRequisito,
+    //    SinCupoAbsoluto,
+    //    SinCupoParcial
+    //}
 
     public class ValidadorDeInscripciones
     {
@@ -58,7 +60,14 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
 
             if (_cursosProhibidos.Count > 0)
             {
-                return ValidacionInscripcionResultado.NoCumpleRequisitos; //SI NO CUMPLE REQUISITOS
+                if (_cursosProhibidos.Count == cursosSeleccionados.Count)
+                {
+                    return ValidacionInscripcionResultado.NoCumpleNingunRequisito; //SI NO CUMPLE NINGUN REQUISITO
+                }
+                else
+                {
+                    return ValidacionInscripcionResultado.NoCumpleAlgunosRequisitos; //SI NO CUMPLE ALGUN REQUISITO
+                }
             }
             else if (_cursosSinCupo.Count == cursosSeleccionados.Count)
             {

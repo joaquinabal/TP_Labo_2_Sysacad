@@ -1,5 +1,6 @@
 ﻿using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 using Libreria_Clases_TP_SYSACAD.Persistencia;
 using System;
 using System.Collections.Generic;

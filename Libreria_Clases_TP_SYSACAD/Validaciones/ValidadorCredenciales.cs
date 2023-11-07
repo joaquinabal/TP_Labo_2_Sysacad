@@ -1,5 +1,6 @@
 ﻿using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
-    public enum Log { Admin, Estudiante }
-
     public class ValidadorCredenciales
     {
         /// <summary>
@@ -20,25 +19,25 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         /// <param name="contraseña">La contraseña proporcionada.</param>
         /// <param name="modo">El modo de inicio de sesión (Admin o Estudiante).</param>
         /// <returns>Un mensaje que indica el resultado de la validación.</returns>
-        public string ValidarCredenciales(string correo, string contraseña, Log modo)
+        public MensajeRespuestaValidacionCredencialesContraseña ValidarCredenciales(string correo, string contraseña, Log modo)
         {
-            string mensajeADevolver = string.Empty;
+            MensajeRespuestaValidacionCredencialesContraseña mensajeADevolver;
 
             // Validación de campos vacíos
             if (string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(contraseña))
             {
-                mensajeADevolver = "CAMPOS VACIOS";
+                mensajeADevolver = MensajeRespuestaValidacionCredencialesContraseña.camposVacios;
             }
             else
             {
                 // Validación de usuario en la base de datos
                 if (ValidarUsuarioEnBD(correo, contraseña, modo))
                 {
-                    mensajeADevolver = "OK";
+                    mensajeADevolver = MensajeRespuestaValidacionCredencialesContraseña.OK;
                 }
                 else
                 {
-                    mensajeADevolver = "NO ENCONTRADO";
+                    mensajeADevolver = MensajeRespuestaValidacionCredencialesContraseña.noEncontrado;
                 }
             }
 

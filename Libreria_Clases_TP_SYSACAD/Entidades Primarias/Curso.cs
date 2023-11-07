@@ -1,6 +1,6 @@
 ﻿using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
-using Libreria_Clases_TP_SYSACAD.Interfaces;
+using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;

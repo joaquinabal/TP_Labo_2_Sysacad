@@ -4,15 +4,15 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Libreria_Clases_TP_SYSACAD.Interfaces;
+using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
-    public enum Carrera
-    {
-        TUP,
-        TUSI
-    }
+    //public enum Carrera
+    //{
+    //    TUP,
+    //    TUSI
+    //}
 
     public class RegistroDeInscripcion : IRegistroEstadistico, IEntidadReconstruida
     {

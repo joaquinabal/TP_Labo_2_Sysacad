@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Iguy0p9do/vCOJeDSIquppzjtwGyRfofQOIVXHkueM4PXCCiv2Z3WtJ+8k11LRv46hl+28e9ox72crqxnkWvbg==",
+  "dgSpecHash": "4yvnCP5gMhPb0MTpkRMzD9k7Tqt0S2kcexFM/PaxekX1vn7YAS9Pf9fyp7VGkxkNvD1D0A65o8nJjwcbw5PiIw==",
   "success": true,
   "projectFilePath": "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\x\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\x\\.nuget\\packages\\mstest.testframework\\3.1.1\\mstest.testframework.3.1.1.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\pdfsharp-migradoc-gdi\\1.50.5147\\pdfsharp-migradoc-gdi.1.50.5147.nupkg.sha512",
     "C:\\Users\\x\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,9 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         /// - "ERROR" si la contraseña no cumple con el formato requerido.
         /// - "OK" si la contraseña cumple con el formato requerido.
         /// </returns>
-        public string ValidarNuevaContrasenia(string contrasenia)
+        public MensajeRespuestaValidacionCredencialesContraseña ValidarNuevaContrasenia(string contrasenia)
         {
-            string mensajeADevolver = string.Empty;
+            MensajeRespuestaValidacionCredencialesContraseña mensajeADevolver;
 
             //Valido si no hay campos vacios. Si todo esta bien devuelve true
             bool resultadoCamposVacios = ValidarCampos(contrasenia);
@@ -30,17 +31,17 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             //Valido si hay campos vacios y si el regex esta bien
             if (!resultadoCamposVacios)
             {
-                mensajeADevolver = "CAMPOS VACIOS";
+                mensajeADevolver = MensajeRespuestaValidacionCredencialesContraseña.camposVacios;
             }
             else
             {
                 if (!Regex.IsMatch(contrasenia, @"^[a-zA-Z0-9]{6,}$"))
                 {
-                    mensajeADevolver = "ERROR";
+                    mensajeADevolver = MensajeRespuestaValidacionCredencialesContraseña.ERROR;
                 }
                 else
                 {
-                    mensajeADevolver = "OK";
+                    mensajeADevolver = MensajeRespuestaValidacionCredencialesContraseña.OK;
                 }
             }
 

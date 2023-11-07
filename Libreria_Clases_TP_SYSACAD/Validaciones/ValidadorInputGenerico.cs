@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,6 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
-    public enum ModoValidacionInput
-    {
-        CursoAgregarOEditar,
-        CursoRequisitos,
-        Estudiantes,
-        MediosPagoTarjeta,
-        MediosPagoTransferencia,
-        Profesores
-    }
-
     public class ValidadorInputGenerico : ValidadorInputs
     {
         public RespuestaValidacionInput ValidarDatos(Dictionary<string, string> diccionarioConCampos, ModoValidacionInput modo)

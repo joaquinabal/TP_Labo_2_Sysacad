@@ -16,10 +16,6 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         static ConexionBD()
         {
-            //connection = new SqlConnection(@"Data Source=(local); 
-            //    Database=TestSYSACAD; 
-            //    Trusted_Connection = True;");
-
             connection = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;");
 
             command = new SqlCommand();

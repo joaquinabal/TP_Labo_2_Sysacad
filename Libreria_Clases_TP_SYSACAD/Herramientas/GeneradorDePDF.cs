@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
 using Libreria_Clases_TP_SYSACAD.Persistencia;
+using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 
 namespace Libreria_Clases_TP_SYSACAD.Herramientas
 {
@@ -212,5 +213,121 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 return false;
             }
         }
+
+        public static bool GenerarPDFListaEspera(string nombreArchivo, Dictionary<Curso, Dictionary<string,
+        DateTime>> registros, string fechaEmision, string fechaDesde, string fechaHasta)
+        {
+            try
+            {
+                Environment.SpecialFolder directorioDocumentos = Environment.SpecialFolder.MyDocuments;
+                string pathSYSACAD = Path.Combine(Environment.GetFolderPath(directorioDocumentos), "SYSACAD");
+                string pathReportes = Path.Combine(pathSYSACAD, "Reportes PDF");
+                string carpetaEspecifica = Path.Combine(pathReportes, "Listas de Espera");
+                string rutaPDF = Path.Combine(carpetaEspecifica, nombreArchivo);
+
+                bool validacionExisteDirectorio = Directory.Exists(carpetaEspecifica);
+
+                if (!validacionExisteDirectorio)
+                {
+                    Directory.CreateDirectory(carpetaEspecifica);
+                }
+
+                // Crear un nuevo documento PDF
+                Document document = new Document();
+
+                // Agregar una sección al documento
+                Section section = document.AddSection();
+
+                // Configurar la página
+                section.PageSetup.PageFormat = PageFormat.A4;
+                section.PageSetup.Orientation = Orientation.Portrait;
+
+                //// Agregar un título al documento con espacio antes y después
+                // Crear el párrafo para el título
+                Paragraph title = section.AddParagraph($"REPORTE DE LISTAS DE ESPERA \nPERIODO: {fechaDesde} A {fechaHasta}");
+
+                // Definir un color rojo sangre
+                Color rojoSangre = new Color(220, 20, 60);
+
+                // Aplicar el color rojo sangre al título
+                title.Format.Font.Color = rojoSangre;
+                title.Format.Font.Bold = true;
+
+                // Establecer el formato del título
+                title.Format.Alignment = ParagraphAlignment.Center;
+                title.Format.Font.Size = 16;
+                title.Format.SpaceAfter = "1cm"; // Agrega espacio después del título
+                title.Format.Font.Underline = Underline.Single;
+
+                // Crear el párrafo
+                Paragraph emisionParagraph = section.AddParagraph();
+
+                // Definir un color azul personalizado
+                Color miAzulPersonalizado = new Color(0, 100, 162);
+
+                // Agregar el texto "FECHA DE EMISIÓN:" en negrita y el color personalizado
+                FormattedText fechaEmisionText = emisionParagraph.AddFormattedText("FECHA DE EMISIÓN:");
+                fechaEmisionText.Bold = true;
+                fechaEmisionText.Color = miAzulPersonalizado;
+
+                // Agregar la fecha después del texto
+                emisionParagraph.AddText($" {fechaEmision}");
+
+                // Establecer el formato del párrafo
+                emisionParagraph.Format.Alignment = ParagraphAlignment.Left;
+                emisionParagraph.Format.Font.Size = 13;
+                emisionParagraph.Format.SpaceAfter = "0.5cm"; // Agrega espacio después del párrafo
+
+                // Crear una tabla para los registros con espacio antes y después
+                Table table = section.AddTable();
+                table.Borders.Width = 0.75;
+                table.Format.Alignment = ParagraphAlignment.Left;
+                table.Format.SpaceBefore = "0.3cm";
+                table.Format.SpaceAfter = "0.3cm";
+
+                // Agregar encabezados de columna a la tabla
+                Row headerRow = table.AddRow();
+                headerRow.Cells[0].AddParagraph("Curso");
+                headerRow.Cells[1].AddParagraph("Turno");
+                headerRow.Cells[2].AddParagraph("Alumno");
+                headerRow.Cells[3].AddParagraph("Fecha");
+
+                // Agregar los registros a la tabla
+                foreach (var cursoRegistro in registros)
+                {
+                    Curso curso = cursoRegistro.Key;
+                    Dictionary<string, DateTime> listaEspera = cursoRegistro.Value;
+
+                    foreach (var alumnoFecha in listaEspera)
+                    {
+                        string alumno = alumnoFecha.Key;
+                        DateTime fecha = alumnoFecha.Value;
+
+                        Row dataRow = table.AddRow();
+                        dataRow.Cells[0].AddParagraph(curso.Nombre);
+                        dataRow.Cells[1].AddParagraph(curso.Turno);
+                        dataRow.Cells[2].AddParagraph(alumno);
+                        dataRow.Cells[3].AddParagraph(fecha.ToString());
+                    }
+                }
+
+                // Guardar el documento PDF en la ruta especificada
+                PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+                pdfRenderer.Document = document;
+                pdfRenderer.RenderDocument();
+                pdfRenderer.PdfDocument.Save(rutaPDF);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // El programa no se detiene, sino que devuelve false al form
+                // para que mostrar el error mediante un messageBox. Se registra
+                // la excepcion en el JSON
+                RegistroExcepciones.RegistrarExcepcion(ex);
+                return false;
+            }
+        }
+
     }
 }

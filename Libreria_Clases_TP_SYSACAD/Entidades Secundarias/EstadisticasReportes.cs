@@ -1,4 +1,4 @@
-﻿using Libreria_Clases_TP_SYSACAD.Interfaces;
+﻿using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,6 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
         {
             return listaRegistrosMostrados.Count;
         }
-
 
         public static double CalcularMontoIngresosTotales(List<RegistroDePago> listaRegistrosMostrados)
         {

@@ -74,6 +74,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     }
                     catch (SqlException ex)
                     {
+                        RegistroExcepciones.RegistrarExcepcion(ex);
                         throw new Exception("Error de conexión a la base de datos: " + ex.Message);
                     }
                 }
@@ -110,7 +111,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static bool BuscarCursoBD(string codigo)
         {
-            Func<Curso, bool> predicado = curso => curso.Codigo == codigo;
+            Predicate<Curso> predicado = curso => curso.Codigo == codigo;
 
             //Uso .Any() para verificar si por lo menos existe un curso con ese codigo
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).Any();
@@ -118,7 +119,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static List<Curso> ObtenerUnCursoPorCadaCodigoDeFamilia()
         {
-            Func<Curso, bool> predicado = curso => true; // No voy a filtrar ningun curso. Los agarro todos
+            Predicate<Curso> predicado = curso => true; // No voy a filtrar ningun curso. Los agarro todos
 
             //Uso .Distinct() para quedarme solo con cursos unicos (Que no repitan codigo de familia)
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).Distinct().ToList();
@@ -126,7 +127,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static Curso ObtenerCursoDesdeCodigo(string codigo)
         {
-            Func<Curso, bool> predicado = curso => curso.Codigo == codigo;
+            Predicate<Curso> predicado = curso => curso.Codigo == codigo;
 
             //Uso .FirstOrDefault() para agarrar al primer curso que encuentre que tenga el codigo.
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
@@ -134,7 +135,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
         {
-            Func<Curso, bool> predicado = curso => curso.Nombre == nombre;
+            Predicate<Curso> predicado = curso => curso.Nombre == nombre;
 
             //Uso .FirstOrDefault() para agarrar al primer curso que encuentre que tenga el codigo pasado.
             //Uso .CodigoFamilia para acceder al codigo de familia del curso que encontre
@@ -144,13 +145,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static List<Curso> ObtenerCursosDesdeCodigoDeFamilia(string codigoDeFamilia)
         {
-            Func<Curso, bool> predicado = curso => curso.CodigoFamilia == codigoDeFamilia;
+            Predicate<Curso> predicado = curso => curso.CodigoFamilia == codigoDeFamilia;
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado);
         }
 
         public static Curso ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
         {
-            Func<Curso, bool> predicado = curso => curso.CodigoFamilia == codigoDeFamilia;
+            Predicate<Curso> predicado = curso => curso.CodigoFamilia == codigoDeFamilia;
 
             //Uso .FirstOrDefault() para agarrar al primer curso que encuentre que tenga el codigo de familia.
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
@@ -158,7 +159,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static Curso ObtenerCursoAPartirDeNombreYTurno(string nombre, string turno)
         {
-            Func<Curso, bool> predicado = curso => curso.Nombre == nombre && curso.Turno == turno;
+            Predicate<Curso> predicado = curso => curso.Nombre == nombre && curso.Turno == turno;
 
             //Uso .FirstOrDefault() para agarrar al primer curso que encuentre que tenga el nombre y turno.
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
@@ -166,7 +167,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         public static List<Curso> ObtenerListaCursosDesdeListaCodigos(List<string> listaCodigos)
         {
-            Func<Curso, bool> predicado = curso => listaCodigos.Contains(curso.Codigo);
+            Predicate<Curso> predicado = curso => listaCodigos.Contains(curso.Codigo);
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado);
         }
 
@@ -190,6 +191,50 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
 
             return nombresAgregados;
+        }
+
+        public static bool HallarSiHayAlgunCursoConListaDeEspera()
+        {
+            bool hayCursoConListaDeEspera = false;
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.ListaDeEspera.Count > 0)
+                {
+                    hayCursoConListaDeEspera = true;
+                    break;
+                }
+            }
+
+            return hayCursoConListaDeEspera;
+        }
+
+        public static Dictionary<Curso, Dictionary<string, DateTime>> DevolverDiccionarioConRegistrosListaDeEsperaSegunFechas(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            Dictionary<Curso, Dictionary<string, DateTime>> cursosConListaDeEspera = new Dictionary<Curso, Dictionary<string, DateTime>>();
+
+            foreach (Curso curso in _listaCursos)
+            {
+                if (curso.ListaDeEspera.Count > 0)
+                {
+                    Dictionary<string, DateTime> registrosFiltrados = new Dictionary<string, DateTime>();
+
+                    foreach (var registro in curso.ListaDeEspera)
+                    {
+                        if (registro.Value >= fechaDesde && registro.Value <= fechaHasta)
+                        {
+                            registrosFiltrados.Add(registro.Key, registro.Value);
+                        }
+                    }
+
+                    if (registrosFiltrados.Count > 0)
+                    {
+                        cursosConListaDeEspera[curso] = registrosFiltrados;
+                    }
+                }
+            }
+
+            return cursosConListaDeEspera;
         }
 
         public static string ObtenerCodigoDeFamilia(string nombre)
