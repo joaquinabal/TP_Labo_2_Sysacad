@@ -121,9 +121,25 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         {
             Predicate<Curso> predicado = curso => true; // No voy a filtrar ningun curso. Los agarro todos
 
-            //Uso .Distinct() para quedarme solo con cursos unicos (Que no repitan codigo de familia)
-            return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).Distinct().ToList();
+            Dictionary<string, Curso> cursosUnicos = new Dictionary<string, Curso>();
+
+            // Utiliza FiltrarElementos sin modificarlo
+            foreach (var curso in ConsultasGenericas.FiltrarElementos(_listaCursos, predicado))
+            {
+                // Verifica si ya hay un curso con el mismo código de familia
+                if (!cursosUnicos.ContainsKey(curso.CodigoFamilia))
+                {
+                    // Agrega el curso al diccionario si no existe
+                    cursosUnicos.Add(curso.CodigoFamilia, curso);
+                }
+            }
+
+            // Convierte los valores del diccionario de nuevo a una lista
+            List<Curso> resultado = cursosUnicos.Values.ToList();
+
+            return resultado;
         }
+
 
         public static Curso ObtenerCursoDesdeCodigo(string codigo)
         {
@@ -260,12 +276,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
-        private static void AgregarNuevasCorrelatividadesACursoSeleccionado(List<string> CFNuevasCorrelatividades)
+        private static void AgregarNuevasCorrelatividadesACursoSeleccionado(string CFCursoAModificar, List<string> CFNuevasCorrelatividades)
         {
+            int idCodigoFamilia = ObtenerIdDeCodigoFamilia(CFCursoAModificar);
+
             foreach (string CF in CFNuevasCorrelatividades)
             {
-                int idCodigoFamilia = ObtenerIdDeCodigoFamilia(CF);
-
                 string query = "INSERT INTO Correlatividades (idFamiliaCursoBase, codigoFamiliaCorrelatividad) VALUES (@id, @CF)";
 
                 Dictionary<string, object> parametros = new Dictionary<string, object>
@@ -294,7 +310,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
 
             EliminarCorrelatividadesDeCursoSeleccionado(idCodigoFamilia);
-            AgregarNuevasCorrelatividadesACursoSeleccionado(CFcorrelatividades);
+            AgregarNuevasCorrelatividadesACursoSeleccionado(CFCursoAModificar, CFcorrelatividades);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }

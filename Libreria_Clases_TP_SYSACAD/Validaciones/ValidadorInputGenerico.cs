@@ -49,7 +49,7 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
                     ValidarNumerico("cupoMax", diccionarioConCamposIngresados, listaErrores, "Cupo maximo");
                     break;
                 case ModoValidacionInput.CursoRequisitos:
-                    ValidarNumeroExacto("creditos", diccionarioConCamposIngresados, 3, listaErrores, "Creditos");
+                    ValidarNumeroRango("creditos", diccionarioConCamposIngresados,0, 4, listaErrores, "Creditos");
                     ValidarNumeroConDecimal("promedio", diccionarioConCamposIngresados, 10, listaErrores, "Promedio");
                     break;
                 case ModoValidacionInput.Estudiantes:

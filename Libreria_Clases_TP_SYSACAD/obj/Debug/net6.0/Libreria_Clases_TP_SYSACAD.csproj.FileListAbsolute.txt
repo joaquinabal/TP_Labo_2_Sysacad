@@ -58,3 +58,6 @@ C:\Users\54113\Desktop\tp - copia\TP_Labo_2_Sysacad\Libreria_Clases_TP_SYSACAD\o
 C:\Users\54113\Desktop\tp - copia\TP_Labo_2_Sysacad\Libreria_Clases_TP_SYSACAD\obj\Debug\net6.0\refint\Libreria_Clases_TP_SYSACAD.dll
 C:\Users\54113\Desktop\tp - copia\TP_Labo_2_Sysacad\Libreria_Clases_TP_SYSACAD\obj\Debug\net6.0\Libreria_Clases_TP_SYSACAD.pdb
 C:\Users\54113\Desktop\tp - copia\TP_Labo_2_Sysacad\Libreria_Clases_TP_SYSACAD\obj\Debug\net6.0\ref\Libreria_Clases_TP_SYSACAD.dll
+C:\Users\x\Documents\Programming\Programacion y Laboratorio 2\TP_Labo_2_Sysacad\Libreria_Clases_TP_SYSACAD\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\x\Documents\Programming\Programacion y Laboratorio 2\TP_Labo_2_Sysacad\Libreria_Clases_TP_SYSACAD\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\x\Documents\Programming\Programacion y Laboratorio 2\TP_Labo_2_Sysacad\Libreria_Clases_TP_SYSACAD\obj\Debug\net6.0\Libreria_Clases_TP_SYSACAD.csproj.CopyComplete

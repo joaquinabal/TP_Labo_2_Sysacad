@@ -285,6 +285,12 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 table.Format.SpaceBefore = "0.3cm";
                 table.Format.SpaceAfter = "0.3cm";
 
+                // Especificar el número de columnas en la tabla
+                table.AddColumn(Unit.FromCentimeter(3)); // Columna 1 para el curso
+                table.AddColumn(Unit.FromCentimeter(3)); // Columna 2 para el turno
+                table.AddColumn(Unit.FromCentimeter(4)); // Columna 3 para el alumno
+                table.AddColumn(Unit.FromCentimeter(3)); // Columna 4 para la fecha
+
                 // Agregar encabezados de columna a la tabla
                 Row headerRow = table.AddRow();
                 headerRow.Cells[0].AddParagraph("Curso");

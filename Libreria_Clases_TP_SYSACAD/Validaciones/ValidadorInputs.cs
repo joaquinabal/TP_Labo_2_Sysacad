@@ -80,8 +80,8 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
 
         protected void ValidarNumeroConDecimal(string campo, Dictionary<string, string> diccionario, double maxValor, List<string> errores, string mensajeError)
         {
-            // Valida que el campo sea un número con un valor máximo (puede tener hasta 2 decimales).
-            if (!Regex.IsMatch(diccionario[campo], $@"^{maxValor}|\d(\.\d{{1,2}})?$"))
+            // Valida que el campo sea un número entero del 0 al 10 o un número decimal con coma y un solo decimal después de la coma.
+            if (!Regex.IsMatch(diccionario[campo], @"^(10|[0-9](,\d)?)$"))
             {
                 errores.Add(mensajeError);
             }

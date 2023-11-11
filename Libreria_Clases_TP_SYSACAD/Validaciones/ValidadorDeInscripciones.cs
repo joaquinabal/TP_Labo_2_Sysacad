@@ -147,16 +147,11 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
                     cumpleRequisitosAcademicos = false;
                     break;
                 }
-                else if (cursoSeleccionado.CreditosRequeridos > Sistema.EstudianteLogueado.Creditos)
-                {
-                    cumpleRequisitosAcademicos = false;
-                    break;
-                }
-                else if (cursoSeleccionado.PromedioRequerido > Sistema.EstudianteLogueado.Promedio)
-                {
-                    cumpleRequisitosAcademicos = false;
-                    break;
-                }
+            }
+
+            if (cursoSeleccionado.CreditosRequeridos > Sistema.EstudianteLogueado.Creditos || cursoSeleccionado.PromedioRequerido > Sistema.EstudianteLogueado.Promedio)
+            {
+                cumpleRequisitosAcademicos = false;
             }
 
             return cumpleRequisitosAcademicos;
