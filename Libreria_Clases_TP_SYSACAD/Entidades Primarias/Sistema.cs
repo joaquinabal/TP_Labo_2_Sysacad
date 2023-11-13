@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
+using Libreria_Clases_TP_SYSACAD.Herramientas;
 using Libreria_Clases_TP_SYSACAD.Persistencia;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
@@ -14,6 +15,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         private static Estudiante _estudianteLogueado;
         private static RegistroExcepciones _registroExcepciones;
         private static string _correoEstudianteLogueado;
+
 
         //Codigo de acceso que solo los admins poseen
         private static string _codigoDeAccesoAdmins = "ts5bf4";
@@ -25,6 +27,12 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             ConsultasInscripciones.CrearInstanciasDeInscripcionesAPartirDeBD();
             ConsultasPagos.CrearInstanciasDePagosAPartirDeBD();
             ConsultasProfesores.CrearInstanciasDeProfesoresAPartirDeBD();
+
+            //EmisorCorreoElectronico emisorCorreo = new EmisorCorreoElectronico();
+            //emisorCorreo.EnviarCorreosInicioCursada(ConsultasEstudiantes.Estudiantes, true, DateTime.Now);
+            //emisorCorreo.EnviarCorreosFinInscripciones(ConsultasEstudiantes.Estudiantes);
+            //emisorCorreo.EnviarCorreoCuotas(ConsultasEstudiantes.Estudiantes);
+
 
             _registroExcepciones = new RegistroExcepciones();
         }

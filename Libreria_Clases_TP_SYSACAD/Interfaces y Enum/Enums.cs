@@ -45,4 +45,18 @@ namespace Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum
         noEncontrado,
         ERROR
     }
+
+    public enum RespuestaEvento
+    {
+        Ejecutar,
+        NoEjecutar
+    }
+
+    public enum TipoEvento
+    { 
+        PagoCuota,
+        InicioCuatri
+
+    }
+
 }
