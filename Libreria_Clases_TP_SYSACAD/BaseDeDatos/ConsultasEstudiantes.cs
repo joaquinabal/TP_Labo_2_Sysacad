@@ -120,6 +120,18 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return estudiantesFiltrados.FirstOrDefault();
         }
 
+        internal static List<string> ObtenerListaDeCorreosEstudiantes()
+        {
+            List<string> listaCorreosEstudiantes = new List<string>();
+
+            foreach (Estudiante estudiante in _listaEstudiantes)
+            {
+                listaCorreosEstudiantes.Add(estudiante.Correo);
+            }
+
+            return listaCorreosEstudiantes;
+        }
+
         ///////////////////////UPDATE
 
         public static void CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)

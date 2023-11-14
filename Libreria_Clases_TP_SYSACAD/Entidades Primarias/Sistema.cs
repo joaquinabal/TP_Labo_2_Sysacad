@@ -16,7 +16,6 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         private static RegistroExcepciones _registroExcepciones;
         private static string _correoEstudianteLogueado;
 
-
         //Codigo de acceso que solo los admins poseen
         private static string _codigoDeAccesoAdmins = "ts5bf4";
 
@@ -28,13 +27,54 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             ConsultasPagos.CrearInstanciasDePagosAPartirDeBD();
             ConsultasProfesores.CrearInstanciasDeProfesoresAPartirDeBD();
 
-            //EmisorCorreoElectronico emisorCorreo = new EmisorCorreoElectronico();
-            //emisorCorreo.EnviarCorreosInicioCursada(ConsultasEstudiantes.Estudiantes, true, DateTime.Now);
-            //emisorCorreo.EnviarCorreosFinInscripciones(ConsultasEstudiantes.Estudiantes);
-            //emisorCorreo.EnviarCorreoCuotas(ConsultasEstudiantes.Estudiantes);
-
-
             _registroExcepciones = new RegistroExcepciones();
+
+            GestionarNotificaciones();
+        }
+
+        public static async void GestionarNotificaciones()
+        {
+            GestorEventosNotificaciones gestorNotificaciones = new GestorEventosNotificaciones();
+            gestorNotificaciones.InicioPeriodoAcademico += EmisorCorreoElectronico.EnviarCorreoElectronicoNotificacion;
+            gestorNotificaciones.FechaLimiteInscripcion += EmisorCorreoElectronico.EnviarCorreoElectronicoNotificacion;
+            gestorNotificaciones.FechaLimiteDePago += EmisorCorreoElectronico.EnviarCorreoElectronicoNotificacion;
+
+            DateTime fechaActual = DateTime.Now;
+
+            DateTime inicioPeriodoAbril = new DateTime(fechaActual.Year, 4, 1, 23, 59, 59);
+            DateTime inicioPeriodoSeptiembre = new DateTime(fechaActual.Year, 9, 1, 23, 59, 59);
+            
+            DateTime limiteInscripcionMarzo = new DateTime(fechaActual.Year, 3, 25, 23, 59, 59);
+            DateTime limiteInscripcionAgosto = new DateTime(fechaActual.Year, 8, 25, 23, 59, 59);
+            
+            DateTime limitePagoJunio = new DateTime(fechaActual.Year, 6, 20, 23, 59, 59);
+            DateTime limitePagoNoviembre = new DateTime(fechaActual.Year, 11, 20, 23, 59, 59);
+
+            // Verificar si estamos a 10 días de cada fecha y realizar la acción correspondiente
+            if ((inicioPeriodoAbril - fechaActual).Days == 10)
+            {
+                await Task.Run(() => gestorNotificaciones.EjecutarInicioPeriodoAcademico("primer", "1° de Abril"));
+            }
+            else if ((inicioPeriodoSeptiembre - fechaActual).Days == 10)
+            {
+                await Task.Run(() => gestorNotificaciones.EjecutarInicioPeriodoAcademico("segundo", "1° de Septiembre"));
+            }
+            else if((limiteInscripcionMarzo - fechaActual).Days == 10)
+            {
+                await Task.Run(() => gestorNotificaciones.EjecutarFechaLimiteInscripcion("25 de Marzo"));
+            }
+            else if((limiteInscripcionAgosto - fechaActual).Days == 10)
+            {
+                await Task.Run(() => gestorNotificaciones.EjecutarFechaLimiteInscripcion("25 de Agosto"));
+            }
+            else if((limitePagoJunio - fechaActual).Days == 10)
+            {
+                await Task.Run(() => gestorNotificaciones.EjecutarFechaLimiteDePago("20 de Junio"));
+            }
+            else if((limitePagoNoviembre - fechaActual).Days == 10)
+            {
+                await Task.Run(() => gestorNotificaciones.EjecutarFechaLimiteDePago("20 de Noviembre"));
+            }
         }
 
         /// <summary>

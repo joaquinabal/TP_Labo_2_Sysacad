@@ -8,13 +8,13 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
 {
     public class ElementosCorreoElectronicoArgs : EventArgs
     {
-        public string Subject { get; set; }
-        public string Body { get; set; }
+        public string Asunto { get; set; }
+        public string Cuerpo { get; set; }
 
-        public ElementosCorreoElectronicoArgs(string subject, string body)
+        public ElementosCorreoElectronicoArgs(string asunto, string cuerpo)
         {
-            Subject = subject;
-            Body = body;
+            Asunto = asunto;
+            Cuerpo = cuerpo;
         }
     }
 }
