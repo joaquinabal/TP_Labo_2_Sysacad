@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
-    internal class ConsultasGenericas : ConexionBD
+    public class ConsultasGenericas : ConexionBD
     {
         //////////////////////// CONSULTAS INTERNAS
         
@@ -120,10 +120,18 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         public static List<T> FiltrarElementos<T>(List<T> lista, Predicate<T> predicado)
             where T : IEntidadFiltrada
         {
+            //Guardo los elementos filtrados en esta lista
             List<T> elementosFiltrados = new List<T>();
 
+            //Recorro los elementos de la lista que pase como argumento.
             foreach (T elemento in lista)
             {
+                //Accedo al metodo que recibi como argumento (Del tipo "Predicate") que toma un parametro y devuelve
+                //un bool y le paso como argumento el elemento que estoy iterando.
+                //Por ejemplo, estoy iterando una lista de "Curso" y mi predicate se encarga de verificar si el codigo
+                //del curso iterado es equivalente a un codigo determinado. (curso.Codigo == codigo)
+                //Entonces llamo a este predicate que recibi como argumento, y le paso el curso iterado como argumento
+                //para que pueda corroborar o no si el codigo es equivalente a un codigo determinado.
                 if (predicado(elemento))
                 {
                     elementosFiltrados.Add(elemento);

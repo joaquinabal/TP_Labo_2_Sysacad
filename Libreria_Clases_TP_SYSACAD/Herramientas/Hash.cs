@@ -8,14 +8,14 @@ using Libreria_Clases_TP_SYSACAD.Persistencia;
 
 namespace Libreria_Clases_TP_SYSACAD.Herramientas
 {
-    internal static class Hash
+    public static class Hash
     {
         /// <summary>
         /// Genera un hash SHA-256 a partir de una contraseña.
         /// </summary>
         /// <param name="password">La contraseña a ser hasheada.</param>
         /// <returns>El hash de la contraseña como una cadena hexadecimal.</returns>
-        internal static string HashPassword(string password)
+        public static string HashPassword(string password)
         {
             try
             {
