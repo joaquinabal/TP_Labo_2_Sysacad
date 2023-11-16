@@ -143,11 +143,40 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ////////// METODOS NON-QUERY (INSERT, UPDATE, DELETE)
 
-        internal static void EjecutarNonQuery(string query, Dictionary<string, object> parametros)
+        //internal async static void EjecutarNonQuery(string query, Dictionary<string, object> parametros)
+        //{
+        //    try
+        //    {
+        //        connection.Open();
+
+        //        command.CommandText = query;
+
+        //        foreach (var parametro in parametros)
+        //        {
+        //            command.Parameters.AddWithValue(parametro.Key, parametro.Value);
+        //        }
+
+        //        //command.ExecuteNonQuery();
+
+        //        await Task.Run(() => command.ExecuteNonQuery());
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        RegistroExcepciones.RegistrarExcepcion(ex);
+        //        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        command.Parameters.Clear();
+        //        connection.Close();
+        //    }
+        //}
+
+        internal async static Task EjecutarNonQuery(string query, Dictionary<string, object> parametros)
         {
             try
             {
-                connection.Open();
+                await connection.OpenAsync();
 
                 command.CommandText = query;
 
@@ -156,7 +185,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     command.Parameters.AddWithValue(parametro.Key, parametro.Value);
                 }
 
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
+
+                await command.ExecuteNonQueryAsync();
             }
             catch (SqlException ex)
             {

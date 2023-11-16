@@ -24,7 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ///////////////////////CREATE
-        internal static void IngresarNuevoProfesor(Profesor profesorNuevo)
+        internal static async Task IngresarNuevoProfesor(Profesor profesorNuevo)
         {
             string query = "INSERT INTO Profesores (nombre, direccion, telefono, correo, especializacion) " +
                   "VALUES (@nombre, @direccion, @telefono, @correo, @especializacion)";
@@ -38,7 +38,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@especializacion", profesorNuevo.Especializacion }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeProfesoresAPartirDeBD();
         }
@@ -62,7 +62,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////UPDATE
 
-        public static void EditarProfesor(string correo, string direccion, string especializacion, string nombre, string telefono, string correoOriginal)
+        public static async Task EditarProfesor(string correo, string direccion, string especializacion, string nombre, string telefono, string correoOriginal)
         {
             string query = "UPDATE Profesores SET nombre = @nombre, direccion = @direccion, telefono = @telefono, correo = @correo, especializacion = @especializacion WHERE correo = @correoOriginal";
 
@@ -76,12 +76,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@correoOriginal", correoOriginal }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeProfesoresAPartirDeBD();
         }
 
-        public static void AgregarCursoAProfesor(string correoProfesor, string codigoCurso)
+        public static async Task AgregarCursoAProfesor(string correoProfesor, string codigoCurso)
         {
             string query = "INSERT INTO ProfesoresEnCursos (correoProfesor, codigoCurso) " +
                    "VALUES (@correo, @codigo)";
@@ -92,14 +92,14 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@codigo", codigoCurso }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeProfesoresAPartirDeBD();
         }
 
         ///////////////////////DELETE
 
-        public static void EliminarProfesorBD(string correo)
+        public static async Task EliminarProfesorBD(string correo)
         {
             string query = @"DELETE FROM Profesores WHERE correo = @correo";
 
@@ -108,7 +108,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@correo", correo }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeProfesoresAPartirDeBD();
         }

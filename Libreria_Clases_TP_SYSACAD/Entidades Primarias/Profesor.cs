@@ -36,9 +36,9 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Primarias
             _codigosCursosDeProfesor = codigosCursosDeProfesor;
         }
 
-        public void RegistrarProfesor()
+        public async Task RegistrarProfesor()
         {
-            ConsultasProfesores.IngresarNuevoProfesor(this);
+            await ConsultasProfesores.IngresarNuevoProfesor(this);
         }
 
         public string Nombre { get { return _nombre; } }

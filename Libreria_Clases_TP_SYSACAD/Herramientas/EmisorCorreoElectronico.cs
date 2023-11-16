@@ -68,8 +68,8 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 // Configura las credenciales y detalles del servidor SMTP
                 string servidorSmtp = "smtp-mail.outlook.com"; // Reemplaza con tu servidor SMTP
                 int puertoSmtp = 587; // Reemplaza con el puerto correcto de tu servidor SMTP
-                string usuarioSmtp = "tp_sysacad_661@outlook.com"; // Reemplaza con tu dirección de correo
-                string contraseñaSmtp = "tpsysacad123"; // Reemplaza con tu contraseña de correo
+                string usuarioSmtp = "SYSACAD_TP666@outlook.com"; // Reemplaza con tu dirección de correo
+                string contraseñaSmtp = "Altoqueroke69"; // Reemplaza con tu contraseña de correo
 
                 // Crea una instancia de la clase SmtpClient
                 SmtpClient clienteSmtp = new SmtpClient(servidorSmtp, puertoSmtp);
@@ -108,6 +108,11 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 RegistroExcepciones.RegistrarExcepcion(smtpEx);
                 return false;
             }
+            catch (Exception e)
+            {
+                RegistroExcepciones.RegistrarExcepcion(e);
+                return false;
+            }
         }
 
         internal static void EnviarCorreoElectronicoNotificacion(object EmisorCorreoElectronico, ElementosCorreoElectronicoArgs infoMail)
@@ -121,8 +126,8 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                     // Configura las credenciales y detalles del servidor SMTP
                     string servidorSmtp = "smtp-mail.outlook.com"; // Reemplaza con tu servidor SMTP
                     int puertoSmtp = 587; // Reemplaza con el puerto correcto de tu servidor SMTP
-                    string usuarioSmtp = "tp_sysacad_661@outlook.com"; // Reemplaza con tu dirección de correo
-                    string contraseñaSmtp = "tpsysacad123"; // Reemplaza con tu contraseña de correo
+                    string usuarioSmtp = "SYSACAD_TP666@outlook.com"; // Reemplaza con tu dirección de correo
+                    string contraseñaSmtp = "Altoqueroke69"; // Reemplaza con tu contraseña de correo
 
                     // Crea una instancia de la clase SmtpClient
                     SmtpClient clienteSmtp = new SmtpClient(servidorSmtp, puertoSmtp);

@@ -23,7 +23,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //////////////////////CREATE
-        public static void IngresarNuevoPago(List<RegistroDePago> nuevosPagos)
+        public static async Task IngresarNuevoPago(List<RegistroDePago> nuevosPagos)
         {
             foreach (RegistroDePago registro in nuevosPagos)
             {
@@ -38,7 +38,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     { "@fechaPago", DateTime.Now }
                 };
 
-                ConsultasGenericas.EjecutarNonQuery(query, parametros);
+                await ConsultasGenericas.EjecutarNonQuery(query, parametros);
             }
 
             CrearInstanciasDePagosAPartirDeBD();
@@ -61,7 +61,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         /////////////////////UPDATE
-        public static void ActualizarConceptosDePagoDeEstudiante(Dictionary<string, double> listaConceptosPagados, string legajo)
+        public static async Task ActualizarConceptosDePagoDeEstudiante(Dictionary<string, double> listaConceptosPagados, string legajo)
         {
             foreach (var parKeyValue in listaConceptosPagados)
             {
@@ -75,7 +75,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     { "@conceptoPago", parKeyValue.Key }
                 };
 
-                ConsultasGenericas.EjecutarNonQuery(query, parametros);
+                await ConsultasGenericas.EjecutarNonQuery(query, parametros);
             }
 
             RefrescarEstudianteLogueado();

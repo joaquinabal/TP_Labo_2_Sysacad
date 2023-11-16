@@ -25,7 +25,7 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         private List<string> _cursosSinCupo = new List<string>();
         private List<string> _cursosProhibidos = new List<string>();
 
-        public ValidacionInscripcionResultado ValidarCursosSegunCupo(List<Curso> cursosSeleccionados)
+        public async Task<ValidacionInscripcionResultado> ValidarCursosSegunCupo(List<Curso> cursosSeleccionados)
         {
             if (cursosSeleccionados.Count == 0)
             {
@@ -49,12 +49,12 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
                 else if (resultadoValidacionCupos == false)
                 {
                     _cursosSinCupo.Add(curso.Nombre);
-                    ConsultasCursos.AgregarEstudianteAListaDeEspera(curso.Codigo, Sistema.EstudianteLogueado.Legajo);
+                    await ConsultasCursos.AgregarEstudianteAListaDeEspera(curso.Codigo, Sistema.EstudianteLogueado.Legajo);
                 }
                 // Si cumple con los requisitos y hay cupos
                 else
                 {
-                    GestionarInscripcion(curso);
+                    await GestionarInscripcion(curso);
                 }
             }
 
@@ -83,12 +83,12 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             }
         }
 
-        private static void GestionarInscripcion(Curso curso)
+        private static async Task GestionarInscripcion(Curso curso)
         {
             RegistroDeInscripcion nuevoRegistro = GenerarNuevoRegistroDeInscripcion(curso);
 
-            ConsultasInscripciones.IngresarNuevoRegistro(nuevoRegistro);
-            ConsultasCursos.RestarCupoDisponible(curso);
+            await ConsultasInscripciones.IngresarNuevoRegistro(nuevoRegistro);
+            await ConsultasCursos.RestarCupoDisponible(curso);
 
             //Sistema.BaseDatosEstudiantes.AgregarCursoAEstudiante(Sistema.EstudianteLogueado, curso);
             //Sistema.BaseDatosInscripciones.IngresarNuevoRegistro(nuevoRegistro);

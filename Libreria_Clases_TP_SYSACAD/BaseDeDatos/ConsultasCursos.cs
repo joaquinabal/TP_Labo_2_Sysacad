@@ -43,7 +43,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ObtenerIdDesdeTexto("Dia", "nombre", nombreDia);
         }
 
-        private static int ObtenerIdDeCodigoFamilia(string codigoFamilia)
+        private static async Task<int> ObtenerIdDeCodigoFamilia(string codigoFamilia)
         {
             int? codigoFamiliaId = ObtenerIdDesdeTexto("CodigoFamilia", "codigo", codigoFamilia);
 
@@ -54,23 +54,28 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             else
             {
                 // El código de familia no existe en la tabla, lo agrego y obtengo su ID.
-                return AgregarNuevoCodigoDeFamiliaYDevolverSuId(codigoFamilia);
+                //return AgregarNuevoCodigoDeFamiliaYDevolverSuId(codigoFamilia);
+                return await AgregarNuevoCodigoDeFamiliaYDevolverSuId(codigoFamilia);
             }
         }
 
-        private static int AgregarNuevoCodigoDeFamiliaYDevolverSuId(string codigoFamilia)
+        private static async Task<int> AgregarNuevoCodigoDeFamiliaYDevolverSuId(string codigoFamilia)
         {
             using (var connectionAlternativa2 = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
                 using (var commandAlternativo2 = new SqlCommand("INSERT INTO CodigoFamilia (codigo) VALUES (@codigo); SELECT SCOPE_IDENTITY();", connectionAlternativa2))
                 {
                     commandAlternativo2.Parameters.AddWithValue("@codigo", codigoFamilia);
-                    connectionAlternativa2.Open();
+                    //connectionAlternativa2.Open();
+                    await connectionAlternativa2.OpenAsync();
 
                     try
                     {
                         // Ejecuta la consulta y devuelve el ID del código de familia recién agregado.
-                        return Convert.ToInt32(commandAlternativo2.ExecuteScalar());
+                        var result = await commandAlternativo2.ExecuteScalarAsync();
+                        return Convert.ToInt32(result);
+
+                        //return Convert.ToInt32(commandAlternativo2.ExecuteScalar());
                     }
                     catch (SqlException ex)
                     {
@@ -81,7 +86,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
-        internal static void IngresarCursoBD(Curso nuevoCurso)
+        internal static async Task IngresarCursoBD(Curso nuevoCurso)
         {
             string query = "INSERT INTO Curso (codigo, nombre, descripcion, cupoMaximo, cupoDisponible, turnoId, aula, diaId, carreraCodigo, creditosRequeridos, promedioRequerido, codigoFamiliaId) " +
                    "VALUES (@codigo, @nombre, @descripcion, @cupoMaximo, @cupoDisponible, @turnoId, @aula, @diaId, @carreraCodigo, @creditosRequeridos, @promedioRequerido, @codigoFamiliaId)";
@@ -99,10 +104,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@carreraCodigo", nuevoCurso.Carrera.ToString() },
                 { "@creditosRequeridos", nuevoCurso.CreditosRequeridos },
                 { "@promedioRequerido", nuevoCurso.PromedioRequerido },
-                { "@codigoFamiliaId", ObtenerIdDeCodigoFamilia(nuevoCurso.CodigoFamilia) }
+                { "@codigoFamiliaId", await ObtenerIdDeCodigoFamilia(nuevoCurso.CodigoFamilia) }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            //ConsultasGenericas.EjecutarNonQuery(query, parametros);
+
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }
@@ -264,7 +271,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         ///////////////////////////////////UPDATE
 
         ///////UPDATE REQUISITOS
-        private static void EliminarCorrelatividadesDeCursoSeleccionado(int idCodigoFamilia)
+        private static async Task EliminarCorrelatividadesDeCursoSeleccionado(int idCodigoFamilia)
         {
             string query = "DELETE FROM Correlatividades WHERE idFamiliaCursoBase = @CFId";
 
@@ -273,12 +280,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@CFId", idCodigoFamilia }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
-        private static void AgregarNuevasCorrelatividadesACursoSeleccionado(string CFCursoAModificar, List<string> CFNuevasCorrelatividades)
+        private static async Task AgregarNuevasCorrelatividadesACursoSeleccionado(string CFCursoAModificar, List<string> CFNuevasCorrelatividades)
         {
-            int idCodigoFamilia = ObtenerIdDeCodigoFamilia(CFCursoAModificar);
+            int idCodigoFamilia = await ObtenerIdDeCodigoFamilia(CFCursoAModificar);
 
             foreach (string CF in CFNuevasCorrelatividades)
             {
@@ -290,13 +297,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     { "@CF", CF }
                 };
 
-                ConsultasGenericas.EjecutarNonQuery(query, parametros);
+                await ConsultasGenericas.EjecutarNonQuery(query, parametros);
             }
         }
 
-        public static void ActualizarRequisitosACursos(string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
+        public static async Task ActualizarRequisitosACursos(string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
         {
-            int idCodigoFamilia = ObtenerIdDeCodigoFamilia(CFCursoAModificar);
+            int idCodigoFamilia = await ObtenerIdDeCodigoFamilia(CFCursoAModificar);
 
             string updateQuery = "UPDATE Curso SET creditosRequeridos = @creditos, promedioRequerido = @promedio WHERE codigoFamiliaId = @valorABuscar";
 
@@ -307,17 +314,17 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@valorABuscar", idCodigoFamilia }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
 
-            EliminarCorrelatividadesDeCursoSeleccionado(idCodigoFamilia);
-            AgregarNuevasCorrelatividadesACursoSeleccionado(CFCursoAModificar, CFcorrelatividades);
+            await EliminarCorrelatividadesDeCursoSeleccionado(idCodigoFamilia);
+            await AgregarNuevasCorrelatividadesACursoSeleccionado(CFCursoAModificar, CFcorrelatividades);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
         ///////UPDATE TABLA CURSOS
 
-        public static void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
+        public static async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
         {
             int idTurno = ObtenerTurnoIdSegunTexto(turno);
             int idDia = ObtenerDiaIdSegunTexto(dia);
@@ -338,16 +345,16 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@valorABuscar", codigoABuscar }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
-        public static void EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
+        public static async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
         {
             int idTurno = ObtenerTurnoIdSegunTexto(turno);
             int idDia = ObtenerDiaIdSegunTexto(dia);
-            int CFid = ObtenerIdDeCodigoFamilia(codigoFamilia);
+            int CFid = await ObtenerIdDeCodigoFamilia(codigoFamilia);
 
             string updateQuery = "UPDATE Curso SET codigo = @codigo, nombre = @nombre, descripcion = @descripcion," +
                 "cupoMaximo = @cupoMaximo, cupoDisponible = @cupoMaximo, turnoId = @turnoId, aula = @aula, " +
@@ -366,13 +373,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@valorABuscar", codigoABuscar }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
         ///////UPDATE TABLA ALUMNOS EN LISTA DE ESPERA
-        private static void EliminarListaEsperaDeCursoSeleccionado(string codigoCurso)
+        private static async Task EliminarListaEsperaDeCursoSeleccionado(string codigoCurso)
         {
             string query = "DELETE FROM AlumnosEnListaDeEspera WHERE codigoCurso = @codigoCurso";
 
@@ -381,10 +388,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@codigoCurso", codigoCurso }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
-        private static void AgregarNuevaListaEsperaACursoSeleccionado(string codigoCurso, Dictionary<string, DateTime> listaEsperaRecibida)
+        private static async Task AgregarNuevaListaEsperaACursoSeleccionado(string codigoCurso, Dictionary<string, DateTime> listaEsperaRecibida)
         {
             foreach (var parKeyValue in listaEsperaRecibida)
             {
@@ -397,20 +404,20 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     { "@fechaIngreso", parKeyValue.Value }
                 };
 
-                ConsultasGenericas.EjecutarNonQuery(query, parametros);
+                await ConsultasGenericas.EjecutarNonQuery(query, parametros);
             }
         }
 
-        public static void ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
+        public static async Task ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
         {
-            EliminarListaEsperaDeCursoSeleccionado(cursoRecibido.Codigo);
-            AgregarNuevaListaEsperaACursoSeleccionado(cursoRecibido.Codigo, listaEsperaRecibida);
+            await EliminarListaEsperaDeCursoSeleccionado(cursoRecibido.Codigo);
+            await AgregarNuevaListaEsperaACursoSeleccionado(cursoRecibido.Codigo, listaEsperaRecibida);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
         ////// AGREGAR ESTUDIANTE A LISTA DE ESPERA
-        internal static void AgregarEstudianteAListaDeEspera(string codigoCurso, string legajoEstudiante)
+        internal static async Task AgregarEstudianteAListaDeEspera(string codigoCurso, string legajoEstudiante)
         {
             string query = "INSERT INTO AlumnosEnListaDeEspera (legajoEstudiante, codigoCurso, fechaIngreso) VALUES (@legajo, @codigoCurso, @fechaIngreso)";
 
@@ -421,14 +428,14 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@fechaIngreso", DateTime.Now }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
 
         ///////UPDATE UNICAMENTE CUPOS DISPONIBLES
-        internal static void RestarCupoDisponible(Curso cursoARestarCupo)
+        internal static async Task RestarCupoDisponible(Curso cursoARestarCupo)
         {
             string updateQuery = "UPDATE Curso SET cupoDisponible = cupoDisponible - 1 WHERE codigo = @valorABuscar";
 
@@ -437,23 +444,23 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@valorABuscar", cursoARestarCupo.Codigo }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(updateQuery, parametros);
 
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
         ///////////////////////DELETE
         
-        private static void CorroborarSiHayCFSinCursosCorrespondientesYBorrarlos()
+        private static async Task CorroborarSiHayCFSinCursosCorrespondientesYBorrarlos()
         {
             string query = "DELETE FROM CodigoFamilia WHERE id NOT IN (SELECT DISTINCT codigoFamiliaId FROM Curso)";
 
             Dictionary<string, object> parametros = new Dictionary<string, object>();
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
-        public static void EliminarCursoBD(string codigoABuscar)
+        public static async Task EliminarCursoBD(string codigoABuscar)
         {
             string query = "DELETE FROM Curso WHERE codigo = @codigoABuscar";
 
@@ -462,9 +469,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@codigoABuscar", codigoABuscar }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
-            CorroborarSiHayCFSinCursosCorrespondientesYBorrarlos();
+            await CorroborarSiHayCFSinCursosCorrespondientesYBorrarlos();
             CrearInstanciasDeCursoAPartirDeBD();
             ConsultasInscripciones.RefrescarEstudianteLogueado();
         }

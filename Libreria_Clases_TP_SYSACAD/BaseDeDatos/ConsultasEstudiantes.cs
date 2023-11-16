@@ -27,7 +27,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ///////////////////////CREATE
-        private static void AñadirConceptosDePagoIniciales(string legajo)
+        private static async Task AñadirConceptosDePagoIniciales(string legajo)
         {
             Dictionary<string, double> conceptosIniciales = new Dictionary<string, double>
             {
@@ -49,11 +49,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     { "@montoPendiente", parKeyValue.Value }
                 };
 
-                ConsultasGenericas.EjecutarNonQuery(query, parametros);
+                await ConsultasGenericas.EjecutarNonQuery(query, parametros);
             }
         }
 
-        internal static void IngresarUsuarioBD(Estudiante nuevoEstudiante)
+        internal static async Task IngresarUsuarioBD(Estudiante nuevoEstudiante)
         {
             Guid nuevoGuid = Guid.NewGuid();
             nuevoEstudiante.IdentificadorUnico = nuevoGuid;
@@ -80,9 +80,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@promedioEstudiante", nuevoEstudiante.Promedio }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
-            AñadirConceptosDePagoIniciales(nuevoEstudiante.Legajo);
+            await AñadirConceptosDePagoIniciales(nuevoEstudiante.Legajo);
             CrearInstanciasDeEstudiantesAPartirDeBD();
         }
 
@@ -134,7 +134,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////UPDATE
 
-        public static void CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
+        public static async Task CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
         {
             string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);
 
@@ -146,7 +146,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@correo", correo }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeEstudiantesAPartirDeBD();
         }

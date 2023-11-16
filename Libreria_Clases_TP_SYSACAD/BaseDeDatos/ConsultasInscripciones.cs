@@ -24,7 +24,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ////////////////////////CREATE
-        internal static void IngresarNuevoRegistro(RegistroDeInscripcion nuevoRegistro)
+        internal static async Task IngresarNuevoRegistro(RegistroDeInscripcion nuevoRegistro)
         {
             string query = "INSERT INTO RegistroInscripcion (legajo, codigoCurso, fechaInscripcion) " +
                    "VALUES (@legajo, @codigoCurso, @fechaInscripcion)";
@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@fechaInscripcion", nuevoRegistro.Fecha }
             };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+            await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
             CrearInstanciasDeInscripcionesAPartirDeBD();
             RefrescarEstudianteLogueado();
@@ -90,21 +90,21 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultados;
         }
 
-        //////////////DELETE
-        internal static void EliminarCursoATodosLosEstudiantes(string codigo)
-        {
-            string query = "DELETE FROM RegistroInscripcion WHERE codigoCurso = @codigo";
+        ////////////////DELETE
+        //internal static async Task EliminarCursoATodosLosEstudiantes(string codigo)
+        //{
+        //    string query = "DELETE FROM RegistroInscripcion WHERE codigoCurso = @codigo";
 
-            Dictionary<string, object> parametros = new Dictionary<string, object>
-            {
-                { "@codigo", codigo }
-            };
+        //    Dictionary<string, object> parametros = new Dictionary<string, object>
+        //    {
+        //        { "@codigo", codigo }
+        //    };
 
-            ConsultasGenericas.EjecutarNonQuery(query, parametros);
+        //    await ConsultasGenericas.EjecutarNonQuery(query, parametros);
 
-            CrearInstanciasDeInscripcionesAPartirDeBD();
-            RefrescarEstudianteLogueado();
-        }
+        //    CrearInstanciasDeInscripcionesAPartirDeBD();
+        //    RefrescarEstudianteLogueado();
+        //}
 
         ///////// REFRESCAR ESTUDIANTE LOGUEADO
         public static void RefrescarEstudianteLogueado()

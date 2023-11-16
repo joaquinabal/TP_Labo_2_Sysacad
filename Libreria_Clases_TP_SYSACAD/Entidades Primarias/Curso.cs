@@ -68,9 +68,11 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// Registra un nuevo curso en la base de datos.
         /// </summary>
         /// <param name="nuevoCurso">El curso a ser registrado.</param>
-        public void RegistrarCurso()
+        public async Task RegistrarCurso()
         {
-            ConsultasCursos.IngresarCursoBD(this);
+            await ConsultasCursos.IngresarCursoBD(this);
+
+            //ConsultasCursos.IngresarCursoBD(this);
         }
 
         /// <summary>

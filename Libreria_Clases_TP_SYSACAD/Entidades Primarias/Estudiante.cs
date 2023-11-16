@@ -68,10 +68,10 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// Registra un nuevo estudiante en la base de datos.
         /// </summary>
         /// <param name="nuevoEstudiante">El estudiante a ser registrado.</param>
-        public void RegistrarEstudiante()
+        public async Task RegistrarEstudiante()
         {
             //Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(this);
-            ConsultasEstudiantes.IngresarUsuarioBD(this);
+            await ConsultasEstudiantes.IngresarUsuarioBD(this);
 
         }
 
@@ -79,9 +79,9 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// Actualiza los conceptos de pago del estudiante en base a los pagos realizados.
         /// </summary>
         /// <param name="listaConceptosPagados">La lista de conceptos pagados con sus montos.</param>
-        public void ActualizarConceptosDePago(Dictionary<string, double> listaConceptosPagados)
+        public async Task ActualizarConceptosDePago(Dictionary<string, double> listaConceptosPagados)
         {
-            ConsultasPagos.ActualizarConceptosDePagoDeEstudiante(listaConceptosPagados, Legajo);
+            await ConsultasPagos.ActualizarConceptosDePagoDeEstudiante(listaConceptosPagados, Legajo);
         }
 
         //Getters y Setters
