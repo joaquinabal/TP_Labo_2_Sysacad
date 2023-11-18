@@ -8,7 +8,7 @@ using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
-    public class RegistroDePago : IRegistroEstadistico, IEntidadReconstruida
+    public class RegistroDePago : IRegistroEstadistico, IEntidadReconstruida, IEntidadRegistro
     {
         private string _concepto;
         private string _legajo;

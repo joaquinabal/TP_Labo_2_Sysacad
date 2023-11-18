@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum
 {
-    public interface IEntidadFiltrada
+    public interface IEntidadRegistro
     {
+        public string Legajo { get;}
+        public string NombreEstudiante { get;}
+        public DateTime Fecha { get;}
     }
 }

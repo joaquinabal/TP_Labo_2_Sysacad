@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Entidades_Primarias
 {
-    public class Profesor : IEntidadReconstruida
+    public class Profesor : IEntidadReconstruida, IEntidadPersona
     {
         private string _nombre;
         private string _direccion;
@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Primarias
             _codigosCursosDeProfesor = codigosCursosDeProfesor;
         }
 
-        public async Task RegistrarProfesor()
+        public async Task Registrar()
         {
             await ConsultasProfesores.IngresarNuevoProfesor(this);
         }

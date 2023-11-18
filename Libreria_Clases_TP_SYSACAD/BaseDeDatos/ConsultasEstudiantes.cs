@@ -71,7 +71,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                 { "@legajoEstudiante", nuevoEstudiante.Legajo },
                 { "@nombreEstudiante", nuevoEstudiante.Nombre },
                 { "@direccionEstudiante", nuevoEstudiante.Direccion },
-                { "@telefonoEstudiante", nuevoEstudiante.NumeroTelefono },
+                { "@telefonoEstudiante", nuevoEstudiante.Telefono },
                 { "@correoEstudiante", nuevoEstudiante.Correo },
                 { "@contraseniaEstudiante", nuevoEstudiante.Contrasenia },
                 { "@identifiadorUnicoEstudiante", nuevoEstudiante.IdentificadorUnico },

@@ -14,7 +14,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
     //    TUSI
     //}
 
-    public class RegistroDeInscripcion : IRegistroEstadistico, IEntidadReconstruida
+    public class RegistroDeInscripcion : IRegistroEstadistico, IEntidadReconstruida, IEntidadRegistro
     {
         private string _legajo;
         private string _nombreAlumno;
@@ -36,7 +36,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
         //Getters y Setters
         public string Legajo { get { return _legajo; } }
 
-        public string NombreAlumno { get { return _nombreAlumno; } }
+        public string NombreEstudiante { get { return _nombreAlumno; } }
 
         public string NombreCurso { get { return _nombreCurso; } }
 

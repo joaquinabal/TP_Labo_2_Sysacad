@@ -10,7 +10,7 @@ using Libreria_Clases_TP_SYSACAD.Persistencia;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
 {
-    public class Estudiante : IEntidadFiltrada, IEntidadReconstruida
+    public class Estudiante : IEntidadReconstruida, IEntidadPersona
     {
         //Atributos del estudiante
         private string _nombre;
@@ -68,7 +68,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// Registra un nuevo estudiante en la base de datos.
         /// </summary>
         /// <param name="nuevoEstudiante">El estudiante a ser registrado.</param>
-        public async Task RegistrarEstudiante()
+        public async Task Registrar()
         {
             //Sistema.BaseDatosEstudiantes.IngresarUsuarioBD(this);
             await ConsultasEstudiantes.IngresarUsuarioBD(this);
@@ -95,7 +95,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
 
         public string Direccion { get { return _direccion; } }
 
-        public string NumeroTelefono { get { return _numeroTelefono; } }
+        public string Telefono { get { return _numeroTelefono; } }
 
         public string Contrasenia { get { return _contrasenia; } set { _contrasenia = value; } }
 

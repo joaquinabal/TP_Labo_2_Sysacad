@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
 {
-    public class Curso : IEntidadFiltrada, IEntidadReconstruida
+    public class Curso : IEntidadRegistrada, IEntidadReconstruida
     {
         //Atributos que debe contener todo curso
         private string _nombre;
@@ -68,7 +68,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// Registra un nuevo curso en la base de datos.
         /// </summary>
         /// <param name="nuevoCurso">El curso a ser registrado.</param>
-        public async Task RegistrarCurso()
+        public async Task Registrar()
         {
             await ConsultasCursos.IngresarCursoBD(this);
 

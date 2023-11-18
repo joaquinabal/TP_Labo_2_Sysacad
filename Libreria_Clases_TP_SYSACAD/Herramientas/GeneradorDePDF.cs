@@ -30,7 +30,7 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
                 {
                     registro.Carrera.ToString(),
                     registro.Legajo,
-                    registro.NombreAlumno,
+                    registro.NombreEstudiante,
                     registro.CodigoCurso,
                     registro.NombreCurso,
                     registro.Fecha.ToString("dd/MM/yyyy")

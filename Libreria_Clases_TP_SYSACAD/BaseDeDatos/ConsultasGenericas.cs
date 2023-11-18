@@ -118,7 +118,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         ////////// METODO GENERICO PARA LOS READ
 
         public static List<T> FiltrarElementos<T>(List<T> lista, Predicate<T> predicado)
-            where T : IEntidadFiltrada
+            where T : IEntidadRegistrada
         {
             //Guardo los elementos filtrados en esta lista
             List<T> elementosFiltrados = new List<T>();

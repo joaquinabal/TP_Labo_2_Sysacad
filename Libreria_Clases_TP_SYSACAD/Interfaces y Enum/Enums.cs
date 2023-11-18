@@ -56,7 +56,6 @@ namespace Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum
     { 
         PagoCuota,
         InicioCuatri
-
     }
 
 }
