@@ -11,10 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Libreria_Clases_TP_SYSACAD.EntidadesSecundarias;
+using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 
 namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 {
-    public class ConsultasEstudiantes : ConexionBD
+    public class ConsultasEstudiantes : ConexionBD, ICambioDeContraseña
     {
         private static List<Estudiante> _listaEstudiantes = new List<Estudiante>();
 
@@ -134,7 +135,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////UPDATE
 
-        public static async Task CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
+        public async Task CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
         {
             string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);
 
