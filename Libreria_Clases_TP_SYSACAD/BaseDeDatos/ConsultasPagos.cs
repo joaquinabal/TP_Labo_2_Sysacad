@@ -45,7 +45,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //////////////////////READ
-        public static List<RegistroDePago> ObtenerIngresosSegunConceptoYFecha(DateTime fechaDesde, DateTime fechaHasta, string concepto)
+        public List<RegistroDePago> ObtenerIngresosSegunConceptoYFecha(DateTime fechaDesde, DateTime fechaHasta, string concepto)
         {
             List<RegistroDePago> listaIngresosSegunConceptoYFecha = new List<RegistroDePago>();
 

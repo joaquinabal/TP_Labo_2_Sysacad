@@ -124,7 +124,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).Any();
         }
 
-        public static List<Curso> ObtenerUnCursoPorCadaCodigoDeFamilia()
+        public List<Curso> ObtenerUnCursoPorCadaCodigoDeFamilia()
         {
             Predicate<Curso> predicado = curso => true; // No voy a filtrar ningun curso. Los agarro todos
 
@@ -148,7 +148,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
 
-        public static Curso ObtenerCursoDesdeCodigo(string codigo)
+        public static Curso? ObtenerCursoDesdeCodigo(string codigo)
         {
             Predicate<Curso> predicado = curso => curso.Codigo == codigo;
 
@@ -156,7 +156,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
         }
 
-        public static string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
+        public string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
         {
             Predicate<Curso> predicado = curso => curso.Nombre == nombre;
 
@@ -172,7 +172,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado);
         }
 
-        public static Curso ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
+        public Curso? ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
         {
             Predicate<Curso> predicado = curso => curso.CodigoFamilia == codigoDeFamilia;
 
@@ -180,7 +180,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
         }
 
-        public static Curso ObtenerCursoAPartirDeNombreYTurno(string nombre, string turno)
+        public Curso? ObtenerCursoAPartirDeNombreYTurno(string nombre, string turno)
         {
             Predicate<Curso> predicado = curso => curso.Nombre == nombre && curso.Turno == turno;
 
@@ -194,7 +194,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado);
         }
 
-        public static HashSet<string> ObtenerNombresDeCursosNoCorrelativos(Curso cursoSeleccionado)
+        public HashSet<string> ObtenerNombresDeCursosNoCorrelativos(Curso cursoSeleccionado)
         {
             HashSet<string> nombresAgregados = new HashSet<string>();
 
@@ -232,7 +232,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return hayCursoConListaDeEspera;
         }
 
-        public static Dictionary<Curso, Dictionary<string, DateTime>> DevolverDiccionarioConRegistrosListaDeEsperaSegunFechas(DateTime fechaDesde, DateTime fechaHasta)
+        public Dictionary<Curso, Dictionary<string, DateTime>> DevolverDiccionarioConRegistrosListaDeEsperaSegunFechas(DateTime fechaDesde, DateTime fechaHasta)
         {
             Dictionary<Curso, Dictionary<string, DateTime>> cursosConListaDeEspera = new Dictionary<Curso, Dictionary<string, DateTime>>();
 
@@ -301,7 +301,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
-        public static async Task ActualizarRequisitosACursos(string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
+        public async Task ActualizarRequisitosACursos(string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
         {
             int idCodigoFamilia = await ObtenerIdDeCodigoFamilia(CFCursoAModificar);
 

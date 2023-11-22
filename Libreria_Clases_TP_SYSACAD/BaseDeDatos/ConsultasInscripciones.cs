@@ -45,7 +45,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         ////////////////////////READ
 
         //METODO PARA OBTENER INSCRIPCIONES SEGUN PERIODO
-        public static List<RegistroDeInscripcion> ObtenerInscripciones(DateTime fechaDesde, DateTime fechaHasta)
+        public List<RegistroDeInscripcion> ObtenerInscripciones(DateTime fechaDesde, DateTime fechaHasta)
         {
             List<RegistroDeInscripcion> resultados = new List<RegistroDeInscripcion>();
 
@@ -62,7 +62,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //SOBRECARGA DEL METODO. OBTIENE INSCRIPCIONES SEGUN T (CODIGO DE CURSO O CARRERA)
-        public static List<RegistroDeInscripcion> ObtenerInscripciones<T>(DateTime fechaDesde, DateTime fechaHasta, T filtro)
+        public List<RegistroDeInscripcion> ObtenerInscripciones<T>(DateTime fechaDesde, DateTime fechaHasta, T filtro)
         {
             // Creo una lista para ir guardando los resultados de las inscripciones que cumplan con los criterios
             List<RegistroDeInscripcion> resultados = new List<RegistroDeInscripcion>();

@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
-    public static class EstadisticasReportes
+    public class EstadisticasReportes
     {
-        public static int CalcularRegistrosTotales<T>(List<T> listaRegistrosMostrados) 
+        public int CalcularRegistrosTotales<T>(List<T> listaRegistrosMostrados) 
             where T : IRegistroEstadistico
         {
             return listaRegistrosMostrados.Count;
         }
 
-        public static double CalcularMontoIngresosTotales(List<RegistroDePago> listaRegistrosMostrados)
+        public double CalcularMontoIngresosTotales(List<RegistroDePago> listaRegistrosMostrados)
         {
             double ingresosTotales = 0;
 
@@ -28,7 +28,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
             return ingresosTotales;
         }
 
-        public static DateTime CalcularFechaMasPopular<T>(List<T> listaRegistrosMostrados) 
+        public DateTime CalcularFechaMasPopular<T>(List<T> listaRegistrosMostrados) 
             where T : IRegistroEstadistico
         {
             // Creamos un diccionario para contar cuántas veces ocurre cada fecha
@@ -70,7 +70,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
             return fechaPopular;
         }
 
-        public static double CalcularMediaPorDia(List<RegistroDeInscripcion> listaRegistrosMostrados)
+        public double CalcularMediaPorDia(List<RegistroDeInscripcion> listaRegistrosMostrados)
         {
             // Crear un diccionario para contar las inscripciones por día
             Dictionary<DateTime, int> inscripcionesPorDia = new Dictionary<DateTime, int>();
