@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
 
 namespace Test_SYSACAD
 {
@@ -20,12 +21,12 @@ namespace Test_SYSACAD
                 // Arrange
                 // Acá implemento un MOCK de una class que implementa la interfaz (Simulo la class ConsultasEstudiantes)
                 var mockServicioCambioContraseña = new Mock<ICambioDeContraseña>();
-                // Le paso este ConsultasEstudiantes FAKE al constructor del validador (LOGICA DE NEGOCIO)
-                var validadorContraseña = new ValidadorInputNuevaContrasenia(mockServicioCambioContraseña.Object);
+                // Le paso este ConsultasEstudiantes FAKE al constructor del gestor (LOGICA DE NEGOCIO)
+                var gestorValidadorContrasenia = new GestorNuevaContrasenia(mockServicioCambioContraseña.Object);
 
                 // Act
-                // Le paso los argumentos VALIDOS al metodo de validacion de contraseña
-                await validadorContraseña.ValidarNuevaContrasenia("asd125a", "correo@asd.com");
+                // Le paso los argumentos VALIDOS al metodo de gestion de nueva contraseña
+                await gestorValidadorContrasenia.GestionarCambioContrasenia("asd125a", "correo@asd.com");
 
                 // Assert
                 // Me fijo si se llamo al metodo "CambiarContraseñaAEstudiante"
@@ -42,12 +43,12 @@ namespace Test_SYSACAD
                 // Arrange
                 // Acá implemento un MOCK de una class que implementa la interfaz (Simulo la class ConsultasEstudiantes)
                 var mockServicioCambioContraseña = new Mock<ICambioDeContraseña>();
-                // Le paso este ConsultasEstudiantes FAKE al constructor del validador (LOGICA DE NEGOCIO)
-                var validadorContraseña = new ValidadorInputNuevaContrasenia(mockServicioCambioContraseña.Object);
+                // Le paso este ConsultasEstudiantes FAKE al constructor del gestor (LOGICA DE NEGOCIO)
+                var gestorValidadorContrasenia = new GestorNuevaContrasenia(mockServicioCambioContraseña.Object);
 
                 // Act
-                // Le paso los argumentos INVALIDOS al metodo de validacion de contraseña
-                await validadorContraseña.ValidarNuevaContrasenia("aa", "correo@asd.com");
+                // Le paso los argumentos INVALIDOS al metodo de gestion de nueva contraseña
+                await gestorValidadorContrasenia.GestionarCambioContrasenia("aa", "correo@asd.com");
 
                 // Assert
                 // Me fijo si se llamo al metodo "CambiarContraseñaAEstudiante"

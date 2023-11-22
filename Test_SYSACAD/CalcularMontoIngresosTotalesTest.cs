@@ -20,11 +20,12 @@ namespace Test_SYSACAD
                 new RegistroDePago("15521254", "Pedro", "Gastos Administrativos", 500.0, DateTime.Now),
                 new RegistroDePago("00315265", "Charly", "Bibliografia", 400.0, DateTime.Now)
             };
+            EstadisticasReportes generadorEstadisticas = new EstadisticasReportes();
 
             double sumaEsperada = 10000.0 + 500.0 + 400.0;
 
             // Act
-            double resultado = EstadisticasReportes.CalcularMontoIngresosTotales(listaRegistros);
+            double resultado = generadorEstadisticas.CalcularMontoIngresosTotales(listaRegistros);
 
             // Assert
             Assert.AreEqual(sumaEsperada, resultado);
