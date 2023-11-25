@@ -31,9 +31,9 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             return ConsultasEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
         }
 
-        public async Task<bool> EnviarCorreoElectronicoAEstudiante(Estudiante estudiante)
+        public async Task<bool> EnviarCorreoElectronicoAEstudiante(Estudiante estudiante, string contrasenia)
         {
-            bool resultadoEmisionCorreo = await EmisorCorreoElectronico.EnviarCorreoElectronicoCredenciales(estudiante, estudiante.Contrasenia);
+            bool resultadoEmisionCorreo = await EmisorCorreoElectronico.EnviarCorreoElectronicoCredenciales(estudiante, contrasenia);
             return resultadoEmisionCorreo;
         }
 
