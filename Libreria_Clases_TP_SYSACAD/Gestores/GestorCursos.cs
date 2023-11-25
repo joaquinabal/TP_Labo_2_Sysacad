@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
+namespace Libreria_Clases_TP_SYSACAD.Gestores
 {
     public class GestorCursos
     {
@@ -27,7 +27,7 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
 
         public async Task EditarCurso(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
         {
-             await _consultasCursos.EditarCursoBD(codigoABuscar, nombre, codigo, descripcion, cupoMaximo, turno, dia, aula);
+            await _consultasCursos.EditarCursoBD(codigoABuscar, nombre, codigo, descripcion, cupoMaximo, turno, dia, aula);
         }
 
         public async Task ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
@@ -45,6 +45,30 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
             return _consultasCursos.BuscarCursoBD(codigo);
         }
 
+        public Curso ObtenerCursoAPartirDeNombreYTurno(string nombreCurso, string turno)
+        {
+            return _consultasCursos.ObtenerCursoAPartirDeNombreYTurno(nombreCurso, turno);
+        }
+
+        public List<Curso> ObtenerUnCursoPorCadaCodigoDeFamilia()
+        {
+            return _consultasCursos.ObtenerUnCursoPorCadaCodigoDeFamilia();
+        }
+
+        public string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
+        {
+            return _consultasCursos.ObtenerCodigoDeFamiliaDesdeNombre(nombre);
+        }
+
+        public Curso? ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
+        {
+            return _consultasCursos.ObtenerCursoDesdeCodigoDeFamilia(codigoDeFamilia);
+        }
+
+        public HashSet<string> ObtenerNombresDeCursosNoCorrelativos(Curso cursoSeleccionado)
+        {
+            return _consultasCursos.ObtenerNombresDeCursosNoCorrelativos(cursoSeleccionado);
+        }
 
         //////////////////////////////////////GESTION/////////////////////////////////
 
@@ -75,9 +99,17 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
 
             return validacionCursos;
         }
-    } 
 
-    
+        public async Task<ValidacionInscripcionResultado> GestionarInscripcionACurso(List<Curso> cursosSeleccionados)
+        {
+            ValidadorDeInscripciones nuevaValidacion = new ValidadorDeInscripciones();
+            ValidacionInscripcionResultado resultadoValidacion = await nuevaValidacion.ValidarCursosSegunCupo(cursosSeleccionados);
+
+            return resultadoValidacion;
+        }
+    }
+
+
 
 
 }

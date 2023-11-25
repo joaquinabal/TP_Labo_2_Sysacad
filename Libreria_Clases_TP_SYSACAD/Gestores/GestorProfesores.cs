@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xceed.Document.NET;
 
-namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
+namespace Libreria_Clases_TP_SYSACAD.Gestores
 {
     public class GestorProfesores
     {
@@ -23,7 +23,7 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
 
         private async Task EditarProfesor(string correo, string direccion, string especializacion, string nombre, string telefono, string correoOriginal)
         {
-           await _consultasProfesores.EditarProfesor(correo, direccion, especializacion, nombre, telefono, correoOriginal);
+            await _consultasProfesores.EditarProfesor(correo, direccion, especializacion, nombre, telefono, correoOriginal);
         }
 
         public async Task EliminarProfesor(string correo)
@@ -36,45 +36,64 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
             return _consultasProfesores.BuscarProfesorExistenteBD(correo);
         }
 
-        public async Task<RespuestaValidacionInput> GestionarEdicionProfesor(Dictionary<string, string> dictCampos, string correo, string nombre, string direccion, string especializacion, string telefono, string correoOriginal)
+        //////////////////////////////////////GESTION/////////////////////////////////
+
+        public RespuestaValidacionInput ValidarInputsProfesor(Dictionary<string, string> dictCampos)
         {
             ValidadorInputGenerico validadorInputProfesores = new ValidadorInputGenerico();
-            bool validacionDuplicados = ValidarDuplicadosProfesores(correo);
             RespuestaValidacionInput validacionProfesor = validadorInputProfesores.ValidarDatos(dictCampos, ModoValidacionInput.Profesores);
-
-            if (validacionProfesor.AusenciaCamposVacios && !validacionProfesor.ExistenciaErrores && !validacionDuplicados)
-            {
-                await EditarProfesor(correo, nombre, direccion, especializacion, telefono, correoOriginal);
-            }
 
             return validacionProfesor;
         }
 
-        public async Task<RespuestaValidacionInput> GestionarAgregarProfesor(Dictionary<string, string> dictCampos, Profesor profesor)
+        public async Task<bool> GestionarEdicionProfesorEnBaseADuplicados(bool cambioDeCorreo, string correo, string direccion, string especializacion, string nombre, string telefono, string correoOriginal)
         {
-            ValidadorInputGenerico validadorInputProfesores = new ValidadorInputGenerico();
-            bool validacionDuplicados = ValidarDuplicadosProfesores(profesor.Correo);
-            RespuestaValidacionInput validacionProfesor = validadorInputProfesores.ValidarDatos(dictCampos, ModoValidacionInput.Profesores);
+            if (cambioDeCorreo)
+            {
+                bool validacionDuplicados = ValidarDuplicadosProfesores(correo);
 
-            if (validacionProfesor.AusenciaCamposVacios && !validacionProfesor.ExistenciaErrores && !validacionDuplicados)
+                if (!validacionDuplicados)
+                {
+                    await EditarProfesor(correo, direccion, especializacion, nombre, telefono, correoOriginal);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                await EditarProfesor(correo, direccion, especializacion, nombre, telefono, correoOriginal);
+                return true;
+            }
+        }
+
+        public async Task<bool> GestionarAgregarProfesorEnBaseADuplicados(Profesor profesor)
+        {
+            bool validacionDuplicados = ValidarDuplicadosProfesores(profesor.Correo);
+
+            if (!validacionDuplicados)
             {
                 await profesor.Registrar();
             }
 
-            return validacionProfesor;
+            return validacionDuplicados;
         }
 
 
-        public async Task GestionarAsignacionCursoAProfesor(string correoProfesor, string codigoCurso)
+        public async Task<bool> GestionarAsignacionCursoAProfesor(string correoProfesor, string codigoCurso)
         {
-            bool resultadoValidacion = validadorAsignacionCursoAProfesor.ValidarAsignacionDeCursoAProfesor(codigoCurso, _consultasProfesores.DevolverProfesor(correoProfesor));
+            Profesor profesorGestionado = DevolverProfesor(correoProfesor);
+            bool resultadoValidacion = validadorAsignacionCursoAProfesor.ValidarAsignacionDeCursoAProfesor(codigoCurso, profesorGestionado);
+
             if (resultadoValidacion)
             {
                 await _consultasProfesores.AgregarCursoAProfesor(correoProfesor, codigoCurso);
             }
+
+            return resultadoValidacion;
         }
-
-
-        
     }
 }

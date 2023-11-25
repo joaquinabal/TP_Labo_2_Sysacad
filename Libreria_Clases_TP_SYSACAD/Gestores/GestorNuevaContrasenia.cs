@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
+namespace Libreria_Clases_TP_SYSACAD.Gestores
 {
     public class GestorNuevaContrasenia
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
-using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
+using Libreria_Clases_TP_SYSACAD.Gestores;
 
 namespace Test_SYSACAD
 {

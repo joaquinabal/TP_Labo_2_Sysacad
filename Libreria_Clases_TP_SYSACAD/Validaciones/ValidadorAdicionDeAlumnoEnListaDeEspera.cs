@@ -5,8 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
-using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
+using Libreria_Clases_TP_SYSACAD.Gestores;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {

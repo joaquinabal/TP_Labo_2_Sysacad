@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
+namespace Libreria_Clases_TP_SYSACAD.Gestores
 {
     public class GestorReportes //CLASE INTERMEDIA ENTRE FORMS Y LAS CONSULTAS/ESTADISTICAS
     {
@@ -18,7 +18,7 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
         private EstadisticasReportes _generadorDeEstadisticas = new EstadisticasReportes();
 
         /////////////////////////////// METODOS PARA OBTENER LOS REGISTROS ////////////////////////////////
-        
+
         public List<RegistroDeInscripcion> ObtenerInscripcionesPorCursoPeriodo(DateTime fechaDesde, DateTime fechaHasta, string codigoCurso)
         {
             return _consultasInscripciones.ObtenerInscripciones(fechaDesde, fechaHasta, codigoCurso);
@@ -64,13 +64,6 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
         public double CalcularMediaPorDia(List<RegistroDeInscripcion> listaRegistrosMostrados)
         {
             return _generadorDeEstadisticas.CalcularMediaPorDia(listaRegistrosMostrados);
-        }
-
-        /////////////////////////////// METODOS PARA ADMINISTRAR INFORMACION EN FORMS ////////////////////////////////
-
-        public Curso ObtenerCursoAPartirDeNombreYTurno(string nombreCurso, string turno)
-        {
-            return _consultasCursos.ObtenerCursoAPartirDeNombreYTurno(nombreCurso, turno);
         }
     }
 }
