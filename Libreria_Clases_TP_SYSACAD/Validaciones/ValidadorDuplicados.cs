@@ -11,19 +11,11 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
     public static class ValidadorDuplicados
     {
-        public static bool ValidarDuplicadosCursos(string codigo)
-        {
-            return ConsultasCursos.BuscarCursoBD(codigo);
-        }
 
         public static bool ValidarDuplicadosEstudiantes(string legajo, string correo)
         {
             return ConsultasEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
         }
 
-        public static bool ValidarDuplicadosProfesores(string correo)
-        {
-            return ConsultasProfesores.BuscarProfesorExistenteBD(correo);
-        }
     }
 }

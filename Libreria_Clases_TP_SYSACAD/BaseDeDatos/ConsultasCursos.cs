@@ -116,7 +116,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         /////////////////////////////////////READ
 
-        public static bool BuscarCursoBD(string codigo)
+        public bool BuscarCursoBD(string codigo)
         {
             Predicate<Curso> predicado = curso => curso.Codigo == codigo;
 
