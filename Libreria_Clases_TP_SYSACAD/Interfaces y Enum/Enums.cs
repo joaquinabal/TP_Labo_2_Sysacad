@@ -58,4 +58,13 @@ namespace Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum
         InicioCuatri
     }
 
-}
+    public enum Reporte
+    {
+        InscripcionPorPeriodo,
+        EstudiantesEnCursoEspecifico,
+        IngresoPorConceptoDePago,
+        InscripcionPorCarrera,
+        ListaDeEsperaDeCursos
+    }
+
+ }

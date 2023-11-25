@@ -60,6 +60,19 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultadoBusqueda;
         }
 
+        public static Profesor? DevolverProfesor(string correo)
+        {
+            foreach (Profesor profesor in _listaProfesores)
+            {
+                if (profesor.Correo == correo)
+                {
+                    return profesor;
+                }
+            }
+
+            return null;
+        }
+
         ///////////////////////UPDATE
 
         public static async Task EditarProfesor(string correo, string direccion, string especializacion, string nombre, string telefono, string correoOriginal)

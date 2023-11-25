@@ -148,7 +148,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
 
-        public static Curso? ObtenerCursoDesdeCodigo(string codigo)
+        public Curso? ObtenerCursoDesdeCodigo(string codigo)
         {
             Predicate<Curso> predicado = curso => curso.Codigo == codigo;
 
@@ -188,7 +188,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
         }
 
-        public static List<Curso> ObtenerListaCursosDesdeListaCodigos(List<string> listaCodigos)
+        public  List<Curso> ObtenerListaCursosDesdeListaCodigos(List<string> listaCodigos)
         {
             Predicate<Curso> predicado = curso => listaCodigos.Contains(curso.Codigo);
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado);

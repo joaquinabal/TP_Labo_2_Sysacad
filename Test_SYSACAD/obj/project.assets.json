@@ -1880,19 +1880,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\x\\.nuget\\packages\\": {}
+    "C:\\Users\\54113\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Test_SYSACAD\\Test_SYSACAD.csproj",
+      "projectUniqueName": "C:\\Users\\54113\\Desktop\\OK tp2\\TP_Labo_2_Sysacad\\Test_SYSACAD\\Test_SYSACAD.csproj",
       "projectName": "Test_SYSACAD",
-      "projectPath": "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Test_SYSACAD\\Test_SYSACAD.csproj",
-      "packagesPath": "C:\\Users\\x\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Test_SYSACAD\\obj\\",
+      "projectPath": "C:\\Users\\54113\\Desktop\\OK tp2\\TP_Labo_2_Sysacad\\Test_SYSACAD\\Test_SYSACAD.csproj",
+      "packagesPath": "C:\\Users\\54113\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\54113\\Desktop\\OK tp2\\TP_Labo_2_Sysacad\\Test_SYSACAD\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\x\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\54113\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1906,8 +1906,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj": {
-              "projectPath": "C:\\Users\\x\\Documents\\Programming\\Programacion y Laboratorio 2\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj"
+            "C:\\Users\\54113\\Desktop\\OK tp2\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj": {
+              "projectPath": "C:\\Users\\54113\\Desktop\\OK tp2\\TP_Labo_2_Sysacad\\Libreria_Clases_TP_SYSACAD\\Libreria_Clases_TP_SYSACAD.csproj"
             }
           }
         }
