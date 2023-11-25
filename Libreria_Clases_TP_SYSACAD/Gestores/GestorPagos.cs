@@ -86,7 +86,7 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
                 string concepto = kvp.Key;
                 double valor = kvp.Value;
 
-                RegistroDePago nuevoRegistroDePago = new RegistroDePago(Sistema.EstudianteLogueado.Legajo, Sistema.EstudianteLogueado.Nombre, concepto, valor, fechaActual);
+                RegistroDePago nuevoRegistroDePago = new RegistroDePago(Sistema.EstudianteLogueado.Legajo, Sistema.EstudianteLogueado.Nombre, concepto, valor, DateTime.Now);
                 listaRegistrosPago.Add(nuevoRegistroDePago);
             }
 

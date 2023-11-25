@@ -16,13 +16,13 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
 
         /////////////////////////////// GESTION ANTE CONFIRMACION DE REQUISITOS ////////////////////////////////
 
-        public async Task<RespuestaValidacionInput> GestionarConfirmacionRequisitos(Dictionary<string, string> camposIngresados, string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
+        public async Task<RespuestaValidacionInput> GestionarConfirmacionRequisitos(Dictionary<string, string> camposIngresados, string CFCursoAModificar, List<string> CFcorrelatividades, string creditos, string promedio)
         {
             RespuestaValidacionInput respuestaValidacion = ValidarRequisitos(camposIngresados);
 
             if (respuestaValidacion.AusenciaCamposVacios && !respuestaValidacion.ExistenciaErrores)
             {
-                await _consultasCursos.ActualizarRequisitosACursos(CFCursoAModificar, CFcorrelatividades, creditos, promedio);
+                await _consultasCursos.ActualizarRequisitosACursos(CFCursoAModificar, CFcorrelatividades, int.Parse(creditos), double.Parse(promedio));
             }
 
             return respuestaValidacion;

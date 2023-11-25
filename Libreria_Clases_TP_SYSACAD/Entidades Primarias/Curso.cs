@@ -28,6 +28,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         private double _promedioRequerido = 0;
         private string _codigoFamilia;
         private Dictionary<string, DateTime> _alumnosEnListaDeEspera = new Dictionary<string, DateTime>();
+        private ConsultasCursos consultasCursos = new ConsultasCursos();
 
         public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula,
             string dia, Carrera carrera)
@@ -70,7 +71,7 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         /// <param name="nuevoCurso">El curso a ser registrado.</param>
         public async Task Registrar()
         {
-            await ConsultasCursos.IngresarCursoBD(this);
+            await consultasCursos.IngresarCursoBD(this);
 
             //ConsultasCursos.IngresarCursoBD(this);
         }

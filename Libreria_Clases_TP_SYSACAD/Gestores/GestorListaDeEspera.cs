@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Gestores
 {
-    internal class GestorListaDeEspera
+    public class GestorListaDeEspera
     {
         private ConsultasCursos _consultasCursos = new ConsultasCursos();
 

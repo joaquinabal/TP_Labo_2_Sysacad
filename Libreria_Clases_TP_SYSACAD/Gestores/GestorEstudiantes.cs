@@ -43,7 +43,7 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             if (validacionEstudiante.AusenciaCamposVacios && !validacionEstudiante.ExistenciaErrores && !validacionDuplicados)
             {
                 await estudiante.Registrar();
-                await EmisorCorreoElectronico.EnviarCorreoElectronicoCredenciales(nuevoEstudiante, _contraseñaProvisional);
+                await EmisorCorreoElectronico.EnviarCorreoElectronicoCredenciales(estudiante, estudiante.Contrasenia);
             }
 
             return validacionEstudiante;
