@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Gestores
 {
-    internal class GestorPagos
+    public class GestorPagos
     {
         public string ValidarMontoAAbonar(List<double> listaDeMontosAAbonar, List<double> listaDeMontosOriginales)
         {
@@ -21,7 +21,7 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             bool numeroNegativo = validadorMontosAAbonar.VerificarSiHayNumeroNegativo();
             bool valorExcesivo = validadorMontosOriginales.VerificarSiHayValorExcesivo();
 
-            string resultadoValidacion = "";
+            string resultadoValidacion;
 
             if (numeroNegativo && valorExcesivo)
             {

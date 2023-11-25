@@ -30,6 +30,11 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             await _consultasCursos.EditarCursoBD(codigoABuscar, nombre, codigo, descripcion, cupoMaximo, turno, dia, aula);
         }
 
+        public async Task EditarCurso(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
+        {
+            await _consultasCursos.EditarCursoBD(codigoABuscar, nombre, codigo, descripcion, cupoMaximo, turno, dia, aula, codigoFamilia);
+        }
+
         public async Task ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
         {
             await _consultasCursos.ActualizarListaDeEsperaDeCurso(cursoRecibido, listaEsperaRecibida);
@@ -72,37 +77,52 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
 
         //////////////////////////////////////GESTION/////////////////////////////////
 
-        public async Task<RespuestaValidacionInput> GestionarEdicionCurso(Dictionary<string, string> dictCampos, string codigoABuscar, string nombre, string codigo, string descripcion, string cupoMaximo, string turno, string dia, string aula)
+        public RespuestaValidacionInput ValidarInputsCursos(Dictionary<string, string> dictCampos)
         {
             ValidadorInputGenerico validadorInputCursos = new ValidadorInputGenerico();
-            bool validacionDuplicados = ValidarDuplicadosCursos(codigo);
             RespuestaValidacionInput validacionCursos = validadorInputCursos.ValidarDatos(dictCampos, ModoValidacionInput.CursoAgregarOEditar);
-
-            if (validacionCursos.AusenciaCamposVacios && !validacionCursos.ExistenciaErrores && !validacionDuplicados)
-            {
-                await EditarCurso(codigoABuscar, nombre, codigo, descripcion, int.Parse(cupoMaximo), turno, dia, aula);
-            }
 
             return validacionCursos;
         }
 
-        public async Task<RespuestaValidacionInput> GestionarAgregarCurso(Dictionary<string, string> dictCampos, string nombre, string codigo, string descripcion, string cupoMaximo, string turno, string dia, string aula, Carrera carrera)
+        public async Task<bool> GestionarEdicionCursoEnBaseADuplicados(bool cambioDeCodigo, string codigoOriginal, string nombre, string codigo, string descripcion, string cupoMaximo, string turno, string dia, string aula)
         {
-            ValidadorInputGenerico validadorInputCursos = new ValidadorInputGenerico();
-
-            RespuestaValidacionInput validacionCursos = validadorInputCursos.ValidarDatos(dictCampos, ModoValidacionInput.CursoAgregarOEditar);
-
-            if (validacionCursos.AusenciaCamposVacios && !validacionCursos.ExistenciaErrores)// && !validacionDuplicados)
+            if (cambioDeCodigo)
             {
-                Curso nuevoCurso = new Curso(nombre, codigo, descripcion, int.Parse(cupoMaximo), turno, aula, dia, carrera);
-                bool validacionDuplicados = ValidarDuplicadosCursos(nuevoCurso.Codigo);
+                bool validacionDuplicados = ValidarDuplicadosCursos(codigo);
+
                 if (!validacionDuplicados)
                 {
-                    await nuevoCurso.Registrar();
-                }                
+                    string nuevoCodigoFamilia = ConsultasCursos.ObtenerCodigoDeFamilia(codigo);
+
+                    await EditarCurso(codigoOriginal, nombre, codigo, descripcion, int.Parse(cupoMaximo), turno, dia, aula, nuevoCodigoFamilia);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                await EditarCurso(codigoOriginal, nombre, codigo, descripcion, int.Parse(cupoMaximo), turno, dia, aula);
+
+                return true;
+            }
+        }
+
+        public async Task<bool> GestionarAgregarCurso(string nombre, string codigo, string descripcion, string cupoMaximo, string turno, string dia, string aula, Carrera carrera)
+        {
+            bool validacionDuplicados = ValidarDuplicadosCursos(codigo);
+
+            if (!validacionDuplicados)
+            {
+                Curso nuevoCurso = new Curso(nombre, codigo, descripcion, int.Parse(cupoMaximo), turno, aula, dia, carrera);
+                await nuevoCurso.Registrar();         
             }
 
-            return validacionCursos;
+            return validacionDuplicados;
         }
 
         public async Task<ValidacionInscripcionResultado> GestionarInscripcionACurso(List<Curso> cursosSeleccionados)

@@ -31,22 +31,31 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             return ConsultasEstudiantes.BuscarUsuarioExistenteBD(correo, legajo);
         }
 
-        ///////////////////////////////GESTION///////////////////////////////////////
-
-
-        public async Task<RespuestaValidacionInput> GestionarRegistrarEstudiante(Dictionary<string, string> dictCampos, Estudiante estudiante)
+        public async Task<bool> EnviarCorreoElectronicoAEstudiante(Estudiante estudiante)
         {
-            ValidadorInputGenerico validadorInputEstudiante = new ValidadorInputGenerico();
-            bool validacionDuplicados = ValidarDuplicadosEstudiantes(estudiante.Legajo, estudiante.Correo);
-            RespuestaValidacionInput validacionEstudiante = validadorInputEstudiante.ValidarDatos(dictCampos, ModoValidacionInput.Estudiantes);
+            bool resultadoEmisionCorreo = await EmisorCorreoElectronico.EnviarCorreoElectronicoCredenciales(estudiante, estudiante.Contrasenia);
+            return resultadoEmisionCorreo;
+        }
 
-            if (validacionEstudiante.AusenciaCamposVacios && !validacionEstudiante.ExistenciaErrores && !validacionDuplicados)
+        ///////////////////////////////GESTION///////////////////////////////////////
+        public RespuestaValidacionInput ValidarInputsEstudiantes(Dictionary<string, string> dictCampos)
+        {
+            ValidadorInputGenerico validadorInputEstudiantes = new ValidadorInputGenerico();
+            RespuestaValidacionInput validacionEstudiantes = validadorInputEstudiantes.ValidarDatos(dictCampos, ModoValidacionInput.Estudiantes);
+
+            return validacionEstudiantes;
+        }
+
+        public async Task<bool> GestionarRegistrarEstudianteEnBaseADuplicados(Estudiante estudiante)
+        {
+            bool validacionDuplicados = ValidarDuplicadosEstudiantes(estudiante.Legajo, estudiante.Correo);
+
+            if (!validacionDuplicados)
             {
                 await estudiante.Registrar();
-                await EmisorCorreoElectronico.EnviarCorreoElectronicoCredenciales(estudiante, estudiante.Contrasenia);
             }
 
-            return validacionEstudiante;
+            return validacionDuplicados;
         }
 
 
