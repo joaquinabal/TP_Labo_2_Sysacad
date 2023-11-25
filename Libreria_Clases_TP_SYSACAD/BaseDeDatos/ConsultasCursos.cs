@@ -27,23 +27,23 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         //////////////////////////////////CREATE
 
-        private static int ObtenerIdDesdeTexto(string tabla, string campo, string valor)
+        private int ObtenerIdDesdeTexto(string tabla, string campo, string valor)
         {
             string query = $"SELECT id FROM {tabla} WHERE {campo} = @valor";
             return ConsultasGenericas.EjecutarEscalar<int>(query, "@valor", valor);
         }
 
-        private static int ObtenerTurnoIdSegunTexto(string nombreTurno)
+        private int ObtenerTurnoIdSegunTexto(string nombreTurno)
         {
             return ObtenerIdDesdeTexto("Turno", "nombre", nombreTurno);
         }
 
-        private static int ObtenerDiaIdSegunTexto(string nombreDia)
+        private  int ObtenerDiaIdSegunTexto(string nombreDia)
         {
             return ObtenerIdDesdeTexto("Dia", "nombre", nombreDia);
         }
 
-        private static async Task<int> ObtenerIdDeCodigoFamilia(string codigoFamilia)
+        private  async Task<int> ObtenerIdDeCodigoFamilia(string codigoFamilia)
         {
             int? codigoFamiliaId = ObtenerIdDesdeTexto("CodigoFamilia", "codigo", codigoFamilia);
 
@@ -59,7 +59,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
-        private static async Task<int> AgregarNuevoCodigoDeFamiliaYDevolverSuId(string codigoFamilia)
+        private  async Task<int> AgregarNuevoCodigoDeFamiliaYDevolverSuId(string codigoFamilia)
         {
             using (var connectionAlternativa2 = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
@@ -86,7 +86,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
-        internal static async Task IngresarCursoBD(Curso nuevoCurso)
+        internal async Task IngresarCursoBD(Curso nuevoCurso)
         {
             string query = "INSERT INTO Curso (codigo, nombre, descripcion, cupoMaximo, cupoDisponible, turnoId, aula, diaId, carreraCodigo, creditosRequeridos, promedioRequerido, codigoFamiliaId) " +
                    "VALUES (@codigo, @nombre, @descripcion, @cupoMaximo, @cupoDisponible, @turnoId, @aula, @diaId, @carreraCodigo, @creditosRequeridos, @promedioRequerido, @codigoFamiliaId)";
@@ -283,7 +283,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
-        private static async Task AgregarNuevasCorrelatividadesACursoSeleccionado(string CFCursoAModificar, List<string> CFNuevasCorrelatividades)
+        private async Task AgregarNuevasCorrelatividadesACursoSeleccionado(string CFCursoAModificar, List<string> CFNuevasCorrelatividades)
         {
             int idCodigoFamilia = await ObtenerIdDeCodigoFamilia(CFCursoAModificar);
 
@@ -350,7 +350,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
-        public static async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
+        public async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
         {
             int idTurno = ObtenerTurnoIdSegunTexto(turno);
             int idDia = ObtenerDiaIdSegunTexto(dia);
