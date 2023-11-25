@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms_TP_SYSACAD", "..\Form
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_SYSACAD", "..\Test_SYSACAD\Test_SYSACAD.csproj", "{7CBB9D80-101B-4DF0-B254-B5710F51A8B2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms_TP_Labo_2_Sysacad", "..\Forms_TP_Labo_2_Sysacad\Forms_TP_Labo_2_Sysacad.csproj", "{EB35AB38-CD27-4647-9A27-C1A5E1495887}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7CBB9D80-101B-4DF0-B254-B5710F51A8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CBB9D80-101B-4DF0-B254-B5710F51A8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CBB9D80-101B-4DF0-B254-B5710F51A8B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB35AB38-CD27-4647-9A27-C1A5E1495887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB35AB38-CD27-4647-9A27-C1A5E1495887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB35AB38-CD27-4647-9A27-C1A5E1495887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB35AB38-CD27-4647-9A27-C1A5E1495887}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
