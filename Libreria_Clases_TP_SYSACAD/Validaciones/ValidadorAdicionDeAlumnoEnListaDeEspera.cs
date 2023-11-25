@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Libreria_Clases_TP_SYSACAD.BaseDeDatos;
+using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
 using Libreria_Clases_TP_SYSACAD.EntidadesPrimarias;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
@@ -16,6 +17,7 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         bool existenciaDeErrores;
         bool existenciaDelAlumno;
         bool existenciaEnListaDeEspera;
+        private GestorEstudiantes gestorEstudiantes = new GestorEstudiantes(); 
 
         public RespuestaValidacionInput ValidarAdicionAlumnoEnLista(string legajoDelAlumno, Curso cursoRecibido)
         {
@@ -42,7 +44,7 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
                 {
                     //Guardo el resultado de la busqueda
                     //Estudiante estudianteEncontrado = Sistema.BaseDatosEstudiantes.ObtenerEstudianteSegunLegajo(legajoDelAlumno);
-                    Estudiante estudianteEncontrado = ConsultasEstudiantes.ObtenerEstudianteSegunLegajo(legajoDelAlumno);
+                    Estudiante estudianteEncontrado = gestorEstudiantes.ObtenerEstudianteSegunLegajo(legajoDelAlumno);
 
                     //Verifico si se encontro al estudiante
                     if (estudianteEncontrado != null)

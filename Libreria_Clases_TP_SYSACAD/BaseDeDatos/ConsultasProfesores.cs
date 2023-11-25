@@ -45,7 +45,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////READ
 
-        internal static bool BuscarProfesorExistenteBD(string correo)
+        public bool BuscarProfesorExistenteBD(string correo)
         {
             bool resultadoBusqueda = false;
 
@@ -60,7 +60,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultadoBusqueda;
         }
 
-        public static Profesor? DevolverProfesor(string correo)
+        public Profesor? DevolverProfesor(string correo)
         {
             foreach (Profesor profesor in _listaProfesores)
             {
@@ -75,7 +75,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////UPDATE
 
-        public static async Task EditarProfesor(string correo, string direccion, string especializacion, string nombre, string telefono, string correoOriginal)
+        public async Task EditarProfesor(string correo, string direccion, string especializacion, string nombre, string telefono, string correoOriginal)
         {
             string query = "UPDATE Profesores SET nombre = @nombre, direccion = @direccion, telefono = @telefono, correo = @correo, especializacion = @especializacion WHERE correo = @correoOriginal";
 
@@ -94,7 +94,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             CrearInstanciasDeProfesoresAPartirDeBD();
         }
 
-        public static async Task AgregarCursoAProfesor(string correoProfesor, string codigoCurso)
+        public async Task AgregarCursoAProfesor(string correoProfesor, string codigoCurso)
         {
             string query = "INSERT INTO ProfesoresEnCursos (correoProfesor, codigoCurso) " +
                    "VALUES (@correo, @codigo)";
@@ -112,7 +112,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////DELETE
 
-        public static async Task EliminarProfesorBD(string correo)
+        public async Task EliminarProfesorBD(string correo)
         {
             string query = @"DELETE FROM Profesores WHERE correo = @correo";
 

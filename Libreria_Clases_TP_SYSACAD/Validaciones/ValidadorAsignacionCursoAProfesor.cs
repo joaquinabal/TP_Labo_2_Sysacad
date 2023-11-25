@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
-    public static class ValidadorAsignacionCursoAProfesor
+    public class ValidadorAsignacionCursoAProfesor
     {
         //VALIDO QUE NO HAYA CONFLICTOS DE HORARIOS
+        private ConsultasCursos consultasCursos = new ConsultasCursos();
 
-        public static bool ValidarAsignacionDeCursoAProfesor(string codigoCursoAsignar, Profesor profesor)
+        public  bool ValidarAsignacionDeCursoAProfesor(string codigoCursoAsignar, Profesor profesor)
         {
             bool resultadoValidacion = true;
             
             if (profesor.CodigosCursosDeProfesor.Count > 0)
             {
-                List<Curso> listaCursosDelProfesor = ConsultasCursos.ObtenerListaCursosDesdeListaCodigos(profesor.CodigosCursosDeProfesor);
-                Curso cursoAAsignar = ConsultasCursos.ObtenerCursoDesdeCodigo(codigoCursoAsignar);
+                List<Curso> listaCursosDelProfesor = consultasCursos.ObtenerListaCursosDesdeListaCodigos(profesor.CodigosCursosDeProfesor);
+                Curso cursoAAsignar = consultasCursos.ObtenerCursoDesdeCodigo(codigoCursoAsignar);
 
                 foreach (Curso cursoDelProfesor in listaCursosDelProfesor)
                 {
