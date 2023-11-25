@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
 
 namespace Forms_TP_Labo_2_Sysacad
 {
@@ -22,6 +23,7 @@ namespace Forms_TP_Labo_2_Sysacad
         private string _turno;
         private string _aula;
         private string _dia;
+        private GestorCursos gestorCursos = new GestorCursos();
 
         public FormEliminarCurso(Curso curso)
         {
@@ -79,9 +81,9 @@ namespace Forms_TP_Labo_2_Sysacad
             _descripcion = descripcionTextbox.Text;
         }
 
-        private void eliminarBtn_Click(object sender, EventArgs e)
+        private async void eliminarBtn_Click(object sender, EventArgs e)
         {
-            ConsultasCursos.EliminarCursoBD(_codigo);
+            await gestorCursos.EliminarCurso(_codigo);
             MessageBox.Show("Curso eliminado exitosmente.");
             this.Close();
             FormPanelAdmCursos formPanelAdmCursos = new FormPanelAdmCursos();

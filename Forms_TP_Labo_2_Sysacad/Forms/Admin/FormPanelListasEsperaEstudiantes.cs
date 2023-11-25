@@ -19,30 +19,21 @@ namespace Forms_TP_Labo_2_Sysacad.Forms.Admin
         private List<Estudiante> _listaEstudiantes = new List<Estudiante>();
         private Curso _cursoSeleccionado;
         private Estudiante _estudianteSeleccionado;
-        private BindingSource miBindingSource = new BindingSource();
         private Dictionary<string, DateTime> _listaEsperaCurso;
-        private Dictionary<Curso, Dictionary<string, DateTime>> dictCursosLista;
         private bool _flagEstudianteSeleccionado = false;
         private GestorReportes gestorReportes = new GestorReportes();
-
+        private GestorCursos gestorCursos = new GestorCursos();
+        private GestorEstudiantes gestorEstudiantes = new GestorEstudiantes();
 
         public FormPanelListasEsperaEstudiantes(Curso curso)
         {
             InitializeComponent();
             CursoSeleccionado = curso;
-            // dictCursosLista  = ConsultasCursos.DevolverDiccionarioConRegistrosListaDeEsperaSegunFechas(DateTime.MinValue, DateTime.MaxValue);
             ListaEsperaCurso = DevolverListaEsperaSegunCurso(curso);
-            //ListaEsperaCurso = curso.ListaDeEspera;
-            //ConsultasCursos.ActualizarListaDeEsperaDeCurso(CursoSeleccionado, ListaEsperaCurso);
-            // ListaEsperaCurso = curso.ListaDeEspera;
             ListaEstudiantes = DevolverListaEstudiantesSegunListaEspera(ListaEsperaCurso);
             CrearColumnas();
             AgregarEstudiantesEnDGV();
             OrdenarDGVSegunFechaInscripcionAscendente();
-
-            // ConfigurarBindingSource();
-            // MostrarEstudiantes();
-
         }
 
         private void CrearColumnas()
@@ -99,7 +90,7 @@ namespace Forms_TP_Labo_2_Sysacad.Forms.Admin
 
             foreach (string legajo in dictListaEspera.Keys)
             {
-                Estudiante estudiante = ConsultasEstudiantes.ObtenerEstudianteSegunLegajo(legajo);
+                Estudiante estudiante = gestorEstudiantes.ObtenerEstudianteSegunLegajo(legajo);
                 ListaEstudiantesEnListaEspera.Add(estudiante);
             }
 
@@ -120,7 +111,7 @@ namespace Forms_TP_Labo_2_Sysacad.Forms.Admin
             if (FlagEstudianteSeleccionado)
             {
                 ListaEsperaCurso.Remove(EstudianteSeleccionado.Legajo);
-                await ConsultasCursos.ActualizarListaDeEsperaDeCurso(CursoSeleccionado, ListaEsperaCurso);
+                await gestorCursos.ActualizarListaDeEsperaDeCurso(CursoSeleccionado, ListaEsperaCurso);
 
                 MessageBox.Show("Estudiante eliminado correctamente.");
 
@@ -149,7 +140,7 @@ namespace Forms_TP_Labo_2_Sysacad.Forms.Admin
 
             string legajoEstudianteSelecionado = filaSeleccionada.Cells[1].Value.ToString();
 
-            EstudianteSeleccionado = ConsultasEstudiantes.ObtenerEstudianteSegunLegajo(legajoEstudianteSelecionado);
+            EstudianteSeleccionado = gestorEstudiantes.ObtenerEstudianteSegunLegajo(legajoEstudianteSelecionado);
 
         }
 

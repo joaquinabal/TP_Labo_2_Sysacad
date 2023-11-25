@@ -23,6 +23,8 @@ namespace Forms_TP_Labo_2_Sysacad.Forms.Admin
         private BindingSource miBindingSource = new BindingSource();
         private Dictionary<string, DateTime> _listaEsperaCurso;
         private bool _flagEstudianteSeleccionado = false;
+        private GestorCursos gestorCursos = new GestorCursos();
+        private GestorEstudiantes gestorEstudiantes = new GestorEstudiantes();
         public FormAgregarEstudianteAListaDeEspera(Curso curso)
         {
             InitializeComponent();
@@ -91,7 +93,7 @@ namespace Forms_TP_Labo_2_Sysacad.Forms.Admin
 
             string legajoEstudianteSelecionado = filaSeleccionada.Cells[1].Value.ToString();
 
-            EstudianteSeleccionado = ConsultasEstudiantes.ObtenerEstudianteSegunLegajo(legajoEstudianteSelecionado);
+            EstudianteSeleccionado = gestorEstudiantes.ObtenerEstudianteSegunLegajo(legajoEstudianteSelecionado);
         }
 
         private async void agregarEstBtn_Click(object sender, EventArgs e)
@@ -118,9 +120,8 @@ namespace Forms_TP_Labo_2_Sysacad.Forms.Admin
                 {
                     Sistema.IngresarEstudianteComoUsuarioActivo(EstudianteSeleccionado.Correo);
                     await validadorDeInscripciones.ValidarCursosSegunCupo(listaCursoSelecionado);
-                    //ConsultasCursos.AgregarEstudianteAListaDeEspera(CursoSeleccionado.Codigo, EstudianteSeleccionado.Legajo);
                     ListaEsperaCurso = DevolverListaEsperaSegunCurso(CursoSeleccionado);
-                    await ConsultasCursos.ActualizarListaDeEsperaDeCurso(CursoSeleccionado, ListaEsperaCurso);
+                    await gestorCursos.ActualizarListaDeEsperaDeCurso(CursoSeleccionado, ListaEsperaCurso);
                     Console.WriteLine(CursoSeleccionado.ListaDeEspera);
                     MessageBox.Show("Alumno ingresado a la lista de espera.");
                 }

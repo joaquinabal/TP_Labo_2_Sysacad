@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
 
 namespace Forms_TP_Labo_2_Sysacad
 {
@@ -17,6 +18,7 @@ namespace Forms_TP_Labo_2_Sysacad
     {
         private List<Curso> _listaCursos = new List<Curso>();
         private BindingSource miBindingSource = new BindingSource();
+        private GestorCursos gestorCursos = new GestorCursos();
 
         public FormPanelEstCursos()
         {
@@ -43,7 +45,7 @@ namespace Forms_TP_Labo_2_Sysacad
         private void MostrarCursos()
         {
 
-            ListaCursos = ConsultasCursos.ObtenerListaCursosDesdeListaCodigos(Sistema.EstudianteLogueado.CursosInscriptos);
+            ListaCursos = gestorCursos.ObtenerListaCursosDesdeListaCodigos(Sistema.EstudianteLogueado.CursosInscriptos);
             // Obtenemos el BindingSource que enlaza el DataGridView
             BindingSource bindingSource = (BindingSource)cursosDGV.DataSource;
             // Obtenemos la BindingList<Curso> desde el BindingSource

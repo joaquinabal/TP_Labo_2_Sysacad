@@ -65,7 +65,7 @@ namespace Forms_TP_Labo_2_Sysacad
                 ValidadorDeInscripciones validadorCursos = new ValidadorDeInscripciones();
                 List<Curso> listaCursoSeleccionado = new List<Curso> { CursoSeleccionado };
 
-                List<Curso> listaCursosEstudianteLogueado = ConsultasCursos.ObtenerListaCursosDesdeListaCodigos(Sistema.EstudianteLogueado.CursosInscriptos);
+                List<Curso> listaCursosEstudianteLogueado = gestorCursos.ObtenerListaCursosDesdeListaCodigos(Sistema.EstudianteLogueado.CursosInscriptos);
                 if (listaCursosEstudianteLogueado.Any(curso => curso == CursoSeleccionado))
                 {
 

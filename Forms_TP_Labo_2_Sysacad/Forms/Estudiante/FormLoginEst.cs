@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
+using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
 
 namespace Forms_TP_Labo_2_Sysacad
 {
@@ -20,7 +21,7 @@ namespace Forms_TP_Labo_2_Sysacad
     {
         private string _mailLogInEst;
         private string _passwordLogInEst;
-
+        private GestorEstudiantes gestorEstudiantes = new GestorEstudiantes();
         public string Mail
         {
             get { return _mailLogInEst; }
@@ -58,7 +59,7 @@ namespace Forms_TP_Labo_2_Sysacad
 
             if (resultadoValidacion == MensajeRespuestaValidacionCredencialesContraseña.OK)
             {
-                if (ConsultasEstudiantes.BuscarSiUsuarioDebeCambiarContrasenia(Mail))
+                if (gestorEstudiantes.BuscarSiUsuarioDebeCambiarContrasenia(Mail))
                 {
                     this.Close();
                     FormContraseñaProv formContraseñaProv = new FormContraseñaProv(Mail);

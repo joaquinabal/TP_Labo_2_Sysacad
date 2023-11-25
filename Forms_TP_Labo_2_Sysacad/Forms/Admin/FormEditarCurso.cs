@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Libreria_Clases_TP_SYSACAD.Validaciones;
 using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
+using Libreria_Clases_TP_SYSACAD.Entidades_Secundarias;
 
 namespace Forms_TP_Labo_2_Sysacad
 {
@@ -27,6 +28,7 @@ namespace Forms_TP_Labo_2_Sysacad
 
         private string _codigoOriginal;
 
+        private GestorCursos gestorCursos = new GestorCursos(); 
         public FormEditarCurso(Curso curso)
         {
             InitializeComponent();
@@ -138,7 +140,7 @@ namespace Forms_TP_Labo_2_Sysacad
         }
 
 
-        private void editarBtn_Click(object sender, EventArgs e)
+        private async void editarBtn_Click(object sender, EventArgs e)
         {
             ValidadorInputGenerico validadorInputCursos = new ValidadorInputGenerico();
 
@@ -165,7 +167,7 @@ namespace Forms_TP_Labo_2_Sysacad
             }
             else
             {   
-                ConsultasCursos.EditarCursoBD(_codigoOriginal, _nombre, _codigo, _descripcion, int.Parse(_cupo), _turno, _dia, _aula);
+                await gestorCursos.EditarCurso(_codigoOriginal, _nombre, _codigo, _descripcion, int.Parse(_cupo), _turno, _dia, _aula);
                 MessageBox.Show("Edicion OK");
                 this.Hide();
                 FormPanelAdmCursos formPanelAdmCursos = new FormPanelAdmCursos();

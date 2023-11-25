@@ -324,7 +324,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////UPDATE TABLA CURSOS
 
-        public static async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
+        public async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
         {
             int idTurno = ObtenerTurnoIdSegunTexto(turno);
             int idDia = ObtenerDiaIdSegunTexto(dia);
@@ -408,7 +408,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
-        public static async Task ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
+        public async Task ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
         {
             await EliminarListaEsperaDeCursoSeleccionado(cursoRecibido.Codigo);
             await AgregarNuevaListaEsperaACursoSeleccionado(cursoRecibido.Codigo, listaEsperaRecibida);
@@ -460,7 +460,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
-        public static async Task EliminarCursoBD(string codigoABuscar)
+        public async Task EliminarCursoBD(string codigoABuscar)
         {
             string query = "DELETE FROM Curso WHERE codigo = @codigoABuscar";
 

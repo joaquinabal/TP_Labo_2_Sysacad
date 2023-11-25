@@ -104,7 +104,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return estudiantesFiltrados.Count > 0;
         }
 
-        public static bool BuscarSiUsuarioDebeCambiarContrasenia(string correo)
+        public bool BuscarSiUsuarioDebeCambiarContrasenia(string correo)
         {
             Predicate<Estudiante> predicado = estudiante => estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true;
 
@@ -112,7 +112,7 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return estudiantesFiltrados.Count > 0;
         }
 
-        public static Estudiante ObtenerEstudianteSegunLegajo(string legajo)
+        public Estudiante? ObtenerEstudianteSegunLegajo(string legajo)
         {
             Predicate<Estudiante> predicado = estudiante => estudiante.Legajo == legajo;
 

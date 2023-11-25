@@ -21,6 +21,21 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Secundarias
         {
             return _consultasCursos.ObtenerListaCursosDesdeListaCodigos(listaCodigos);
         }
+
+        public async Task EditarCurso(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
+        {
+             await _consultasCursos.EditarCursoBD(codigoABuscar, nombre, codigo, descripcion, cupoMaximo, turno, dia, aula);
+        }
+
+        public async Task ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
+        {
+            await _consultasCursos.ActualizarListaDeEsperaDeCurso(cursoRecibido, listaEsperaRecibida);
+        }
+
+        public async Task EliminarCurso(string codigoABuscar)
+        {
+            await _consultasCursos.EliminarCursoBD(codigoABuscar);
+        }
     } 
 
     
