@@ -16,6 +16,10 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
         private double _ingreso;
         private DateTime _fechaPago;
 
+        /// <summary>
+        /// Constructor de la clase RegistroDePago.
+        /// Inicializa los atributos del registro de pago.
+        /// </summary>
         public RegistroDePago(string legajo, string nombre, string concepto, double ingreso,
             DateTime fechaPago)
         {

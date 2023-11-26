@@ -17,6 +17,10 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Primarias
         private string _especializacion;
         private List<string> _codigosCursosDeProfesor = new List<string>();
 
+        /// <summary>
+        /// Constructor de la clase Profesor.
+        /// Inicializa los atributos del profesor.
+        /// </summary>
         public Profesor(string nombre, string direccion, string telefono, string correo, string especializacion)
         {
             _nombre = nombre;
@@ -36,6 +40,10 @@ namespace Libreria_Clases_TP_SYSACAD.Entidades_Primarias
             _codigosCursosDeProfesor = codigosCursosDeProfesor;
         }
 
+        /// <summary>
+        /// Registra un nuevo profesor utilizando el método de consulta asíncrona.
+        /// </summary>
+        /// <returns>Una tarea que representa la operación asincrónica.</returns>
         public async Task Registrar()
         {
             await ConsultasProfesores.IngresarNuevoProfesor(this);

@@ -10,16 +10,6 @@ using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 
 namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
-    //public enum ValidacionInscripcionResultado
-    //{
-    //    SinSeleccion,
-    //    Exitoso,
-    //    NoCumpleAlgunosRequisitos,
-    //    NoCumpleNingunRequisito,
-    //    SinCupoAbsoluto,
-    //    SinCupoParcial
-    //}
-
     public class ValidadorDeInscripciones
     {
         private List<string> _cursosSinCupo = new List<string>();

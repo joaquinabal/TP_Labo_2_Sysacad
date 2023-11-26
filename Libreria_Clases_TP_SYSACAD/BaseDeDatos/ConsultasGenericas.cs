@@ -194,8 +194,6 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
                     command.Parameters.AddWithValue(parametro.Key, parametro.Value);
                 }
 
-                //command.ExecuteNonQuery();
-
                 await command.ExecuteNonQueryAsync();
             }
             catch (SqlException ex)

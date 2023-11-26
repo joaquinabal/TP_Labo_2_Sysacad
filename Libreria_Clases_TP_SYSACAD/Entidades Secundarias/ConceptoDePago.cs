@@ -13,6 +13,10 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
         private double _montoPendiente;
 
         // Concepto de pago que el estudiante deberá abonar
+        /// <summary>
+        /// Constructor de la clase ConceptoDePago.
+        /// Inicializa los atributos del concepto de pago.
+        /// </summary>
         public ConceptoDePago(string nombre, double montoInicial, double montoPendiente)
         {
             _nombre = nombre;

@@ -16,6 +16,11 @@ namespace Libreria_Clases_TP_SYSACAD.Persistencia
     {
         private static string _pathArchivoJSON;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase RegistroExcepciones.
+        /// Configura la ruta del archivo JSON para el registro de excepciones.
+        /// Si el directorio o el archivo no existen, los crea.
+        /// </summary>
         public RegistroExcepciones() 
         {
             Environment.SpecialFolder directorioDocumentos = Environment.SpecialFolder.MyDocuments;

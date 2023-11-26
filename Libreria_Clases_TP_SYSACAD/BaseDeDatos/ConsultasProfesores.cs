@@ -151,7 +151,6 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////DELETE
 
-
         /// <summary>
         /// Elimina un profesor de la base de datos según su correo electrónico.
         /// </summary>

@@ -8,12 +8,6 @@ using Libreria_Clases_TP_SYSACAD.Interfaces_y_Enum;
 
 namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
-    //public enum Carrera
-    //{
-    //    TUP,
-    //    TUSI
-    //}
-
     public class RegistroDeInscripcion : IRegistroEstadistico, IEntidadReconstruida, IEntidadRegistro
     {
         private string _legajo;
@@ -23,6 +17,10 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
         private Carrera _carrera;
         private DateTime _fechaInscripcion;
 
+        /// <summary>
+        /// Constructor de la clase RegistroDeInscripcion.
+        /// Inicializa los atributos del registro de inscripcion.
+        /// </summary>
         public RegistroDeInscripcion(string legajo, string nombreAlumno, string nombreCurso, string codigoCurso, Carrera carrera, DateTime fechaInscripcion)
         {
             _legajo = legajo;

@@ -30,6 +30,10 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         private Dictionary<string, DateTime> _alumnosEnListaDeEspera = new Dictionary<string, DateTime>();
         private ConsultasCursos consultasCursos = new ConsultasCursos();
 
+        /// <summary>
+        /// Constructor de la clase Curso.
+        /// Inicializa los atributos del curso.
+        /// </summary>
         public Curso(string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string aula,
             string dia, Carrera carrera)
         {
@@ -72,8 +76,6 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         public async Task Registrar()
         {
             await consultasCursos.IngresarCursoBD(this);
-
-            //ConsultasCursos.IngresarCursoBD(this);
         }
 
         /// <summary>
@@ -116,6 +118,10 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             return horarioADevolver;
         }
 
+        /// <summary>
+        /// Genera un nuevo código de familia basado en el nombre actual.
+        /// </summary>
+        /// <returns>Un string que representa el nuevo código de familia generado.</returns>
         private string ObtenerNuevoCodigoFamilia()
         {
             string codigoFamiliaGenerado = _nombre.Replace(" ", "").ToUpper();

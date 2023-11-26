@@ -11,6 +11,11 @@ namespace Test_SYSACAD
     [TestClass]
     public class CredencialesTests
     {
+        /// <summary>
+        /// Verifica que el método ValidarCredenciales de la clase ValidadorCredenciales
+        /// devuelva MensajeRespuestaValidacionCredencialesContraseña.camposVacios
+        /// cuando se le proporcionan campos de correo y contraseña vacíos.
+        /// </summary>
         [TestMethod]
         public void ValidarCredenciales_DeberiaDevolverCamposVacios_CuandoCamposEstanVacios()
         {
@@ -28,7 +33,9 @@ namespace Test_SYSACAD
         }
 
         /// <summary>
-        /// Verifica si la validación de credenciales devuelve campos vacíos cuando se proporcionan campos vacíos.
+        /// Verifica que el método ValidarCredenciales de la clase ValidadorCredenciales
+        /// devuelva MensajeRespuestaValidacionCredencialesContraseña.OK
+        /// cuando se le proporcionan credenciales válidas.
         /// </summary>
         [TestMethod]
         public void ValidarCredenciales_DeberiaDevolverOK_CuandoCredencialesSonValidas()
