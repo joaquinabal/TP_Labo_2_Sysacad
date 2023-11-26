@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Forms\Admin\Cursos\FormAgregarCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Lista de Espera\FormAgregarEstudianteAListaDeEspera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Profesores\FormAgregarProf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Profesores\FormAsignarCursoAProf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Requisitos Academicos\FormEditarCreditosRequeridos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Cursos\FormEditarCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Profesores\FormEditarProf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Requisitos Academicos\FormEditarPromedioRequerido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Requisitos Academicos\FormEditarRequisitoCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Cursos\FormEliminarCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Profesores\FormEliminarProf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\FormLoginAdm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Cursos\FormPanelAdmCursos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\FormPanelAdministrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Profesores\FormPanelAdmProf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Lista de Espera\FormPanelListasEspera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Lista de Espera\FormPanelListasEsperaEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Requisitos Academicos\FormPanelReqAcademicos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormParamCursoEspecifico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormParamFechas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\FormRegEst.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormReporteEstudiantesCursoEspecifico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormReporteIncripcionPorPeriodo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormReporteIngresosConceptoPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormReporteInscripcionPorCarrera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormReporteListaEsperaCursos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Reportes\FormSeleccionReporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\Pagos\FormComprobantePago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\Cursos\FormConsultarHorario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\FormContraseñaProv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\Pagos\FormGestionarPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\Cursos\FormInscripcionCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\FormLoginEst.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\Pagos\FormPagoTarjeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\Pagos\FormPagoTransferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\FormPanelEst.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Estudiante\Cursos\FormPanelEstCursos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\FormPadre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\FormPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
