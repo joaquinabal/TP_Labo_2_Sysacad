@@ -17,8 +17,15 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         bool existenciaDeErrores;
         bool existenciaDelAlumno;
         bool existenciaEnListaDeEspera;
-        private GestorEstudiantes gestorEstudiantes = new GestorEstudiantes(); 
+        private GestorEstudiantes gestorEstudiantes = new GestorEstudiantes();
 
+
+        /// <summary>
+        /// Valida la adición de un alumno a una lista.
+        /// </summary>
+        /// <param name="legajoDelAlumno">Legajo del alumno a validar.</param>
+        /// <param name="cursoRecibido">Curso al que se intenta añadir al alumno.</param>
+        /// <returns>Respuesta de validación de la adición del alumno.</returns>
         public RespuestaValidacionInput ValidarAdicionAlumnoEnLista(string legajoDelAlumno, Curso cursoRecibido)
         {
             //Paso el campo recibido a una lista para ejecutar validaciones
@@ -63,6 +70,12 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             return respuesta;
         }
 
+
+        /// <summary>
+        /// Valida el formato del legajo mediante expresiones regulares.
+        /// </summary>
+        /// <param name="diccionarioConCamposIngresados">Diccionario con campos de ingreso.</param>
+        /// <returns>Lista de errores de validación.</returns>
         protected override List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados)
         {
             List<string> listaErrores = new List<string>();
@@ -76,6 +89,12 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             return listaErrores;
         }
 
+        /// <summary>
+        /// Verifica si un estudiante se encuentra en la lista de espera de un curso.
+        /// </summary>
+        /// <param name="estudiante">Estudiante a verificar.</param>
+        /// <param name="curso">Curso en el que se busca al estudiante.</param>
+        /// <returns>Booleano que indica si el estudiante está en la lista de espera del curso.</returns>
         private static bool VerificarSiElAlumnoSeEncuentreEnLaLista(Estudiante estudiante, Curso curso)
         {
             bool resultadoVerificacion = false;

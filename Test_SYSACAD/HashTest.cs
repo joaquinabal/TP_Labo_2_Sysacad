@@ -10,6 +10,9 @@ namespace Test_SYSACAD
     [TestClass]
     public class HashTest
     {
+        /// <summary>
+        /// Verifica si el método para generar un hash a partir de una contraseña produce un hash válido.
+        /// </summary>
         [TestMethod]
         public void HashPassword_DeberiaGenerarUnHashValido()
         {

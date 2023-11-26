@@ -15,6 +15,9 @@ namespace Test_SYSACAD
         [TestClass]
         public class ValidadorInputNuevaContraseniaTests
         {
+            /// <summary>
+            /// Prueba la lógica de cambio de contraseña cuando se proporciona una contraseña válida.
+            /// </summary>
             [TestMethod]
             public async Task ValidadorInputNuevaContrasenia_CuandoContraseñaValida_CambiaContraseña()
             {
@@ -36,7 +39,9 @@ namespace Test_SYSACAD
                     Times.Once
                 );
             }
-
+            /// <summary>
+            /// Prueba la lógica de cambio de contraseña cuando se proporciona una contraseña inválida.
+            /// </summary>
             [TestMethod]
             public async Task ValidadorInputNuevaContrasenia_CuandoContraseñaInvalida_NoCambiaContraseña()
             {

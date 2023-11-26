@@ -12,6 +12,9 @@ namespace Test_SYSACAD
     [TestClass]
     public class FiltrarElementosTest
     {
+        /// <summary>
+        /// Verifica si el método de filtrado devuelve una lista según el predicado proporcionado.
+        /// </summary>
         [TestMethod]
         public void FiltrarElementos_DeberiaFiltrarDevolviendoUnaLista_SegunElPredicado()
         {

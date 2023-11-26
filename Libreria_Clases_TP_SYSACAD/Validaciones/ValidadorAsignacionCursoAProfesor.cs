@@ -14,7 +14,17 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         //VALIDO QUE NO HAYA CONFLICTOS DE HORARIOS
         private ConsultasCursos consultasCursos = new ConsultasCursos();
 
-        public  bool ValidarAsignacionDeCursoAProfesor(string codigoCursoAsignar, Profesor profesor)
+
+        /// <summary>
+        /// Valida si un curso puede ser asignado a un profesor verificando la disponibilidad del mismo.
+        /// </summary>
+        /// <param name="codigoCursoAsignar">Código del curso a asignar.</param>
+        /// <param name="profesor">Profesor al que se intenta asignar el curso.</param>
+        /// <returns>
+        /// Valor booleano que indica si el curso puede ser asignado al profesor (<c>true</c> si es posible,
+        /// <c>false</c> si no es posible).
+        /// </returns>
+        public bool ValidarAsignacionDeCursoAProfesor(string codigoCursoAsignar, Profesor profesor)
         {
             bool resultadoValidacion = true;
             

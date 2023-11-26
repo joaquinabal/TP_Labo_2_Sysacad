@@ -15,6 +15,11 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
         public event DelegadoEnviarMail FechaLimiteInscripcion;
         public event DelegadoEnviarMail FechaLimiteDePago;
 
+        /// <summary>
+        /// Ejecuta el inicio del período académico enviando un correo electrónico a los estudiantes.
+        /// </summary>
+        /// <param name="semestre">Semestre que inicia.</param>
+        /// <param name="fechaInicio">Fecha de inicio del semestre.</param>
         public async void EjecutarInicioPeriodoAcademico(string semestre, string fechaInicio)
         {
             string asuntoMail = "SYSACAD - Inicio Periodo Academico";
@@ -34,6 +39,10 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
             }
         }
 
+        /// <summary>
+        /// Ejecuta el anuncio de la fecha límite de inscripción mediante el envío de un correo electrónico a los estudiantes.
+        /// </summary>
+        /// <param name="fechaLimite">Fecha límite de inscripción.</param>
         public async void EjecutarFechaLimiteInscripcion(string fechaLimite)
         {
             string asuntoMail = "SYSACAD - Fecha Limite de Inscripcion";
@@ -51,6 +60,10 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
             }
         }
 
+        /// <summary>
+        /// Ejecuta el anuncio de la fecha límite de pago mediante el envío de un correo electrónico a los estudiantes.
+        /// </summary>
+        /// <param name="fechaLimitePago">Fecha límite de pago.</param>
         public async void EjecutarFechaLimiteDePago(string fechaLimitePago)
         {
             string asuntoMail = "SYSACAD - Fecha Limite de Pagos";

@@ -27,6 +27,9 @@ namespace Test_SYSACAD
             Assert.AreEqual(MensajeRespuestaValidacionCredencialesContraseña.camposVacios, resultado);
         }
 
+        /// <summary>
+        /// Verifica si la validación de credenciales devuelve campos vacíos cuando se proporcionan campos vacíos.
+        /// </summary>
         [TestMethod]
         public void ValidarCredenciales_DeberiaDevolverOK_CuandoCredencialesSonValidas()
         {
@@ -43,6 +46,9 @@ namespace Test_SYSACAD
             Assert.AreEqual(MensajeRespuestaValidacionCredencialesContraseña.OK, resultado);
         }
 
+        /// <summary>
+        /// Verifica si la validación de credenciales devuelve "no encontrado" cuando las credenciales no son válidas.
+        /// </summary>
         [TestMethod]
         public void ValidarCredenciales_DeberiaDevolverNoEncontrado_CuandoCredencialesNoSonValidas()
         {

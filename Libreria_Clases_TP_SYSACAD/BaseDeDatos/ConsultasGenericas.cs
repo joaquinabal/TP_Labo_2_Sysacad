@@ -14,8 +14,18 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
     public class ConsultasGenericas : ConexionBD
     {
         //////////////////////// CONSULTAS INTERNAS
-        
+
         //////// SI SE DEVUELVE UNA LISTA
+
+        /// <summary>
+        /// Obtiene una lista de elementos utilizando una consulta SQL proporcionada.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elemento a recuperar.</typeparam>
+        /// <param name="query">Consulta SQL utilizada para obtener los elementos.</param>
+        /// <param name="nombreParametro">Nombre del parámetro para la consulta SQL.</param>
+        /// <param name="valorParametro">Valor del parámetro para la consulta SQL.</param>
+        /// <param name="mapFunc">Función de mapeo para convertir los resultados del lector SQL en elementos del tipo T.</param>
+        /// <returns>Una lista de elementos del tipo T obtenidos a través de la consulta SQL.</returns>
         internal static List<T> ObtenerListaMedianteQuery<T>(string query, string nombreParametro, object valorParametro, Func<SqlDataReader, T> mapFunc)
         {
             List<T> listaADevolver = new List<T>();
@@ -48,6 +58,15 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         //////// SI SE DEVUELVE UN ESCALAR
+
+        /// <summary>
+        /// Ejecuta una consulta SQL que devuelve un valor escalar de la base de datos.
+        /// </summary>
+        /// <typeparam name="T">Tipo de valor escalar a devolver.</typeparam>
+        /// <param name="query">Consulta SQL a ejecutar.</param>
+        /// <param name="nombreParametro">Nombre del parámetro para la consulta SQL.</param>
+        /// <param name="valorParametro">Valor del parámetro para la consulta SQL.</param>
+        /// <returns>El valor escalar resultado de la consulta SQL.</returns>
         internal static T EjecutarEscalar<T>(string query, string nombreParametro, object valorParametro)
         {
             using (var connectionAlternativa = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
@@ -80,6 +99,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         //////////////////////// CREACION DE INSTANCIAS
 
+        /// <summary>
+        /// Crea instancias de objetos a partir de la base de datos utilizando una consulta SQL y un mapeador.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a crear.</typeparam>
+        /// <param name="query">Consulta SQL para obtener los datos necesarios.</param>
+        /// <param name="mapper">Función que mapea los resultados del lector SQL a objetos del tipo T.</param>
+        /// <returns>Una lista de objetos del tipo T creados a partir de la base de datos.</returns>
         public static List<T> CrearInstanciasDesdeBD<T>(string query, Func<SqlDataReader, T> mapper)
             where T : IEntidadReconstruida
         {
@@ -117,6 +143,14 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ////////// METODO GENERICO PARA LOS READ
 
+
+        /// <summary>
+        /// Filtra una lista de elementos basado en un predicado proporcionado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elemento a filtrar.</typeparam>
+        /// <param name="lista">Lista de elementos a filtrar.</param>
+        /// <param name="predicado">Predicado para filtrar los elementos.</param>
+        /// <returns>Una lista de elementos del tipo T que cumplen con el predicado.</returns>
         public static List<T> FiltrarElementos<T>(List<T> lista, Predicate<T> predicado)
             where T : IEntidadRegistrada
         {
@@ -141,37 +175,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return elementosFiltrados;
         }
 
-        ////////// METODOS NON-QUERY (INSERT, UPDATE, DELETE)
-
-        //internal async static void EjecutarNonQuery(string query, Dictionary<string, object> parametros)
-        //{
-        //    try
-        //    {
-        //        connection.Open();
-
-        //        command.CommandText = query;
-
-        //        foreach (var parametro in parametros)
-        //        {
-        //            command.Parameters.AddWithValue(parametro.Key, parametro.Value);
-        //        }
-
-        //        //command.ExecuteNonQuery();
-
-        //        await Task.Run(() => command.ExecuteNonQuery());
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        RegistroExcepciones.RegistrarExcepcion(ex);
-        //        throw new Exception("Error de conexión a la base de datos: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        command.Parameters.Clear();
-        //        connection.Close();
-        //    }
-        //}
-
+        /// <summary>
+        /// Ejecuta una consulta SQL que no devuelve resultados (como INSERT, UPDATE o DELETE) en la base de datos.
+        /// </summary>
+        /// <param name="query">Consulta SQL a ejecutar.</param>
+        /// <param name="parametros">Diccionario de parámetros para la consulta SQL.</param>
+        /// <returns>Tarea asincrónica que ejecuta la consulta SQL en la base de datos.</returns>
         internal async static Task EjecutarNonQuery(string query, Dictionary<string, object> parametros)
         {
             try

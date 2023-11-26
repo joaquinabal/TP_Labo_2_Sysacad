@@ -11,6 +11,11 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
     public class ValidadorInputNuevaContrasenia : ValidadorInputs
     {
+        /// <summary>
+        /// Valida la fortaleza de una nueva contraseña según ciertos criterios.
+        /// </summary>
+        /// <param name="contrasenia">Contraseña a validar.</param>
+        /// <returns>Respuesta que indica la validez de la contraseña.</returns>
         public static MensajeRespuestaValidacionCredencialesContraseña ValidarNuevaContrasenia(string contrasenia)
         {
             MensajeRespuestaValidacionCredencialesContraseña mensajeADevolver;

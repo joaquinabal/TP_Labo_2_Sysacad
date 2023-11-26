@@ -21,6 +21,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         /////////////////// RECONSTRUCCION DE LA LISTA DE ESTUDIANTES A PARTIR DE BD
 
+        /// <summary>
+        /// Crea instancias de estudiantes a partir de la base de datos y las asigna a la lista interna de estudiantes.
+        /// </summary>
         internal static void CrearInstanciasDeEstudiantesAPartirDeBD()
         {
             _listaEstudiantes.Clear();
@@ -28,6 +31,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ///////////////////////CREATE
+
+        /// <summary>
+        /// Añade conceptos de pago iniciales para un estudiante dado.
+        /// </summary>
+        /// <param name="legajo">Legajo del estudiante.</param>
         private static async Task AñadirConceptosDePagoIniciales(string legajo)
         {
             Dictionary<string, double> conceptosIniciales = new Dictionary<string, double>
@@ -54,6 +62,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
+        /// <summary>
+        /// Ingresa un nuevo estudiante a la base de datos junto con sus detalles y conceptos de pago iniciales.
+        /// </summary>
+        /// <param name="nuevoEstudiante">Estudiante a ingresar.</param>
         internal static async Task IngresarUsuarioBD(Estudiante nuevoEstudiante)
         {
             Guid nuevoGuid = Guid.NewGuid();
@@ -88,6 +100,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ///////////////////////READ
+
+        /// <summary>
+        /// Busca un usuario en la base de datos utilizando correo y contraseña para autenticación.
+        /// </summary>
+        /// <param name="correo">Correo electrónico del usuario.</param>
+        /// <param name="contrasenia">Contraseña del usuario.</param>
+        /// <returns>Booleano que indica si se encontró un usuario con las credenciales proporcionadas.</returns>
         internal static bool BuscarUsuarioCredencialesBD(string correo, string contrasenia)
         {
             Predicate<Estudiante> predicado = estudiante => estudiante.Correo == correo && Hash.VerifyPassword(contrasenia, estudiante.Contrasenia);
@@ -96,6 +115,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return estudiantesFiltrados.Count > 0;
         }
 
+        /// <summary>
+        /// Busca un usuario existente en la base de datos utilizando correo o legajo como criterio.
+        /// </summary>
+        /// <param name="correo">Correo electrónico del usuario.</param>
+        /// <param name="legajo">Legajo del usuario.</param>
+        /// <returns>Booleano que indica si se encontró un usuario con el correo o legajo proporcionado.</returns>
         internal static bool BuscarUsuarioExistenteBD(string correo, string legajo)
         {
             Predicate<Estudiante> predicado = estudiante => estudiante.Correo == correo || estudiante.Legajo == legajo;
@@ -104,6 +129,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return estudiantesFiltrados.Count > 0;
         }
 
+        /// <summary>
+        /// Verifica si un usuario, dado su correo, necesita cambiar su contraseña.
+        /// </summary>
+        /// <param name="correo">Correo electrónico del usuario.</param>
+        /// <returns>Booleano que indica si el usuario con el correo dado necesita cambiar su contraseña.</returns>
         public bool BuscarSiUsuarioDebeCambiarContrasenia(string correo)
         {
             Predicate<Estudiante> predicado = estudiante => estudiante.Correo == correo && estudiante.DebeCambiarContrasenia == true;
@@ -112,6 +142,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return estudiantesFiltrados.Count > 0;
         }
 
+        /// <summary>
+        /// Obtiene un estudiante según su legajo.
+        /// </summary>
+        /// <param name="legajo">Legajo del estudiante a buscar.</param>
+        /// <returns>El estudiante correspondiente al legajo proporcionado o nulo si no se encuentra.</returns>
         public Estudiante? ObtenerEstudianteSegunLegajo(string legajo)
         {
             Predicate<Estudiante> predicado = estudiante => estudiante.Legajo == legajo;
@@ -121,6 +156,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return estudiantesFiltrados.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Obtiene una lista de correos electrónicos de todos los estudiantes.
+        /// </summary>
+        /// <returns>Lista de correos electrónicos de los estudiantes.</returns>
         internal static List<string> ObtenerListaDeCorreosEstudiantes()
         {
             List<string> listaCorreosEstudiantes = new List<string>();
@@ -135,6 +174,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////////////////////UPDATE
 
+        /// <summary>
+        /// Cambia la contraseña de un estudiante en la base de datos.
+        /// </summary>
+        /// <param name="correo">Correo electrónico del estudiante.</param>
+        /// <param name="nuevaContrasenia">Nueva contraseña del estudiante.</param>
+        /// <returns>Tarea asincrónica que actualiza la contraseña del estudiante en la base de datos.</returns>
         public async Task CambiarContraseñaAEstudiante(string correo, string nuevaContrasenia)
         {
             string nuevaContraseniaHasheada = Hash.HashPassword(nuevaContrasenia);

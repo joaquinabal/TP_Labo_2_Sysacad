@@ -61,6 +61,13 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
         //    }
         //}
 
+
+        /// <summary>
+        /// Envía un correo electrónico con las credenciales de inicio de sesión a un estudiante específico.
+        /// </summary>
+        /// <param name="estudianteReceptor">Estudiante que recibirá el correo.</param>
+        /// <param name="contrasenia">Contraseña para el inicio de sesión.</param>
+        /// <returns>Booleano que indica si el correo se envió correctamente.</returns>
         public static async Task<bool> EnviarCorreoElectronicoCredenciales(Estudiante estudianteReceptor, string contrasenia)
         {
             try
@@ -115,6 +122,12 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
             }
         }
 
+
+        /// <summary>
+        /// Envía un correo electrónico de notificación a todos los estudiantes registrados.
+        /// </summary>
+        /// <param name="EmisorCorreoElectronico">Emisor del correo electrónico.</param>
+        /// <param name="infoMail">Información del correo electrónico (asunto y cuerpo).</param>
         internal static void EnviarCorreoElectronicoNotificacion(object EmisorCorreoElectronico, ElementosCorreoElectronicoArgs infoMail)
         {
             List<string> correosEstudiantes = ConsultasEstudiantes.ObtenerListaDeCorreosEstudiantes();

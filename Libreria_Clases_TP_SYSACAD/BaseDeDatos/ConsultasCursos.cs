@@ -19,6 +19,9 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         /////////////////// RECONSTRUCCION DE LA LISTA DE CURSOS A PARTIR DE BD
 
+        /// <summary>
+        /// Crea instancias de cursos a partir de los datos obtenidos de la base de datos y actualiza la lista interna de cursos.
+        /// </summary>
         internal static void CrearInstanciasDeCursoAPartirDeBD()
         {
             _listaCursos.Clear();
@@ -27,23 +30,46 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         //////////////////////////////////CREATE
 
+        /// <summary>
+        /// Obtiene el ID de un registro en una tabla específica basado en un valor de texto proporcionado.
+        /// </summary>
+        /// <param name="tabla">Nombre de la tabla en la base de datos.</param>
+        /// <param name="campo">Nombre del campo en la tabla.</param>
+        /// <param name="valor">Valor del campo por el cual se busca el ID.</param>
+        /// <returns>ID correspondiente al valor proporcionado en la tabla especificada.</returns>
         private int ObtenerIdDesdeTexto(string tabla, string campo, string valor)
         {
             string query = $"SELECT id FROM {tabla} WHERE {campo} = @valor";
             return ConsultasGenericas.EjecutarEscalar<int>(query, "@valor", valor);
         }
 
+        /// <summary>
+        /// Obtiene el ID de un turno según el nombre del turno.
+        /// </summary>
+        /// <param name="nombreTurno">Nombre del turno a buscar en la base de datos.</param>
+        /// <returns>ID correspondiente al nombre del turno proporcionado.</returns>
         private int ObtenerTurnoIdSegunTexto(string nombreTurno)
         {
             return ObtenerIdDesdeTexto("Turno", "nombre", nombreTurno);
         }
 
-        private  int ObtenerDiaIdSegunTexto(string nombreDia)
+        /// <summary>
+        /// Obtiene el ID de un día según el nombre del día.
+        /// </summary>
+        /// <param name="nombreDia">Nombre del día a buscar en la base de datos.</param>
+        /// <returns>ID correspondiente al nombre del día proporcionado.</returns>
+        private int ObtenerDiaIdSegunTexto(string nombreDia)
         {
             return ObtenerIdDesdeTexto("Dia", "nombre", nombreDia);
         }
 
-        private  async Task<int> ObtenerIdDeCodigoFamilia(string codigoFamilia)
+        /// <summary>
+        /// Obtiene el ID asociado a un código de familia. Verifica si el código de familia existe en la tabla.
+        /// Si existe, devuelve su ID correspondiente; de lo contrario, agrega el nuevo código y devuelve su ID.
+        /// </summary>
+        /// <param name="codigoFamilia">Código de familia a buscar o agregar en la tabla.</param>
+        /// <returns>El ID del código de familia proporcionado.</returns>
+        private async Task<int> ObtenerIdDeCodigoFamilia(string codigoFamilia)
         {
             int? codigoFamiliaId = ObtenerIdDesdeTexto("CodigoFamilia", "codigo", codigoFamilia);
 
@@ -59,7 +85,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
-        private  async Task<int> AgregarNuevoCodigoDeFamiliaYDevolverSuId(string codigoFamilia)
+        /// <summary>
+        /// Agrega un nuevo código de familia a la tabla "CodigoFamilia" y devuelve su ID.
+        /// </summary>
+        /// <param name="codigoFamilia">Código de familia a agregar en la tabla.</param>
+        /// <returns>El ID del código de familia recién agregado.</returns>
+        private async Task<int> AgregarNuevoCodigoDeFamiliaYDevolverSuId(string codigoFamilia)
         {
             using (var connectionAlternativa2 = new SqlConnection(@"Server = .; Database = TestSYSACAD; Trusted_Connection = True; Encrypt=False; TrustServerCertificate=True;"))
             {
@@ -86,6 +117,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
+        /// <summary>
+        /// Ingresa un nuevo curso en la base de datos.
+        /// </summary>
+        /// <param name="nuevoCurso">Nuevo curso a ingresar en la base de datos.</param>
         internal async Task IngresarCursoBD(Curso nuevoCurso)
         {
             string query = "INSERT INTO Curso (codigo, nombre, descripcion, cupoMaximo, cupoDisponible, turnoId, aula, diaId, carreraCodigo, creditosRequeridos, promedioRequerido, codigoFamiliaId) " +
@@ -116,6 +151,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         /////////////////////////////////////READ
 
+        /// <summary>
+        /// Busca un curso en la lista de cursos según un código proporcionado.
+        /// </summary>
+        /// <param name="codigo">Código del curso a buscar.</param>
+        /// <returns>Booleano que indica si el curso fue encontrado o no.</returns>
         public bool BuscarCursoBD(string codigo)
         {
             Predicate<Curso> predicado = curso => curso.Codigo == codigo;
@@ -124,6 +164,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).Any();
         }
 
+        /// <summary>
+        /// Obtiene una lista de cursos únicos, uno por cada código de familia.
+        /// </summary>
+        /// <returns>Lista de cursos, uno por cada código de familia.</returns>
         public List<Curso> ObtenerUnCursoPorCadaCodigoDeFamilia()
         {
             Predicate<Curso> predicado = curso => true; // No voy a filtrar ningun curso. Los agarro todos
@@ -147,7 +191,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return resultado;
         }
 
-
+        /// <summary>
+        /// Obtiene un curso dado un código específico.
+        /// </summary>
+        /// <param name="codigo">Código del curso a buscar.</param>
+        /// <returns>El curso correspondiente al código proporcionado, si existe; de lo contrario, devuelve nulo.</returns>
         public Curso? ObtenerCursoDesdeCodigo(string codigo)
         {
             Predicate<Curso> predicado = curso => curso.Codigo == codigo;
@@ -156,6 +204,14 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Obtiene el código de familia a partir del nombre del curso.
+        /// </summary>
+        /// <param name="nombre">Nombre del curso para el que se busca el código de familia.</param>
+        /// <returns>
+        /// El código de familia correspondiente al nombre del curso si se encuentra; 
+        /// de lo contrario, devuelve una cadena vacía.
+        /// </returns>
         public string ObtenerCodigoDeFamiliaDesdeNombre(string nombre)
         {
             Predicate<Curso> predicado = curso => curso.Nombre == nombre;
@@ -166,12 +222,25 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault()?.CodigoFamilia ?? "";
         }
 
+        /// <summary>
+        /// Obtiene una lista de cursos a partir de un código de familia dado.
+        /// </summary>
+        /// <param name="codigoDeFamilia">Código de familia para filtrar los cursos.</param>
+        /// <returns>Lista de cursos que pertenecen al código de familia especificado.</returns>
         public static List<Curso> ObtenerCursosDesdeCodigoDeFamilia(string codigoDeFamilia)
         {
             Predicate<Curso> predicado = curso => curso.CodigoFamilia == codigoDeFamilia;
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado);
         }
 
+        /// <summary>
+        /// Obtiene un curso a partir de un código de familia dado.
+        /// </summary>
+        /// <param name="codigoDeFamilia">Código de familia para buscar un curso.</param>
+        /// <returns>
+        /// El primer curso que coincida con el código de familia especificado;
+        /// de lo contrario, devuelve null si no se encuentra ningún curso.
+        /// </returns>
         public Curso? ObtenerCursoDesdeCodigoDeFamilia(string codigoDeFamilia)
         {
             Predicate<Curso> predicado = curso => curso.CodigoFamilia == codigoDeFamilia;
@@ -180,6 +249,15 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Obtiene un curso a partir de un nombre y un turno especificado.
+        /// </summary>
+        /// <param name="nombre">Nombre del curso a buscar.</param>
+        /// <param name="turno">Turno del curso a buscar.</param>
+        /// <returns>
+        /// El primer curso que coincida con el nombre y turno especificados;
+        /// devuelve null si no se encuentra ningún curso.
+        /// </returns>
         public Curso? ObtenerCursoAPartirDeNombreYTurno(string nombre, string turno)
         {
             Predicate<Curso> predicado = curso => curso.Nombre == nombre && curso.Turno == turno;
@@ -188,12 +266,22 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado).FirstOrDefault();
         }
 
-        public  List<Curso> ObtenerListaCursosDesdeListaCodigos(List<string> listaCodigos)
+        /// <summary>
+        /// Obtiene una lista de cursos a partir de una lista de códigos de curso dados.
+        /// </summary>
+        /// <param name="listaCodigos">Lista de códigos de curso para filtrar los cursos.</param>
+        /// <returns>Lista de cursos que coinciden con los códigos proporcionados.</returns>
+        public List<Curso> ObtenerListaCursosDesdeListaCodigos(List<string> listaCodigos)
         {
             Predicate<Curso> predicado = curso => listaCodigos.Contains(curso.Codigo);
             return ConsultasGenericas.FiltrarElementos(_listaCursos, predicado);
         }
 
+        /// <summary>
+        /// Obtiene un conjunto de nombres de cursos que no están correlacionados con el curso seleccionado.
+        /// </summary>
+        /// <param name="cursoSeleccionado">Curso seleccionado como referencia para la búsqueda.</param>
+        /// <returns>Conjunto de nombres de cursos que no son correlativos al curso seleccionado.</returns>
         public HashSet<string> ObtenerNombresDeCursosNoCorrelativos(Curso cursoSeleccionado)
         {
             HashSet<string> nombresAgregados = new HashSet<string>();
@@ -216,6 +304,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return nombresAgregados;
         }
 
+        /// <summary>
+        /// Verifica si hay algún curso con una lista de espera no vacía.
+        /// </summary>
+        /// <returns>
+        /// Devuelve true si al menos un curso tiene una lista de espera no vacía;
+        /// de lo contrario, devuelve false.
+        /// </returns>
         public static bool HallarSiHayAlgunCursoConListaDeEspera()
         {
             bool hayCursoConListaDeEspera = false;
@@ -232,6 +327,14 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return hayCursoConListaDeEspera;
         }
 
+        /// <summary>
+        /// Devuelve un diccionario de cursos con registros de lista de espera filtrados por fechas.
+        /// </summary>
+        /// <param name="fechaDesde">Fecha inicial para filtrar los registros de lista de espera.</param>
+        /// <param name="fechaHasta">Fecha final para filtrar los registros de lista de espera.</param>
+        /// <returns>
+        /// Diccionario que contiene cursos con registros de lista de espera en el rango de fechas especificado.
+        /// </returns>
         public Dictionary<Curso, Dictionary<string, DateTime>> DevolverDiccionarioConRegistrosListaDeEsperaSegunFechas(DateTime fechaDesde, DateTime fechaHasta)
         {
             Dictionary<Curso, Dictionary<string, DateTime>> cursosConListaDeEspera = new Dictionary<Curso, Dictionary<string, DateTime>>();
@@ -260,6 +363,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             return cursosConListaDeEspera;
         }
 
+        /// <summary>
+        /// Obtiene el código de familia a partir del nombre del curso.
+        /// </summary>
+        /// <param name="nombre">Nombre del curso para obtener el código de familia.</param>
+        /// <returns>Código de familia correspondiente al nombre del curso.</returns>
         public static string ObtenerCodigoDeFamilia(string nombre)
         {
             string codigoDeFamilia = nombre.Trim().ToUpper();
@@ -271,6 +379,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         ///////////////////////////////////UPDATE
 
         ///////UPDATE REQUISITOS
+
+
+        /// <summary>
+        /// Elimina las correlatividades del curso seleccionado.
+        /// </summary>
+        /// <param name="idCodigoFamilia">ID de la familia del curso a modificar.</param>
         private static async Task EliminarCorrelatividadesDeCursoSeleccionado(int idCodigoFamilia)
         {
             string query = "DELETE FROM Correlatividades WHERE idFamiliaCursoBase = @CFId";
@@ -283,6 +397,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
+        /// <summary>
+        /// Agrega nuevas correlatividades al curso seleccionado.
+        /// </summary>
+        /// <param name="CFCursoAModificar">Código de la familia del curso a modificar.</param>
+        /// <param name="CFNuevasCorrelatividades">Lista de nuevas correlatividades a agregar.</param>
         private async Task AgregarNuevasCorrelatividadesACursoSeleccionado(string CFCursoAModificar, List<string> CFNuevasCorrelatividades)
         {
             int idCodigoFamilia = await ObtenerIdDeCodigoFamilia(CFCursoAModificar);
@@ -301,6 +420,13 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
+        /// <summary>
+        /// Actualiza los requisitos (créditos y promedio) de los cursos.
+        /// </summary>
+        /// <param name="CFCursoAModificar">Código de la familia del curso a modificar.</param>
+        /// <param name="CFcorrelatividades">Lista de nuevas correlatividades a agregar.</param>
+        /// <param name="creditos">Créditos requeridos para el curso.</param>
+        /// <param name="promedio">Promedio requerido para el curso.</param>
         public async Task ActualizarRequisitosACursos(string CFCursoAModificar, List<string> CFcorrelatividades, int creditos, double promedio)
         {
             int idCodigoFamilia = await ObtenerIdDeCodigoFamilia(CFCursoAModificar);
@@ -324,6 +450,18 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
         ///////UPDATE TABLA CURSOS
 
+        /// <summary>
+        /// Edita un curso en la base de datos con código de familia.
+        /// </summary>
+        /// <param name="codigoABuscar">Código a buscar para la edición del curso.</param>
+        /// <param name="nombre">Nuevo nombre para el curso.</param>
+        /// <param name="codigo">Nuevo código para el curso.</param>
+        /// <param name="descripcion">Nueva descripción para el curso.</param>
+        /// <param name="cupoMaximo">Nuevo cupo máximo para el curso.</param>
+        /// <param name="turno">Nuevo turno para el curso.</param>
+        /// <param name="dia">Nuevo día para el curso.</param>
+        /// <param name="aula">Nueva aula para el curso.</param>
+        /// <param name="codigoFamilia">Nuevo código de familia para el curso.</param>
         public async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula)
         {
             int idTurno = ObtenerTurnoIdSegunTexto(turno);
@@ -350,6 +488,17 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             CrearInstanciasDeCursoAPartirDeBD();
         }
 
+        /// <summary>
+        /// Edita un curso en la base de datos sin código de familia.
+        /// </summary>
+        /// <param name="codigoABuscar">Código a buscar para la edición del curso.</param>
+        /// <param name="nombre">Nuevo nombre para el curso.</param>
+        /// <param name="codigo">Nuevo código para el curso.</param>
+        /// <param name="descripcion">Nueva descripción para el curso.</param>
+        /// <param name="cupoMaximo">Nuevo cupo máximo para el curso.</param>
+        /// <param name="turno">Nuevo turno para el curso.</param>
+        /// <param name="dia">Nuevo día para el curso.</param>
+        /// <param name="aula">Nueva aula para el curso.</param>
         public async Task EditarCursoBD(string codigoABuscar, string nombre, string codigo, string descripcion, int cupoMaximo, string turno, string dia, string aula, string codigoFamilia)
         {
             int idTurno = ObtenerTurnoIdSegunTexto(turno);
@@ -379,6 +528,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ///////UPDATE TABLA ALUMNOS EN LISTA DE ESPERA
+
+        /// <summary>
+        /// Elimina la lista de espera de un curso seleccionado en la base de datos.
+        /// </summary>
+        /// <param name="codigoCurso">Código del curso del cual se eliminará la lista de espera.</param>
         private static async Task EliminarListaEsperaDeCursoSeleccionado(string codigoCurso)
         {
             string query = "DELETE FROM AlumnosEnListaDeEspera WHERE codigoCurso = @codigoCurso";
@@ -391,6 +545,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
+        /// <summary>
+        /// Agrega una nueva lista de espera a un curso seleccionado en la base de datos.
+        /// </summary>
+        /// <param name="codigoCurso">Código del curso al cual se agregará la lista de espera.</param>
+        /// <param name="listaEsperaRecibida">Diccionario con la lista de espera a agregar.</param>
         private static async Task AgregarNuevaListaEsperaACursoSeleccionado(string codigoCurso, Dictionary<string, DateTime> listaEsperaRecibida)
         {
             foreach (var parKeyValue in listaEsperaRecibida)
@@ -408,6 +567,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             }
         }
 
+        /// <summary>
+        /// Actualiza la lista de espera de un curso en la base de datos.
+        /// </summary>
+        /// <param name="cursoRecibido">Curso al que se actualizará la lista de espera.</param>
+        /// <param name="listaEsperaRecibida">Diccionario con la nueva lista de espera.</param>
         public async Task ActualizarListaDeEsperaDeCurso(Curso cursoRecibido, Dictionary<string, DateTime> listaEsperaRecibida)
         {
             await EliminarListaEsperaDeCursoSeleccionado(cursoRecibido.Codigo);
@@ -417,6 +581,12 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ////// AGREGAR ESTUDIANTE A LISTA DE ESPERA
+
+        /// <summary>
+        /// Agrega un estudiante a la lista de espera de un curso.
+        /// </summary>
+        /// <param name="codigoCurso">Código del curso al que se agrega el estudiante.</param>
+        /// <param name="legajoEstudiante">Legajo del estudiante a agregar.</param>
         internal static async Task AgregarEstudianteAListaDeEspera(string codigoCurso, string legajoEstudiante)
         {
             string query = "INSERT INTO AlumnosEnListaDeEspera (legajoEstudiante, codigoCurso, fechaIngreso) VALUES (@legajo, @codigoCurso, @fechaIngreso)";
@@ -435,6 +605,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
 
 
         ///////UPDATE UNICAMENTE CUPOS DISPONIBLES
+
+        /// <summary>
+        /// Resta un cupo disponible en el curso especificado.
+        /// </summary>
+        /// <param name="cursoARestarCupo">Curso al que se resta un cupo disponible.</param>
         internal static async Task RestarCupoDisponible(Curso cursoARestarCupo)
         {
             string updateQuery = "UPDATE Curso SET cupoDisponible = cupoDisponible - 1 WHERE codigo = @valorABuscar";
@@ -450,7 +625,11 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
         }
 
         ///////////////////////DELETE
-        
+
+
+        /// <summary>
+        /// Verifica si hay códigos de familia sin cursos correspondientes y los elimina.
+        /// </summary>
         private static async Task CorroborarSiHayCFSinCursosCorrespondientesYBorrarlos()
         {
             string query = "DELETE FROM CodigoFamilia WHERE id NOT IN (SELECT DISTINCT codigoFamiliaId FROM Curso)";
@@ -460,6 +639,10 @@ namespace Libreria_Clases_TP_SYSACAD.BaseDeDatos
             await ConsultasGenericas.EjecutarNonQuery(query, parametros);
         }
 
+        /// <summary>
+        /// Elimina un curso de la base de datos.
+        /// </summary>
+        /// <param name="codigoABuscar">Código del curso a eliminar.</param>
         public async Task EliminarCursoBD(string codigoABuscar)
         {
             string query = "DELETE FROM Curso WHERE codigo = @codigoABuscar";

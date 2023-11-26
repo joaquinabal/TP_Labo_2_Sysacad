@@ -16,6 +16,15 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
 
         /////////////////////////////// GESTION ANTE CONFIRMACION DE REQUISITOS ////////////////////////////////
 
+        /// <summary>
+        /// Gestiona la confirmación de requisitos para un curso.
+        /// </summary>
+        /// <param name="camposIngresados">Diccionario de campos ingresados para validación.</param>
+        /// <param name="CFCursoAModificar">Código del curso a modificar.</param>
+        /// <param name="CFcorrelatividades">Lista de códigos de correlatividades.</param>
+        /// <param name="creditos">Créditos del curso.</param>
+        /// <param name="promedio">Promedio del curso.</param>
+        /// <returns>Respuesta de validación de los requisitos.</returns>
         public async Task<RespuestaValidacionInput> GestionarConfirmacionRequisitos(Dictionary<string, string> camposIngresados, string CFCursoAModificar, List<string> CFcorrelatividades, string creditos, string promedio)
         {
             RespuestaValidacionInput respuestaValidacion = ValidarRequisitos(camposIngresados);
@@ -28,6 +37,11 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             return respuestaValidacion;
         }
 
+        /// <summary>
+        /// Valida los requisitos para un curso a partir de campos ingresados.
+        /// </summary>
+        /// <param name="camposIngresados">Diccionario de campos ingresados para validación.</param>
+        /// <returns>Respuesta de validación de los requisitos.</returns>
         private RespuestaValidacionInput ValidarRequisitos(Dictionary<string, string> camposIngresados)
         {
             ValidadorInputGenerico validacionInputRequisitos = new ValidadorInputGenerico();

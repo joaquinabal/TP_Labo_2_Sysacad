@@ -18,6 +18,19 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
 {
     public static class GeneradorDePDF
     {
+        /// <summary>
+        /// Genera un archivo PDF con información de inscripciones.
+        /// </summary>
+        /// <param name="nombreArchivo">Nombre del archivo PDF a generar.</param>
+        /// <param name="registros">Lista de registros de inscripción.</param>
+        /// <param name="inscripcionesTotales">Total de inscripciones.</param>
+        /// <param name="fechaPopular">Fecha con mayor cantidad de inscripciones.</param>
+        /// <param name="mediaPorDia">Media de inscripciones por día.</param>
+        /// <param name="titulo">Título del reporte.</param>
+        /// <param name="fechaEmision">Fecha de emisión del reporte.</param>
+        /// <param name="fechaDesde">Fecha desde la que se generan las estadísticas.</param>
+        /// <param name="fechaHasta">Fecha hasta la que se generan las estadísticas.</param>
+        /// <returns>Booleano que indica si se generó el archivo PDF correctamente.</returns>
         public static bool GenerarPDFInscripciones(string nombreArchivo, List<RegistroDeInscripcion> registros,
         int inscripcionesTotales, DateTime fechaPopular, double mediaPorDia, string titulo,
         string fechaEmision, string fechaDesde, string fechaHasta)
@@ -52,6 +65,18 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
             return GenerarPDF(nombreArchivo, titulo, fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas, "Inscripciones");
         }
 
+        /// <summary>
+        /// Genera un archivo PDF con información de ingresos.
+        /// </summary>
+        /// <param name="nombreArchivo">Nombre del archivo PDF a generar.</param>
+        /// <param name="registros">Lista de registros de pagos.</param>
+        /// <param name="pagosTotales">Total de pagos realizados.</param>
+        /// <param name="ingresosTotales">Ingresos totales.</param>
+        /// <param name="fechaPopular">Fecha con mayor cantidad de pagos.</param>
+        /// <param name="fechaEmision">Fecha de emisión del reporte.</param>
+        /// <param name="fechaDesde">Fecha desde la que se generan las estadísticas.</param>
+        /// <param name="fechaHasta">Fecha hasta la que se generan las estadísticas.</param>
+        /// <returns>Booleano que indica si se generó el archivo PDF correctamente.</returns>
         public static bool GenerarPDFIngresos(string nombreArchivo, List<RegistroDePago> registros,
             int pagosTotales, double ingresosTotales, DateTime fechaPopular, string fechaEmision,
             string fechaDesde, string fechaHasta)
@@ -85,6 +110,19 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
             return GenerarPDF(nombreArchivo, "REPORTE DE INGRESOS", fechaEmision, fechaDesde, fechaHasta, datos, encabezados, estadisticas, "Ingresos");
         }
 
+        /// <summary>
+        /// Genera un archivo PDF con la información proporcionada.
+        /// </summary>
+        /// <param name="nombreArchivo">Nombre del archivo PDF a generar.</param>
+        /// <param name="titulo">Título del documento.</param>
+        /// <param name="fechaEmision">Fecha de emisión del documento.</param>
+        /// <param name="fechaDesde">Fecha inicial para las estadísticas.</param>
+        /// <param name="fechaHasta">Fecha final para las estadísticas.</param>
+        /// <param name="datos">Lista de listas de cadenas que contienen los datos a incluir en el PDF.</param>
+        /// <param name="encabezados">Lista de encabezados para las columnas de la tabla en el PDF.</param>
+        /// <param name="estadisticas">Lista de estadísticas para incluir en el PDF.</param>
+        /// <param name="directorioEspecifico">Directorio específico donde se guardará el archivo PDF.</param>
+        /// <returns>Booleano que indica si se generó el archivo PDF correctamente.</returns>
         public static bool GenerarPDF(string nombreArchivo, string titulo, string fechaEmision,
             string fechaDesde, string fechaHasta, List<List<string>> datos, List<string> encabezados,
             List<string> estadisticas, string directorioEspecifico)
@@ -214,6 +252,15 @@ namespace Libreria_Clases_TP_SYSACAD.Herramientas
             }
         }
 
+        /// <summary>
+        /// Genera un archivo PDF con información de listas de espera.
+        /// </summary>
+        /// <param name="nombreArchivo">Nombre del archivo PDF a generar.</param>
+        /// <param name="registros">Diccionario con cursos y sus listas de espera.</param>
+        /// <param name="fechaEmision">Fecha de emisión del reporte.</param>
+        /// <param name="fechaDesde">Fecha desde la que se generan las estadísticas.</param>
+        /// <param name="fechaHasta">Fecha hasta la que se generan las estadísticas.</param>
+        /// <returns>Booleano que indica si se generó el archivo PDF correctamente.</returns>
         public static bool GenerarPDFListaEspera(string nombreArchivo, Dictionary<Curso, Dictionary<string,
         DateTime>> registros, string fechaEmision, string fechaDesde, string fechaHasta)
         {

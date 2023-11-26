@@ -10,6 +10,9 @@ namespace Test_SYSACAD
     [TestClass]
     public class CalcularMontoIngresosTotalesTest
     {
+        /// <summary>
+        /// Prueba el cálculo del monto total de ingresos.
+        /// </summary>
         [TestMethod]
         public void CalcularMontoIngresosTotales_DeberiaCalcularSumaCorrecta()
         {

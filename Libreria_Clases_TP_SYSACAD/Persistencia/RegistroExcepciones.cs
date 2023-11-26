@@ -40,6 +40,10 @@ namespace Libreria_Clases_TP_SYSACAD.Persistencia
             }
         }
 
+        /// <summary>
+        /// Registra la información relevante de una excepción en un archivo JSON.
+        /// </summary>
+        /// <param name="excepcion">La excepción a ser registrada.</param>
         public static void RegistrarExcepcion(Exception excepcion)
         {
             var excepcionInfo = new

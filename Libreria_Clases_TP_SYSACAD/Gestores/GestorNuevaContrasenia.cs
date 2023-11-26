@@ -29,6 +29,12 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             _servicioCambioContraseña = new ConsultasEstudiantes();
         }
 
+        /// <summary>
+        /// Gestiona el cambio de contraseña para un estudiante.
+        /// </summary>
+        /// <param name="contrasenia">Nueva contraseña a asignar.</param>
+        /// <param name="correo">Correo electrónico del estudiante.</param>
+        /// <returns>Mensaje indicando el resultado de la validación y el cambio de contraseña.</returns>
         public async Task<MensajeRespuestaValidacionCredencialesContraseña> GestionarCambioContrasenia(string contrasenia, string correo)
         {
             MensajeRespuestaValidacionCredencialesContraseña mensajeADevolver = ValidadorInputNuevaContrasenia.ValidarNuevaContrasenia(contrasenia);

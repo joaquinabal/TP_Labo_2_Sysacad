@@ -25,6 +25,14 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
         private List<string> _cursosSinCupo = new List<string>();
         private List<string> _cursosProhibidos = new List<string>();
 
+
+        /// <summary>
+        /// Valida la inscripción a cursos verificando los cupos disponibles y los requisitos académicos.
+        /// </summary>
+        /// <param name="cursosSeleccionados">Lista de cursos seleccionados por el estudiante para la inscripción.</param>
+        /// <returns>
+        /// Resultado de la validación de la inscripción (<see cref="ValidacionInscripcionResultado"/>).
+        /// </returns>
         public async Task<ValidacionInscripcionResultado> ValidarCursosSegunCupo(List<Curso> cursosSeleccionados)
         {
             if (cursosSeleccionados.Count == 0)
@@ -83,6 +91,12 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             }
         }
 
+
+        /// <summary>
+        /// Gestiona la inscripción del estudiante a un curso, generando un nuevo registro de inscripción y actualizando el cupo del curso.
+        /// </summary>
+        /// <param name="curso">Curso al que se va a inscribir el estudiante.</param>
+        /// <returns>Tarea asincrónica.</returns>
         private static async Task GestionarInscripcion(Curso curso)
         {
             RegistroDeInscripcion nuevoRegistro = GenerarNuevoRegistroDeInscripcion(curso);
@@ -94,6 +108,12 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             //Sistema.BaseDatosInscripciones.IngresarNuevoRegistro(nuevoRegistro);
         }
 
+
+        /// <summary>
+        /// Genera un nuevo registro de inscripción para un estudiante en un curso específico.
+        /// </summary>
+        /// <param name="curso">Curso al que se inscribe el estudiante.</param>
+        /// <returns>Objeto <see cref="RegistroDeInscripcion"/> generado.</returns>
         private static RegistroDeInscripcion GenerarNuevoRegistroDeInscripcion(Curso curso)
         {
             Estudiante estudianteInscripto = Sistema.EstudianteLogueado;
@@ -131,6 +151,13 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             return respuestaCuposDisponibles;
         }
 
+        /// <summary>
+        /// Verifica si el estudiante logueado cumple con los requisitos académicos para inscribirse en un curso específico.
+        /// </summary>
+        /// <param name="cursoSeleccionado">Curso para el cual se comprueban los requisitos académicos.</param>
+        /// <returns>
+        /// Valor booleano que indica si el estudiante cumple con los requisitos académicos (<c>true</c> si cumple, <c>false</c> si no).
+        /// </returns>
         private static bool ComprobarSiCumpleRequisitosAcademicos(Curso cursoSeleccionado)
         {
             List<string> cursosRequeridosParaLaInscripción = cursoSeleccionado.Correlatividades;

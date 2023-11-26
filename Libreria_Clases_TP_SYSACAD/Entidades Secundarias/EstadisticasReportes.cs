@@ -10,12 +10,23 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
 {
     public class EstadisticasReportes
     {
+        /// <summary>
+        /// Calcula el número total de registros mostrados en una lista dada.
+        /// </summary>
+        /// <typeparam name="T">Tipo de registro.</typeparam>
+        /// <param name="listaRegistrosMostrados">Lista de registros a evaluar.</param>
+        /// <returns>Número total de registros mostrados.</returns>
         public int CalcularRegistrosTotales<T>(List<T> listaRegistrosMostrados) 
             where T : IRegistroEstadistico
         {
             return listaRegistrosMostrados.Count;
         }
 
+        /// <summary>
+        /// Calcula el monto total de ingresos a partir de una lista de registros de pago.
+        /// </summary>
+        /// <param name="listaRegistrosMostrados">Lista de registros de pago a evaluar.</param>
+        /// <returns>Monto total de ingresos.</returns>
         public double CalcularMontoIngresosTotales(List<RegistroDePago> listaRegistrosMostrados)
         {
             double ingresosTotales = 0;
@@ -28,6 +39,12 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
             return ingresosTotales;
         }
 
+        /// <summary>
+        /// Calcula la fecha más popular dentro de una lista de registros estadísticos.
+        /// </summary>
+        /// <typeparam name="T">Tipo de registro estadístico.</typeparam>
+        /// <param name="listaRegistrosMostrados">Lista de registros a evaluar.</param>
+        /// <returns>Fecha más popular.</returns>
         public DateTime CalcularFechaMasPopular<T>(List<T> listaRegistrosMostrados) 
             where T : IRegistroEstadistico
         {
@@ -70,6 +87,11 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesSecundarias
             return fechaPopular;
         }
 
+        /// <summary>
+        /// Calcula la media de inscripciones por día a partir de una lista de registros de inscripción.
+        /// </summary>
+        /// <param name="listaRegistrosMostrados">Lista de registros de inscripción a evaluar.</param>
+        /// <returns>Media de inscripciones por día.</returns>
         public double CalcularMediaPorDia(List<RegistroDeInscripcion> listaRegistrosMostrados)
         {
             // Crear un diccionario para contar las inscripciones por día

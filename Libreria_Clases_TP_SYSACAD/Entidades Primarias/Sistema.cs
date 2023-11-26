@@ -19,6 +19,9 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
         //Codigo de acceso que solo los admins poseen
         private static string _codigoDeAccesoAdmins = "ts5bf4";
 
+        /// <summary>
+        /// Inicializa el sistema cargando las instancias de cursos, estudiantes, inscripciones, pagos y profesores desde la base de datos. Además, inicializa el registro de excepciones y gestiona las notificaciones.
+        /// </summary>
         public static void InicializarSistema()
         {
             ConsultasCursos.CrearInstanciasDeCursoAPartirDeBD();
@@ -32,6 +35,9 @@ namespace Libreria_Clases_TP_SYSACAD.EntidadesPrimarias
             GestionarNotificaciones();
         }
 
+        /// <summary>
+        /// Gestiona el envío de notificaciones según fechas límite y eventos del periodo académico, utilizando un gestor de eventos de notificaciones.
+        /// </summary>
         public static async void GestionarNotificaciones()
         {
             GestorEventosNotificaciones gestorNotificaciones = new GestorEventosNotificaciones();

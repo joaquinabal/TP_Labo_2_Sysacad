@@ -13,6 +13,13 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
 {
     public class GestorPagos
     {
+
+        /// <summary>
+        /// Valida los montos a abonar comparando con los montos originales.
+        /// </summary>
+        /// <param name="listaDeMontosAAbonar">Lista de montos a abonar.</param>
+        /// <param name="listaDeMontosOriginales">Lista de montos originales.</param>
+        /// <returns>Resultado de la validación: "AMBOS MAL", "NEGATIVO", "EXCESIVO" o "OK".</returns>
         public string ValidarMontoAAbonar(List<double> listaDeMontosAAbonar, List<double> listaDeMontosOriginales)
         {
             ValidadorMontoAAbonar validadorMontosAAbonar = new ValidadorMontoAAbonar(listaDeMontosAAbonar);
@@ -43,6 +50,14 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             return resultadoValidacion;
         }
 
+        /// <summary>
+        /// Gestiona el proceso de pago con la validación de datos ingresados.
+        /// </summary>
+        /// <param name="camposIngresados">Diccionario de campos ingresados.</param>
+        /// <param name="conceptosSeleccionados">Diccionario de conceptos seleccionados con sus valores.</param>
+        /// <param name="fechaActual">Fecha actual para el registro de pago.</param>
+        /// <param name="modo">Modo de validación de los inputs.</param>
+        /// <returns>Respuesta de validación indicando el resultado del proceso de pago.</returns>
         public async Task<RespuestaValidacionInput> GestionarPago(Dictionary<string, string> camposIngresados, Dictionary<string, double> conceptosSeleccionados, DateTime fechaActual, ModoValidacionInput modo)
         {
             //RespuestaValidacionInput resultadoInputs = validacionDelInput.ValidarDatos(camposIngresados, ModoValidacionInput.MediosPagoTarjeta);
@@ -60,6 +75,12 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             return resultadoInputs;
         }
 
+        /// <summary>
+        /// Valida los inputs relacionados con el pago según el modo especificado.
+        /// </summary>
+        /// <param name="camposIngresados">Diccionario de campos ingresados.</param>
+        /// <param name="modo">Modo de validación para los inputs.</param>
+        /// <returns>Respuesta de validación indicando el resultado de la validación de los inputs.</returns>
         private RespuestaValidacionInput ValidarInputsPago(Dictionary<string, string> camposIngresados, ModoValidacionInput modo)
         {
             ValidadorInputGenerico validacionDelInput = new ValidadorInputGenerico();
@@ -77,6 +98,11 @@ namespace Libreria_Clases_TP_SYSACAD.Gestores
             return resultadoInputs;
         }
 
+        /// <summary>
+        /// Genera una lista con nuevos registros de pago a partir de los conceptos seleccionados.
+        /// </summary>
+        /// <param name="conceptosSeleccionados">Diccionario de conceptos seleccionados con sus valores.</param>
+        /// <returns>Lista de registros de pago generados.</returns>
         private List<RegistroDePago> GenerarListaConNuevosRegistrosDePago(Dictionary<string, double> conceptosSeleccionados)
         {
             List<RegistroDePago> listaRegistrosPago = new List<RegistroDePago>();

@@ -10,6 +10,13 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
 {
     public class ValidadorInputGenerico : ValidadorInputs
     {
+
+        /// <summary>
+        /// Valida los datos recibidos en un diccionario en función del modo especificado.
+        /// </summary>
+        /// <param name="diccionarioConCampos">Diccionario con los campos a validar.</param>
+        /// <param name="modo">Modo de validación a aplicar.</param>
+        /// <returns>Respuesta que indica el resultado de la validación.</returns>
         public RespuestaValidacionInput ValidarDatos(Dictionary<string, string> diccionarioConCampos, ModoValidacionInput modo)
         {
             //Recibo el diccionario y meto sus valores a una lista
@@ -35,6 +42,12 @@ namespace Libreria_Clases_TP_SYSACAD.Validaciones
             return respuestaValidacion;
         }
 
+        /// <summary>
+        /// Realiza la validación regex en función del modo especificado.
+        /// </summary>
+        /// <param name="diccionarioConCamposIngresados">Diccionario con los campos a validar.</param>
+        /// <param name="modo">Modo de validación a aplicar.</param>
+        /// <returns>Lista de errores encontrados durante la validación.</returns>
         protected override List<string> ValidarRegex(Dictionary<string, string> diccionarioConCamposIngresados, ModoValidacionInput modo)
         {
             List<string> listaErrores = new List<string>();
